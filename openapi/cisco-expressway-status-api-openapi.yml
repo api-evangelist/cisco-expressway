@@ -1,0 +1,850 @@
+openapi: 3.1.0
+info:
+  title: Cisco Expressway Status API
+  description: >-
+    RESTful API for retrieving status information, alarms, call history,
+    licensing status, upgrade progress, registration details, and system
+    health metrics from Cisco Expressway. Status endpoints follow the
+    pattern /api/status/common/ for items common between Expressway-E and
+    Expressway-C. The API uses JSON Schema version 4 for response schemas
+    and requires HTTPS with HTTP Basic Authentication using Expressway
+    administrator credentials.
+  version: 14.2.0
+  contact:
+    name: Cisco TAC
+    email: tac@cisco.com
+    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
+  license:
+    name: Cisco EULA
+    url: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
+  x-logo:
+    url: https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
+externalDocs:
+  description: Cisco Expressway REST API Summary Guide (X14.2)
+  url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+servers:
+  - url: https://{host}/api
+    description: Cisco Expressway server
+    variables:
+      host:
+        default: expressway.example.com
+        description: >-
+          The FQDN or IP address of the Cisco Expressway node. The API is
+          only accessible via HTTPS.
+security:
+  - basicAuth: []
+tags:
+  - name: System Status
+    description: System overview and health information
+  - name: Alarms
+    description: Active system alarms and warnings
+  - name: Calls
+    description: Active and historical call information
+  - name: Registrations
+    description: Device registration status and details
+  - name: Licensing
+    description: Smart licensing status and usage
+  - name: Upgrade
+    description: Upgrade progress and status
+  - name: Zones
+    description: Zone connectivity and bandwidth status
+  - name: Resource Usage
+    description: System resource utilization metrics
+paths:
+  /status/common/systeminfo:
+    get:
+      operationId: getSystemStatus
+      summary: Retrieve system status overview
+      description: >-
+        Returns a comprehensive system status overview for the Expressway
+        node including the system name, software version, hardware version,
+        serial number, uptime, IPv4 and IPv6 addresses, virtual machine
+        size, current registration and call counts, and option key status.
+      tags:
+        - System Status
+      responses:
+        '200':
+          description: System status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /status/common/alarms:
+    get:
+      operationId: listAlarms
+      summary: List all active alarms
+      description: >-
+        Retrieves the list of all alarms currently active on the Expressway.
+        Alarms indicate events or configuration changes that require
+        administrator intervention, or hardware and environmental issues
+        such as faulty disks, fans, or high temperatures. Alarms are
+        categorized by severity and ID prefix ranges.
+      tags:
+        - Alarms
+      responses:
+        '200':
+          description: Alarm list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Alarm'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /status/common/calls:
+    get:
+      operationId: listActiveCalls
+      summary: List all active calls
+      description: >-
+        Retrieves the list of all currently active calls on the Expressway
+        including source and destination endpoints, call type, protocol,
+        duration, and bandwidth usage. Active calls are displayed with
+        component-level details for interworked calls.
+      tags:
+        - Calls
+      responses:
+        '200':
+          description: Active call list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActiveCall'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /status/common/callhistory:
+    get:
+      operationId: getCallHistory
+      summary: Retrieve call history
+      description: >-
+        Returns the call history for the Expressway limited to the most
+        recent 500 calls or fewer if calls used multiple components. Each
+        record includes start and end times, duration, source and
+        destination aliases, call type, protocol, and status. Supports
+        filtering by time interval and custom field filters.
+      tags:
+        - Calls
+      parameters:
+        - name: filter
+          in: query
+          required: false
+          description: >-
+            Filter type for call history records. Supported values include
+            get_all_records, get_records_for_interval, get_records_for_filter,
+            and get_all_csv_records.
+          schema:
+            type: string
+            enum:
+              - get_all_records
+              - get_records_for_interval
+              - get_records_for_filter
+              - get_all_csv_records
+        - name: start_time
+          in: query
+          required: false
+          description: >-
+            Start time for interval-based filtering in ISO 8601 format.
+            Used with get_records_for_interval.
+          schema:
+            type: string
+            format: date-time
+        - name: end_time
+          in: query
+          required: false
+          description: >-
+            End time for interval-based filtering in ISO 8601 format.
+            Used with get_records_for_interval.
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Call history retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CallHistoryRecord'
+            text/csv:
+              schema:
+                type: string
+                description: >-
+                  CSV-formatted call history records when using
+                  get_all_csv_records filter
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /status/common/registrations:
+    get:
+      operationId: listRegistrations
+      summary: List all current registrations
+      description: >-
+        Retrieves the list of all devices and endpoints currently registered
+        with the Expressway, organized by device alias. Includes registration
+        type (SIP or H.323), contact address, and registration timestamp.
+      tags:
+        - Registrations
+      responses:
+        '200':
+          description: Registration list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Registration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /v1/status/common/smartlicensing/licensing:
+    get:
+      operationId: getSmartLicensingStatus
+      summary: Retrieve smart licensing status
+      description: >-
+        Returns the current smart licensing status for the Expressway
+        including the license registration status, authorization status,
+        license entitlements, usage counts, and compliance state. This
+        endpoint is documented in the Cisco Expressway REST API Summary
+        Guide as a primary status retrieval endpoint.
+      tags:
+        - Licensing
+      responses:
+        '200':
+          description: Smart licensing status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartLicensingStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /v1/status/common/upgradestatus:
+    get:
+      operationId: getUpgradeStatus
+      summary: Retrieve upgrade progress status
+      description: >-
+        Returns the current status of any in-progress or recent system
+        upgrade on the Expressway, including the download progress
+        percentage, upgrade phase, and any error messages. This endpoint
+        is documented in the Cisco Expressway REST API Summary Guide as
+        a primary status retrieval endpoint.
+      tags:
+        - Upgrade
+      responses:
+        '200':
+          description: Upgrade status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpgradeStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /status/common/zones:
+    get:
+      operationId: listZoneStatus
+      summary: List zone connectivity status
+      description: >-
+        Retrieves the connectivity status for all configured zones on the
+        Expressway including the zone name, type, connection state, and
+        any active calls traversing each zone.
+      tags:
+        - Zones
+      responses:
+        '200':
+          description: Zone status list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ZoneStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /status/common/resourceusage:
+    get:
+      operationId: getResourceUsage
+      summary: Retrieve system resource usage
+      description: >-
+        Returns current system resource utilization metrics including rich
+        media session counts (current and peak), registration counts by
+        type, license consumption percentage, system capacity utilization,
+        and MRA device registration tracking.
+      tags:
+        - Resource Usage
+      responses:
+        '200':
+          description: Resource usage retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceUsage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /status/common/turnrelays:
+    get:
+      operationId: listTurnRelays
+      summary: List active TURN relay allocations
+      description: >-
+        Retrieves the list of all active TURN relay allocations on the
+        Expressway including client IP addresses, media destination
+        addresses, connection protocol, active relay count per client,
+        and permission, channel, and request counters.
+      tags:
+        - Resource Usage
+      responses:
+        '200':
+          description: TURN relay list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TurnRelay'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: >-
+        HTTP Basic Authentication using Expressway administrator credentials.
+        The API is only accessible via HTTPS.
+  schemas:
+    SystemStatus:
+      type: object
+      description: >-
+        Comprehensive system status overview for the Expressway node
+      properties:
+        SystemName:
+          type: string
+          description: The name assigned to the Expressway
+          examples:
+            - Expressway-C-Primary
+        SoftwareVersion:
+          type: string
+          description: Currently installed software version
+          examples:
+            - X14.2
+        HardwareVersion:
+          type: string
+          description: Hardware or virtual appliance version
+          examples:
+            - VM
+        SerialNumber:
+          type: string
+          description: Hardware or VM serial number
+        Uptime:
+          type: string
+          description: Time elapsed since the system last restarted
+          examples:
+            - 45 days 12:34:56
+        IPv4Address:
+          type: string
+          format: ipv4
+          description: IPv4 address of the Expressway
+          examples:
+            - 10.0.0.1
+        IPv6Address:
+          type: string
+          format: ipv6
+          description: IPv6 address of the Expressway
+        VMSize:
+          type: string
+          description: Virtual machine size designation
+          enum:
+            - Small
+            - Medium
+            - Large
+        CurrentRegistrations:
+          type: integer
+          description: Number of currently active registrations
+          examples:
+            - 150
+        CurrentCalls:
+          type: integer
+          description: Number of currently active calls
+          examples:
+            - 12
+        OptionKeys:
+          type: array
+          description: List of installed option keys and their status
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+                description: Option key feature name
+              Status:
+                type: string
+                description: Activation status
+                enum:
+                  - Active
+                  - Expired
+                  - Not Installed
+        ClusterRole:
+          type: string
+          description: Role of this node in a cluster
+          enum:
+            - Primary
+            - Peer
+            - Standalone
+    Alarm:
+      type: object
+      description: >-
+        System alarm indicating an event or condition requiring attention.
+        Alarm IDs are grouped by prefix ranges indicating the category.
+      properties:
+        AlarmId:
+          type: string
+          description: >-
+            Unique alarm identifier. Prefix ranges indicate category:
+            10nnn hardware, 15nnn software, 20nnn cluster, 25nnn network,
+            30nnn licensing, 35nnn external services, 40nnn security,
+            45nnn configuration, 55nnn B2BUA, 6xxxx hybrid services,
+            9xxxx operational events.
+          examples:
+            - '30001'
+        Severity:
+          type: string
+          description: Severity level of the alarm
+          enum:
+            - Critical
+            - Warning
+            - Information
+        Title:
+          type: string
+          description: Short description of the alarm condition
+          examples:
+            - License capacity exceeded
+        Description:
+          type: string
+          description: Detailed explanation of the alarm and suggested action
+        TimeRaised:
+          type: string
+          format: date-time
+          description: Timestamp when the alarm was raised
+        Category:
+          type: string
+          description: Category of the alarm
+          enum:
+            - Hardware
+            - Software
+            - Cluster
+            - Network
+            - Licensing
+            - External Services
+            - Security
+            - Configuration
+            - B2BUA
+            - Hybrid Services
+            - Operational
+    ActiveCall:
+      type: object
+      description: An active call on the Expressway
+      properties:
+        CallId:
+          type: string
+          description: Unique identifier for the call
+        StartTime:
+          type: string
+          format: date-time
+          description: Timestamp when the call started
+        Duration:
+          type: integer
+          description: Current call duration in seconds
+        SourceAlias:
+          type: string
+          description: Alias of the calling endpoint
+          examples:
+            - user1@example.com
+        DestinationAlias:
+          type: string
+          description: Alias of the called endpoint
+          examples:
+            - user2@example.com
+        CallType:
+          type: string
+          description: Type of call based on protocol
+          enum:
+            - SIP
+            - H.323
+            - Interworked
+        SIPVariant:
+          type: string
+          description: SIP variant for SIP-based calls
+          enum:
+            - Standard
+            - Microsoft AV
+            - Microsoft SIP IM&P
+        Protocol:
+          type: string
+          description: Protocols involved in the call
+          examples:
+            - SIP
+        Bandwidth:
+          type: integer
+          description: Current bandwidth usage in kbps
+        SourceZone:
+          type: string
+          description: Zone where the call originated
+        DestinationZone:
+          type: string
+          description: Zone where the call terminates
+        Encrypted:
+          type: boolean
+          description: Whether media encryption is active
+        ClusterPeer:
+          type: string
+          description: Cluster node handling this call
+    CallHistoryRecord:
+      type: object
+      description: >-
+        A completed call record from the call history. The history is
+        limited to the most recent 500 calls or fewer if calls used
+        multiple components.
+      properties:
+        CallId:
+          type: string
+          description: Unique identifier for the call
+        StartTime:
+          type: string
+          format: date-time
+          description: Timestamp when the call started
+        EndTime:
+          type: string
+          format: date-time
+          description: Timestamp when the call ended
+        Duration:
+          type: integer
+          description: Call duration in seconds
+        SourceAlias:
+          type: string
+          description: Alias of the calling endpoint
+        DestinationAlias:
+          type: string
+          description: Alias of the called endpoint (may be transformed)
+        CallType:
+          type: string
+          description: Type of call based on protocol
+          enum:
+            - SIP
+            - H.323
+            - Interworked
+        Protocol:
+          type: string
+          description: Protocols involved in the call
+        Status:
+          type: string
+          description: Call outcome or disconnection reason
+          examples:
+            - Completed
+            - Failed
+            - Rejected
+        DisconnectReason:
+          type: string
+          description: Reason for call disconnection
+        ClusterPeer:
+          type: string
+          description: Cluster node that handled this call
+    Registration:
+      type: object
+      description: A registered device or endpoint
+      properties:
+        Alias:
+          type: string
+          description: Registered alias of the device
+          examples:
+            - user1@example.com
+        Type:
+          type: string
+          description: Registration protocol type
+          enum:
+            - SIP
+            - H.323
+        ContactAddress:
+          type: string
+          description: Network contact address of the device
+          examples:
+            - 192.168.1.100:5060
+        RegisteredAt:
+          type: string
+          format: date-time
+          description: Timestamp when the device registered
+        ExpiresAt:
+          type: string
+          format: date-time
+          description: Timestamp when the registration expires
+        DeviceType:
+          type: string
+          description: Type of registered device
+          examples:
+            - Cisco CE Software
+        Subzone:
+          type: string
+          description: Subzone where the device is registered
+          examples:
+            - DefaultSubzone
+    SmartLicensingStatus:
+      type: object
+      description: >-
+        Smart licensing status for the Expressway including registration
+        and authorization state, entitlements, and compliance information.
+      properties:
+        RegistrationStatus:
+          type: string
+          description: Smart licensing registration status
+          enum:
+            - Registered
+            - Not Registered
+            - Registration Expired
+          examples:
+            - Registered
+        AuthorizationStatus:
+          type: string
+          description: License authorization status
+          enum:
+            - Authorized
+            - Not Authorized
+            - Authorization Expired
+            - Out of Compliance
+          examples:
+            - Authorized
+        SmartAccountName:
+          type: string
+          description: Name of the associated Cisco Smart Account
+        VirtualAccountName:
+          type: string
+          description: Name of the associated Virtual Account
+        LastRenewalAttempt:
+          type: string
+          format: date-time
+          description: Timestamp of the last license renewal attempt
+        NextRenewalAttempt:
+          type: string
+          format: date-time
+          description: Timestamp of the next scheduled renewal
+        Entitlements:
+          type: array
+          description: List of license entitlements and their usage
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+                description: Entitlement name
+                examples:
+                  - Rich Media Session
+              InUse:
+                type: integer
+                description: Number of licenses currently in use
+              Authorized:
+                type: integer
+                description: Number of authorized licenses
+              ComplianceStatus:
+                type: string
+                description: Compliance status for this entitlement
+                enum:
+                  - In Compliance
+                  - Out of Compliance
+    UpgradeStatus:
+      type: object
+      description: >-
+        Status of an in-progress or recent system upgrade operation
+      properties:
+        Status:
+          type: string
+          description: Current phase of the upgrade
+          enum:
+            - Idle
+            - Downloading
+            - Downloaded
+            - Upgrading
+            - Complete
+            - Failed
+        ProgressPercentage:
+          type: integer
+          description: Download or upgrade progress as a percentage (0-100)
+          minimum: 0
+          maximum: 100
+        CurrentVersion:
+          type: string
+          description: Currently installed software version
+          examples:
+            - X14.0
+        TargetVersion:
+          type: string
+          description: Target software version for the upgrade
+          examples:
+            - X14.2
+        Message:
+          type: string
+          description: Human-readable status or error message
+        LastUpgradeTime:
+          type: string
+          format: date-time
+          description: Timestamp of the last completed upgrade
+    ZoneStatus:
+      type: object
+      description: >-
+        Connectivity status for a configured zone on the Expressway
+      properties:
+        ZoneName:
+          type: string
+          description: Name of the zone
+          examples:
+            - CEtoEXPE-Traversal
+        ZoneType:
+          type: string
+          description: Type of zone
+          enum:
+            - Neighbor
+            - TraversalClient
+            - TraversalServer
+            - DNS
+            - ENUM
+            - Webex
+        ConnectionState:
+          type: string
+          description: Current connection state of the zone
+          enum:
+            - Active
+            - Inactive
+            - Failed
+            - Searching
+        ActiveCalls:
+          type: integer
+          description: Number of active calls traversing this zone
+        BandwidthUsed:
+          type: integer
+          description: Current bandwidth usage in kbps for this zone
+        BandwidthLimit:
+          type: integer
+          description: Configured bandwidth limit in kbps for this zone
+        PeerAddress:
+          type: string
+          description: Address of the connected peer system
+    ResourceUsage:
+      type: object
+      description: >-
+        System resource utilization metrics for the Expressway
+      properties:
+        RichMediaSessionsCurrent:
+          type: integer
+          description: Number of currently active rich media sessions
+        RichMediaSessionsPeak:
+          type: integer
+          description: Peak number of rich media sessions since last restart
+        RichMediaSessionsCapacity:
+          type: integer
+          description: Maximum rich media session capacity
+        SIPRegistrations:
+          type: integer
+          description: Number of active SIP registrations
+        H323Registrations:
+          type: integer
+          description: Number of active H.323 registrations
+        TotalRegistrations:
+          type: integer
+          description: Total number of active registrations
+        RegistrationCapacity:
+          type: integer
+          description: Maximum registration capacity
+        LicenseUtilizationPercent:
+          type: number
+          format: float
+          description: Current license utilization as a percentage
+          minimum: 0
+          maximum: 100
+        SystemCapacityPercent:
+          type: number
+          format: float
+          description: Overall system capacity utilization as a percentage
+          minimum: 0
+          maximum: 100
+        MRADevices:
+          type: integer
+          description: Number of Mobile and Remote Access devices registered
+        TURNRelaysActive:
+          type: integer
+          description: Number of active TURN relay allocations
+    TurnRelay:
+      type: object
+      description: >-
+        An active TURN relay allocation on the Expressway
+      properties:
+        ClientAddress:
+          type: string
+          description: IP address of the TURN client
+          examples:
+            - 192.168.1.100
+        MediaDestination:
+          type: string
+          description: Media destination address
+        ConnectionProtocol:
+          type: string
+          description: Connection protocol used
+          enum:
+            - TCP
+            - UDP
+        ActiveRelays:
+          type: integer
+          description: Number of active relays for this client
+        Permissions:
+          type: integer
+          description: Number of permissions created
+        Channels:
+          type: integer
+          description: Number of channels bound
+        Requests:
+          type: integer
+          description: Total number of requests processed
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
+  responses:
+    Unauthorized:
+      description: >-
+        Authentication credentials are missing or invalid. The API requires
+        HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: >-
+        The authenticated user does not have sufficient permissions for this
+        operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

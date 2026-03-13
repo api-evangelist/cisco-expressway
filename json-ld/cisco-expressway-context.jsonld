@@ -1,0 +1,278 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "cisco": "https://developer.cisco.com/ns/expressway#",
+    "uc": "https://www.itu.int/rec/T-REC-H.323/ns#",
+    "sip": "https://www.ietf.org/rfc/rfc3261#",
+    "snmp": "https://www.ietf.org/rfc/rfc3411#",
+    "ice": "https://www.ietf.org/rfc/rfc8445#",
+    "turn": "https://www.ietf.org/rfc/rfc8656#",
+    "tls": "https://www.ietf.org/rfc/rfc8446#",
+    "dns": "https://www.ietf.org/rfc/rfc1035#",
+    "ntp": "https://www.ietf.org/rfc/rfc5905#",
+
+    "ExpresswaySystem": {
+      "@id": "cisco:ExpresswaySystem",
+      "@type": "@id",
+      "description": "A Cisco Expressway session border controller node providing firewall traversal and collaboration services"
+    },
+    "SystemName": {
+      "@id": "schema:name",
+      "@type": "xsd:string",
+      "description": "Name assigned to the Expressway node"
+    },
+    "SoftwareVersion": {
+      "@id": "schema:softwareVersion",
+      "@type": "xsd:string",
+      "description": "Currently installed software version"
+    },
+    "SerialNumber": {
+      "@id": "schema:serialNumber",
+      "@type": "xsd:string",
+      "description": "Hardware or VM serial number"
+    },
+    "IPv4Address": {
+      "@id": "cisco:ipv4Address",
+      "@type": "xsd:string",
+      "description": "IPv4 network address of the Expressway"
+    },
+    "IPv6Address": {
+      "@id": "cisco:ipv6Address",
+      "@type": "xsd:string",
+      "description": "IPv6 network address of the Expressway"
+    },
+    "Uptime": {
+      "@id": "cisco:uptime",
+      "@type": "xsd:string",
+      "description": "Time elapsed since last restart"
+    },
+
+    "Zone": {
+      "@id": "cisco:Zone",
+      "@type": "@id",
+      "description": "A zone defining a connection to an external system for call routing and firewall traversal"
+    },
+    "NeighborZone": {
+      "@id": "cisco:NeighborZone",
+      "@type": "@id",
+      "description": "A zone connecting to a neighboring system such as another Expressway or Unified CM"
+    },
+    "TraversalServerZone": {
+      "@id": "cisco:TraversalServerZone",
+      "@type": "@id",
+      "description": "A zone providing firewall traversal services on Expressway-E"
+    },
+    "TraversalClientZone": {
+      "@id": "cisco:TraversalClientZone",
+      "@type": "@id",
+      "description": "A zone connecting to a traversal server across a firewall from Expressway-C"
+    },
+    "DNSZone": {
+      "@id": "cisco:DNSZone",
+      "@type": "@id",
+      "description": "A zone enabling endpoint discovery through DNS lookups"
+    },
+    "ENUMZone": {
+      "@id": "cisco:ENUMZone",
+      "@type": "@id",
+      "description": "A zone enabling endpoint discovery through ENUM DNS lookups"
+    },
+    "ZoneName": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "HopCount": {
+      "@id": "cisco:hopCount",
+      "@type": "xsd:integer",
+      "description": "Maximum forwarding iterations for a search request"
+    },
+    "PeerAddress": {
+      "@id": "cisco:peerAddress",
+      "@type": "xsd:string",
+      "description": "Address of a connected peer system"
+    },
+    "MediaEncryptionMode": {
+      "@id": "cisco:mediaEncryptionMode",
+      "@type": "xsd:string",
+      "description": "Media encryption enforcement mode for calls"
+    },
+
+    "SearchRule": {
+      "@id": "cisco:SearchRule",
+      "@type": "@id",
+      "description": "A rule defining how search requests are routed to target zones based on alias pattern matching"
+    },
+    "AliasPatternType": {
+      "@id": "cisco:aliasPatternType",
+      "@type": "xsd:string",
+      "description": "Pattern matching type: Prefix, Suffix, Regex, or Exact"
+    },
+    "AliasPatternString": {
+      "@id": "cisco:aliasPatternString",
+      "@type": "xsd:string",
+      "description": "Pattern to match against destination alias"
+    },
+    "TargetZone": {
+      "@id": "cisco:targetZone",
+      "@type": "@id",
+      "description": "Zone to which matching requests are forwarded"
+    },
+    "Priority": {
+      "@id": "cisco:priority",
+      "@type": "xsd:integer",
+      "description": "Evaluation priority where lower numbers are processed first"
+    },
+
+    "Transform": {
+      "@id": "cisco:Transform",
+      "@type": "@id",
+      "description": "A pre-search transform that modifies destination aliases before routing"
+    },
+    "PatternType": {
+      "@id": "cisco:patternType",
+      "@type": "xsd:string"
+    },
+    "PatternString": {
+      "@id": "cisco:patternString",
+      "@type": "xsd:string"
+    },
+    "ReplaceString": {
+      "@id": "cisco:replaceString",
+      "@type": "xsd:string"
+    },
+
+    "Call": {
+      "@id": "cisco:Call",
+      "@type": "@id",
+      "description": "A voice or video call traversing the Expressway"
+    },
+    "SourceAlias": {
+      "@id": "cisco:sourceAlias",
+      "@type": "xsd:string",
+      "description": "Alias of the calling endpoint"
+    },
+    "DestinationAlias": {
+      "@id": "cisco:destinationAlias",
+      "@type": "xsd:string",
+      "description": "Alias of the called endpoint"
+    },
+    "CallType": {
+      "@id": "cisco:callType",
+      "@type": "xsd:string",
+      "description": "Protocol type of the call: SIP, H.323, or Interworked"
+    },
+    "StartTime": {
+      "@id": "schema:startDate",
+      "@type": "xsd:dateTime"
+    },
+    "EndTime": {
+      "@id": "schema:endDate",
+      "@type": "xsd:dateTime"
+    },
+    "Duration": {
+      "@id": "schema:duration",
+      "@type": "xsd:integer"
+    },
+
+    "Registration": {
+      "@id": "cisco:Registration",
+      "@type": "@id",
+      "description": "A device registration with the Expressway"
+    },
+    "DeviceType": {
+      "@id": "cisco:deviceType",
+      "@type": "xsd:string",
+      "description": "Type or model of the registered device"
+    },
+    "ContactAddress": {
+      "@id": "cisco:contactAddress",
+      "@type": "xsd:string",
+      "description": "Network contact address including IP and port"
+    },
+    "Subzone": {
+      "@id": "cisco:subzone",
+      "@type": "xsd:string",
+      "description": "Subzone assignment for the registered device"
+    },
+
+    "Alarm": {
+      "@id": "cisco:Alarm",
+      "@type": "@id",
+      "description": "A system alarm indicating a condition requiring attention"
+    },
+    "AlarmId": {
+      "@id": "schema:identifier",
+      "@type": "xsd:string"
+    },
+    "Severity": {
+      "@id": "cisco:severity",
+      "@type": "xsd:string",
+      "description": "Alarm severity: Critical, Warning, or Information"
+    },
+    "Title": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "Description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "TimeRaised": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+
+    "DnsServer": {
+      "@id": "cisco:DnsServer",
+      "@type": "@id",
+      "description": "A DNS server configured on the Expressway"
+    },
+    "NtpServer": {
+      "@id": "cisco:NtpServer",
+      "@type": "@id",
+      "description": "An NTP server configured for time synchronization"
+    },
+    "Address": {
+      "@id": "cisco:address",
+      "@type": "xsd:string",
+      "description": "IP address or hostname"
+    },
+
+    "SmartLicense": {
+      "@id": "cisco:SmartLicense",
+      "@type": "@id",
+      "description": "Cisco Smart Licensing status and entitlement information"
+    },
+    "RegistrationStatus": {
+      "@id": "cisco:registrationStatus",
+      "@type": "xsd:string"
+    },
+    "AuthorizationStatus": {
+      "@id": "cisco:authorizationStatus",
+      "@type": "xsd:string"
+    },
+
+    "TurnRelay": {
+      "@id": "cisco:TurnRelay",
+      "@type": "@id",
+      "description": "An active TURN relay allocation for media traversal"
+    },
+
+    "SIPConfiguration": {
+      "@id": "cisco:SIPConfiguration",
+      "@type": "@id",
+      "description": "SIP protocol configuration settings"
+    },
+    "SIPMode": {
+      "@id": "sip:sipMode",
+      "@type": "xsd:string"
+    },
+    "H323Mode": {
+      "@id": "uc:h323Mode",
+      "@type": "xsd:string"
+    },
+
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/"
+  }
+}

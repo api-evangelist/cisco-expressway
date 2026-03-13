@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-search/cisco-expressway/json-schema/cisco-expressway-zone-schema.json",
+  "title": "Cisco Expressway Zone",
+  "description": "Schema for a zone configuration on Cisco Expressway. Zones define connections to external systems for call routing and firewall traversal. Supported zone types include Neighbor, TraversalClient, TraversalServer, DNS, ENUM, and Webex.",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "type": "string",
+      "description": "Unique name for the zone",
+      "minLength": 1,
+      "maxLength": 50,
+      "examples": ["CUCM-Neighbor", "CEtoEXPE-Traversal"]
+    },
+    "Type": {
+      "type": "string",
+      "description": "Zone type classification. Cannot be changed after creation.",
+      "enum": ["Neighbor", "TraversalClient", "TraversalServer", "DNS", "ENUM", "Webex"]
+    },
+    "HopCount": {
+      "type": "integer",
+      "description": "Maximum number of times a search request can be forwarded through this zone. The lower of this value and any hop count already assigned to the request is used.",
+      "minimum": 0,
+      "maximum": 255,
+      "default": 15
+    },
+    "AuthenticationPolicy": {
+      "type": "string",
+      "description": "Controls authentication challenge behavior for incoming messages from this zone",
+      "enum": ["DoNotCheckCredentials", "TreatAsAuthenticated", "CheckCredentials"]
+    },
+    "MediaEncryptionMode": {
+      "type": "string",
+      "description": "Media encryption enforcement mode for calls through this zone",
+      "enum": ["Force encrypted", "Force unencrypted", "Best effort", "Auto"],
+      "default": "Auto"
+    },
+    "ICESupport": {
+      "type": "string",
+      "description": "ICE (Interactive Connectivity Establishment) message handling mode",
+      "enum": ["On", "Off"],
+      "default": "Off"
+    },
+    "H323Mode": {
+      "type": "string",
+      "description": "Whether H.323 protocol calls are enabled for this zone",
+      "enum": ["On", "Off"]
+    },
+    "H323Port": {
+      "type": "integer",
+      "description": "Port number for H.323 communication",
+      "minimum": 1,
+      "maximum": 65535
+    },
+    "SIPMode": {
+      "type": "string",
+      "description": "Whether SIP protocol calls are enabled for this zone",
+      "enum": ["On", "Off"]
+    },
+    "SIPPort": {
+      "type": "integer",
+      "description": "Port number for SIP communication",
+      "minimum": 1,
+      "maximum": 65535
+    },
+    "SIPTransport": {
+      "type": "string",
+      "description": "Transport protocol for SIP messages",
+      "enum": ["TLS", "TCP", "UDP"],
+      "default": "TLS"
+    },
+    "SIPTLSVerifyMode": {
+      "type": "string",
+      "description": "Whether to verify X.509 TLS certificates from the peer system",
+      "enum": ["On", "Off"]
+    },
+    "PeerAddresses": {
+      "type": "array",
+      "description": "IP addresses or FQDNs of peer systems. Multiple peers are required for clusters (up to 6). Applicable to Neighbor and TraversalClient zones.",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "maxItems": 6
+    },
+    "LookUpPeersBy": {
+      "type": "string",
+      "description": "Method for discovering peer addresses. Applicable to Neighbor zones.",
+      "enum": ["Address", "Service record"]
+    },
+    "ZoneProfile": {
+      "type": "string",
+      "description": "Preconfigured profile for specific peer system types. Sets multiple advanced settings automatically. Applicable to Neighbor zones.",
+      "enum": ["Default", "Cisco Unified Communications Manager", "Nortel Communication Server 1000", "Custom"],
+      "default": "Default"
+    },
+    "ConnectionCredentialsUsername": {
+      "type": "string",
+      "description": "Username for traversal zone authentication. Must match between client and server configurations."
+    },
+    "ConnectionCredentialsPassword": {
+      "type": "string",
+      "description": "Password for traversal zone authentication. Applicable to TraversalClient zones."
+    },
+    "H323Protocol": {
+      "type": "string",
+      "description": "Firewall traversal protocol for H.323. Applicable to traversal zones.",
+      "enum": ["Assent", "H.460.18"],
+      "default": "Assent"
+    },
+    "UnifiedCommunicationsMode": {
+      "type": "string",
+      "description": "Whether Mobile and Remote Access (MRA) services are enabled. Applicable to TraversalServer zones.",
+      "enum": ["On", "Off"],
+      "default": "Off"
+    },
+    "TLSVerifySubjectName": {
+      "type": "string",
+      "description": "Certificate subject name for mutual TLS authentication. Must be FQDN for clustered clients. Applicable to TraversalServer zones."
+    },
+    "H46019DemultiplexingMode": {
+      "type": "string",
+      "description": "Determines media port sharing across multiple calls. Applicable to TraversalServer zones.",
+      "enum": ["On", "Off"],
+      "default": "Off"
+    },
+    "RetryInterval": {
+      "type": "integer",
+      "description": "Frequency in seconds of retry attempts for failed connections. Applicable to TraversalClient zones.",
+      "default": 120
+    },
+    "DisconnectOnFailInterval": {
+      "type": "integer",
+      "description": "Frequency in seconds of SIP OPTIONS ping disconnection during failures. Applicable to TraversalClient zones.",
+      "default": 120
+    },
+    "SIPPoisonMode": {
+      "type": "string",
+      "description": "Whether to mark outbound requests to prevent reprocessing if returned. Applicable to TraversalClient zones.",
+      "enum": ["On", "Off"],
+      "default": "Off"
+    },
+    "MultistreamMode": {
+      "type": "string",
+      "description": "Whether multistream call negotiation is permitted. Applicable to Neighbor zones.",
+      "enum": ["On", "Off"],
+      "default": "Off"
+    },
+    "PreloadedSipRoutesSupport": {
+      "type": "string",
+      "description": "Controls Route header processing in SIP INVITE requests. Applicable to Neighbor zones.",
+      "enum": ["On", "Off"],
+      "default": "Off"
+    },
+    "SIPAuthenticationTrustMode": {
+      "type": "string",
+      "description": "Whether P-Asserted-Identity headers from this zone are trusted. Applicable to Neighbor zones.",
+      "enum": ["On", "Off"],
+      "default": "Off"
+    },
+    "MonitorPeerStatus": {
+      "type": "string",
+      "description": "Whether to monitor the peer using H.323 LRQs and SIP OPTIONS. Applicable to Neighbor zones.",
+      "enum": ["On", "Off"],
+      "default": "On"
+    },
+    "FallbackTransportProtocol": {
+      "type": "string",
+      "description": "Default transport when DNS records do not specify preference. Applicable to DNS zones.",
+      "enum": ["TLS", "TCP", "UDP"],
+      "default": "TLS"
+    },
+    "ModifyDnsRequest": {
+      "type": "string",
+      "description": "Whether to route calls to a manually specified SIP domain. Applicable to DNS zones.",
+      "enum": ["On", "Off"],
+      "default": "Off"
+    },
+    "IncludeAddressRecord": {
+      "type": "string",
+      "description": "Whether to query A/AAAA records if SRV/NAPTR lookups fail. Applicable to DNS zones.",
+      "enum": ["On", "Off"],
+      "default": "On"
+    },
+    "DNSSuffix": {
+      "type": "string",
+      "description": "Domain appended to E.164 numbers for ENUM DNS lookups. Applicable to ENUM zones."
+    }
+  },
+  "required": ["Name", "Type"],
+  "allOf": [
+    {
+      "if": {
+        "properties": { "Type": { "const": "Neighbor" } }
+      },
+      "then": {
+        "required": ["PeerAddresses"]
+      }
+    },
+    {
+      "if": {
+        "properties": { "Type": { "const": "TraversalClient" } }
+      },
+      "then": {
+        "required": ["PeerAddresses", "ConnectionCredentialsUsername", "ConnectionCredentialsPassword"]
+      }
+    },
+    {
+      "if": {
+        "properties": { "Type": { "const": "TraversalServer" } }
+      },
+      "then": {
+        "required": ["ConnectionCredentialsUsername"]
+      }
+    }
+  ]
+}

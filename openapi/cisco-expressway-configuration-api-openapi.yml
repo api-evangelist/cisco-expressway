@@ -1,0 +1,1879 @@
+openapi: 3.1.0
+info:
+  title: Cisco Expressway Configuration API
+  description: >-
+    RESTful API for configuring and managing Cisco Expressway systems including
+    zones, search rules, transforms, DNS servers, NTP servers, SFTP
+    configuration, system upgrades, and admin account management. The API uses
+    JSON Schema version 4 for request and response schemas and is
+    self-documented via RAML definitions available at /api/raml on the
+    Expressway system. All endpoints require HTTPS and HTTP Basic
+    Authentication using Expressway administrator credentials.
+  version: 14.2.0
+  contact:
+    name: Cisco TAC
+    email: tac@cisco.com
+    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
+  license:
+    name: Cisco EULA
+    url: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
+  x-logo:
+    url: https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
+externalDocs:
+  description: Cisco Expressway REST API Summary Guide (X14.2)
+  url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+servers:
+  - url: https://{host}/api
+    description: Cisco Expressway server
+    variables:
+      host:
+        default: expressway.example.com
+        description: >-
+          The FQDN or IP address of the Cisco Expressway node. The API is
+          only accessible via HTTPS.
+security:
+  - basicAuth: []
+tags:
+  - name: DNS
+    description: DNS server configuration management
+  - name: NTP
+    description: NTP server configuration for time synchronization
+  - name: SFTP
+    description: SFTP configuration for system upgrades
+  - name: Upgrade
+    description: System upgrade operations
+  - name: Admin Account
+    description: Administrator account management
+  - name: Zones
+    description: Zone configuration for call routing and firewall traversal
+  - name: Search Rules
+    description: Search rule configuration for call routing decisions
+  - name: Transforms
+    description: Pre-search transform configuration for alias modification
+  - name: SIP
+    description: SIP protocol configuration
+  - name: System
+    description: System-level configuration and information
+paths:
+  /provisioning/common/sysinfo:
+    get:
+      operationId: getSystemInfo
+      summary: Retrieve system information
+      description: >-
+        Returns basic system information for the Expressway node including the
+        system name, software version, hardware details, serial number, and
+        uptime.
+      tags:
+        - System
+      responses:
+        '200':
+          description: System information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemInfo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /v1/provisioning/common/dns/dnsserver:
+    get:
+      operationId: listDnsServers
+      summary: List all configured DNS servers
+      description: >-
+        Retrieves the list of all DNS servers configured on the Expressway.
+        Supports filtering by name or address using query path segments such
+        as /dnsserver/address/{address}.
+      tags:
+        - DNS
+      responses:
+        '200':
+          description: DNS server list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DnsServer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createDnsServer
+      summary: Add a new DNS server
+      description: >-
+        Adds a new DNS server entry to the Expressway configuration. The
+        Expressway supports up to five DNS server addresses.
+      tags:
+        - DNS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DnsServerInput'
+      responses:
+        '200':
+          description: DNS server created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DnsServer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    put:
+      operationId: updateDnsServer
+      summary: Modify a DNS server entry
+      description: >-
+        Updates an existing DNS server configuration on the Expressway.
+        The target server is identified by its current address or index.
+      tags:
+        - DNS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DnsServerInput'
+      responses:
+        '200':
+          description: DNS server updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DnsServer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteDnsServer
+      summary: Delete a DNS server entry
+      description: >-
+        Removes a DNS server from the Expressway configuration. The target
+        server is identified by its address or index in the configuration.
+      tags:
+        - DNS
+      responses:
+        '200':
+          description: DNS server deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/provisioning/common/time/ntpserver:
+    get:
+      operationId: listNtpServers
+      summary: List all configured NTP servers
+      description: >-
+        Retrieves the list of all NTP servers configured on the Expressway for
+        time synchronization. Supports filtering by name or address.
+      tags:
+        - NTP
+      responses:
+        '200':
+          description: NTP server list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NtpServer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createNtpServer
+      summary: Add a new NTP server
+      description: >-
+        Adds a new NTP server entry to the Expressway configuration for time
+        synchronization. Up to five NTP servers can be configured.
+      tags:
+        - NTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NtpServerInput'
+      responses:
+        '200':
+          description: NTP server created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NtpServer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    put:
+      operationId: updateNtpServer
+      summary: Modify an NTP server entry
+      description: >-
+        Updates an existing NTP server configuration on the Expressway.
+      tags:
+        - NTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NtpServerInput'
+      responses:
+        '200':
+          description: NTP server updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NtpServer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteNtpServer
+      summary: Delete an NTP server entry
+      description: >-
+        Removes an NTP server from the Expressway configuration.
+      tags:
+        - NTP
+      responses:
+        '200':
+          description: NTP server deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/provisioning/common/sftpconfig:
+    get:
+      operationId: getSftpConfig
+      summary: Retrieve SFTP configuration
+      description: >-
+        Returns the current SFTP configuration used for system upgrades
+        including the SFTP server address, port, path, and credentials.
+      tags:
+        - SFTP
+      responses:
+        '200':
+          description: SFTP configuration retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SftpConfig'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      operationId: updateSftpConfig
+      summary: Update SFTP configuration
+      description: >-
+        Updates the SFTP configuration for system upgrades. Configure the
+        server address, credentials, and file path to the upgrade image.
+      tags:
+        - SFTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SftpConfigInput'
+      responses:
+        '200':
+          description: SFTP configuration updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SftpConfig'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /v1/provisioning/common/upgrade:
+    post:
+      operationId: triggerUpgrade
+      summary: Trigger a system upgrade
+      description: >-
+        Initiates a system software upgrade on the Expressway. The SFTP
+        configuration must be set before triggering the upgrade. The upgrade
+        process downloads the image via SFTP and optionally reboots the
+        system automatically.
+      tags:
+        - Upgrade
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpgradeRequest'
+      responses:
+        '200':
+          description: Upgrade initiated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpgradeResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /v1/provisioning/common/adminaccount/changepassword:
+    post:
+      operationId: changeAdminPassword
+      summary: Change administrator password
+      description: >-
+        Changes the password for an administrator account on the Expressway.
+        Requires the current password and the new password.
+      tags:
+        - Admin Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+      responses:
+        '200':
+          description: Password changed successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /provisioning/edge/zone/traversalserver:
+    get:
+      operationId: listEdgeTraversalServerZones
+      summary: List Expressway-E traversal server zones
+      description: >-
+        Retrieves all traversal server zones configured on the Expressway-E.
+        Traversal server zones enable the Expressway-E to provide firewall
+        traversal services to traversal clients (Expressway-C). Supports
+        filtering by name using the path pattern
+        /zone/traversalserver/name/{zoneName}.
+      tags:
+        - Zones
+      responses:
+        '200':
+          description: Traversal server zone list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TraversalServerZone'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createEdgeTraversalServerZone
+      summary: Create a traversal server zone on Expressway-E
+      description: >-
+        Creates a new traversal server zone on the Expressway-E to provide
+        firewall traversal services. The zone defines connection credentials,
+        H.323 and SIP protocol settings, and media encryption mode.
+      tags:
+        - Zones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TraversalServerZoneInput'
+      responses:
+        '200':
+          description: Traversal server zone created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraversalServerZone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    put:
+      operationId: updateEdgeTraversalServerZone
+      summary: Update a traversal server zone on Expressway-E
+      description: >-
+        Modifies an existing traversal server zone configuration on the
+        Expressway-E including connection credentials, protocol settings,
+        and media encryption parameters.
+      tags:
+        - Zones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TraversalServerZoneInput'
+      responses:
+        '200':
+          description: Traversal server zone updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraversalServerZone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteEdgeTraversalServerZone
+      summary: Delete a traversal server zone from Expressway-E
+      description: >-
+        Removes a traversal server zone from the Expressway-E configuration.
+        The zone is identified by its name.
+      tags:
+        - Zones
+      responses:
+        '200':
+          description: Traversal server zone deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /provisioning/controller/zone/traversalclient:
+    get:
+      operationId: listControllerTraversalClientZones
+      summary: List Expressway-C traversal client zones
+      description: >-
+        Retrieves all traversal client zones configured on the Expressway-C.
+        Traversal client zones define connections from the Expressway-C to
+        a traversal server (Expressway-E) across a firewall. Supports
+        filtering by name using the path pattern
+        /zone/traversalclient/name/{zoneName}.
+      tags:
+        - Zones
+      responses:
+        '200':
+          description: Traversal client zone list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TraversalClientZone'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createControllerTraversalClientZone
+      summary: Create a traversal client zone on Expressway-C
+      description: >-
+        Creates a new traversal client zone on the Expressway-C to connect
+        to a traversal server (Expressway-E) across a firewall. The zone
+        defines connection credentials, retry intervals, and protocol
+        settings.
+      tags:
+        - Zones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TraversalClientZoneInput'
+      responses:
+        '200':
+          description: Traversal client zone created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraversalClientZone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    put:
+      operationId: updateControllerTraversalClientZone
+      summary: Update a traversal client zone on Expressway-C
+      description: >-
+        Modifies an existing traversal client zone configuration on the
+        Expressway-C including connection credentials, retry intervals,
+        and protocol settings.
+      tags:
+        - Zones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TraversalClientZoneInput'
+      responses:
+        '200':
+          description: Traversal client zone updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraversalClientZone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteControllerTraversalClientZone
+      summary: Delete a traversal client zone from Expressway-C
+      description: >-
+        Removes a traversal client zone from the Expressway-C configuration.
+      tags:
+        - Zones
+      responses:
+        '200':
+          description: Traversal client zone deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /provisioning/common/zone/neighbor:
+    get:
+      operationId: listNeighborZones
+      summary: List all neighbor zones
+      description: >-
+        Retrieves all neighbor zones configured on the Expressway. Neighbor
+        zones connect the local Expressway to another system such as another
+        Expressway, Unified CM, or a gatekeeper. Supports filtering by name.
+      tags:
+        - Zones
+      responses:
+        '200':
+          description: Neighbor zone list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NeighborZone'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createNeighborZone
+      summary: Create a neighbor zone
+      description: >-
+        Creates a new neighbor zone on the Expressway. Neighbor zones define
+        connections to peer systems such as other Expressway nodes, Unified
+        CM clusters, or gatekeepers with configurable H.323 and SIP protocol
+        settings.
+      tags:
+        - Zones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NeighborZoneInput'
+      responses:
+        '200':
+          description: Neighbor zone created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NeighborZone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    put:
+      operationId: updateNeighborZone
+      summary: Update a neighbor zone
+      description: >-
+        Modifies an existing neighbor zone configuration on the Expressway
+        including peer addresses, protocol settings, zone profile, and
+        authentication options.
+      tags:
+        - Zones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NeighborZoneInput'
+      responses:
+        '200':
+          description: Neighbor zone updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NeighborZone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteNeighborZone
+      summary: Delete a neighbor zone
+      description: >-
+        Removes a neighbor zone from the Expressway configuration.
+      tags:
+        - Zones
+      responses:
+        '200':
+          description: Neighbor zone deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /provisioning/common/zone/dns:
+    get:
+      operationId: listDnsZones
+      summary: List all DNS zones
+      description: >-
+        Retrieves all DNS zones configured on the Expressway. DNS zones
+        enable endpoint location through DNS lookups for SIP and H.323
+        calls.
+      tags:
+        - Zones
+      responses:
+        '200':
+          description: DNS zone list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DnsZone'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createDnsZone
+      summary: Create a DNS zone
+      description: >-
+        Creates a new DNS zone on the Expressway for endpoint discovery via
+        DNS lookups. Configurable for H.323 and SIP protocols with fallback
+        transport and TLS mapping options.
+      tags:
+        - Zones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DnsZoneInput'
+      responses:
+        '200':
+          description: DNS zone created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DnsZone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+  /provisioning/common/searchrule:
+    get:
+      operationId: listSearchRules
+      summary: List all search rules
+      description: >-
+        Retrieves all search rules configured on the Expressway. Search
+        rules define how the Expressway routes incoming search requests to
+        the appropriate target zones or policy services, with configurable
+        alias pattern matching, priority, and protocol filtering.
+      tags:
+        - Search Rules
+      responses:
+        '200':
+          description: Search rule list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchRule'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createSearchRule
+      summary: Create a search rule
+      description: >-
+        Creates a new search rule on the Expressway. Search rules determine
+        how incoming calls are routed to target zones based on alias
+        patterns, source zones, and protocol type. Each search rule has a
+        configurable priority that determines its evaluation order.
+      tags:
+        - Search Rules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRuleInput'
+      responses:
+        '200':
+          description: Search rule created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchRule'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    put:
+      operationId: updateSearchRule
+      summary: Update a search rule
+      description: >-
+        Modifies an existing search rule configuration on the Expressway
+        including the alias pattern, target zone, priority, and protocol
+        filter settings.
+      tags:
+        - Search Rules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRuleInput'
+      responses:
+        '200':
+          description: Search rule updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchRule'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteSearchRule
+      summary: Delete a search rule
+      description: >-
+        Removes a search rule from the Expressway configuration.
+      tags:
+        - Search Rules
+      responses:
+        '200':
+          description: Search rule deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /provisioning/common/transform:
+    get:
+      operationId: listTransforms
+      summary: List all pre-search transforms
+      description: >-
+        Retrieves all pre-search transforms configured on the Expressway.
+        Pre-search transforms modify the destination alias in an incoming
+        search request before any searches are sent to external zones,
+        enabling alias normalization and rewriting.
+      tags:
+        - Transforms
+      responses:
+        '200':
+          description: Transform list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transform'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createTransform
+      summary: Create a pre-search transform
+      description: >-
+        Creates a new pre-search transform on the Expressway. Transforms
+        are applied to incoming search requests to modify the destination
+        alias before routing decisions are made, using pattern matching
+        and replacement strings.
+      tags:
+        - Transforms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransformInput'
+      responses:
+        '200':
+          description: Transform created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transform'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    put:
+      operationId: updateTransform
+      summary: Update a pre-search transform
+      description: >-
+        Modifies an existing pre-search transform configuration on the
+        Expressway including the alias pattern, replacement string, and
+        priority.
+      tags:
+        - Transforms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransformInput'
+      responses:
+        '200':
+          description: Transform updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transform'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteTransform
+      summary: Delete a pre-search transform
+      description: >-
+        Removes a pre-search transform from the Expressway configuration.
+      tags:
+        - Transforms
+      responses:
+        '200':
+          description: Transform deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /provisioning/common/sip/configuration:
+    get:
+      operationId: getSipConfiguration
+      summary: Retrieve SIP configuration
+      description: >-
+        Returns the current SIP protocol configuration for the Expressway
+        including SIP mode, listening ports, transport protocols, registration
+        settings, and session timer parameters.
+      tags:
+        - SIP
+      responses:
+        '200':
+          description: SIP configuration retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SipConfiguration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      operationId: updateSipConfiguration
+      summary: Update SIP configuration
+      description: >-
+        Modifies the SIP protocol configuration on the Expressway including
+        SIP mode, transport settings, registration proxy behavior, and
+        session timer parameters.
+      tags:
+        - SIP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SipConfigurationInput'
+      responses:
+        '200':
+          description: SIP configuration updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SipConfiguration'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: >-
+        HTTP Basic Authentication using Expressway administrator credentials.
+        The API is only accessible via HTTPS.
+  schemas:
+    SystemInfo:
+      type: object
+      description: System information for the Expressway node
+      properties:
+        SystemName:
+          type: string
+          description: The name assigned to the Expressway
+          examples:
+            - Expressway-C-Primary
+        SoftwareVersion:
+          type: string
+          description: Currently installed software version
+          examples:
+            - X14.2
+        HardwareVersion:
+          type: string
+          description: Hardware or virtual appliance version
+          examples:
+            - VM
+        SerialNumber:
+          type: string
+          description: Hardware or VM serial number
+          examples:
+            - A1B2C3D4E5F6
+        Uptime:
+          type: string
+          description: Time elapsed since the system last restarted
+          examples:
+            - 45 days 12:34:56
+        IPv4Address:
+          type: string
+          format: ipv4
+          description: IPv4 address of the Expressway
+          examples:
+            - 10.0.0.1
+        IPv6Address:
+          type: string
+          format: ipv6
+          description: IPv6 address of the Expressway
+        VMSize:
+          type: string
+          description: Virtual machine size designation
+          enum:
+            - Small
+            - Medium
+            - Large
+    DnsServer:
+      type: object
+      description: DNS server configuration entry
+      properties:
+        Index:
+          type: integer
+          description: Index position of the DNS server (1-5)
+          minimum: 1
+          maximum: 5
+        Address:
+          type: string
+          description: IP address of the DNS server
+          examples:
+            - 8.8.8.8
+      required:
+        - Address
+    DnsServerInput:
+      type: object
+      description: Input for creating or updating a DNS server entry
+      properties:
+        Index:
+          type: integer
+          description: Index position for the DNS server (1-5)
+          minimum: 1
+          maximum: 5
+        Address:
+          type: string
+          description: IP address of the DNS server
+          examples:
+            - 8.8.8.8
+      required:
+        - Address
+    NtpServer:
+      type: object
+      description: NTP server configuration entry
+      properties:
+        Index:
+          type: integer
+          description: Index position of the NTP server (1-5)
+          minimum: 1
+          maximum: 5
+        Address:
+          type: string
+          description: Hostname or IP address of the NTP server
+          examples:
+            - pool.ntp.org
+        AuthenticationMode:
+          type: string
+          description: Authentication mode for the NTP connection
+          enum:
+            - 'Off'
+            - Symmetric key
+      required:
+        - Address
+    NtpServerInput:
+      type: object
+      description: Input for creating or updating an NTP server entry
+      properties:
+        Index:
+          type: integer
+          description: Index position for the NTP server (1-5)
+          minimum: 1
+          maximum: 5
+        Address:
+          type: string
+          description: Hostname or IP address of the NTP server
+          examples:
+            - pool.ntp.org
+        AuthenticationMode:
+          type: string
+          description: Authentication mode for the NTP connection
+          enum:
+            - 'Off'
+            - Symmetric key
+        KeyNumber:
+          type: integer
+          description: Key number for symmetric key authentication
+        KeyHash:
+          type: string
+          description: Key hash value for symmetric key authentication
+      required:
+        - Address
+    SftpConfig:
+      type: object
+      description: SFTP configuration for system upgrades
+      properties:
+        ServerAddress:
+          type: string
+          description: SFTP server address (hostname or IP)
+          examples:
+            - sftp.example.com
+        Port:
+          type: integer
+          description: SFTP server port
+          default: 22
+        Username:
+          type: string
+          description: Username for SFTP authentication
+        FilePath:
+          type: string
+          description: Path to the upgrade image file on the SFTP server
+          examples:
+            - /upgrades/expressway-x14.2.tar.gz
+    SftpConfigInput:
+      type: object
+      description: Input for configuring SFTP upgrade settings
+      properties:
+        ServerAddress:
+          type: string
+          description: SFTP server address (hostname or IP)
+        Port:
+          type: integer
+          description: SFTP server port
+          default: 22
+        Username:
+          type: string
+          description: Username for SFTP authentication
+        Password:
+          type: string
+          format: password
+          description: Password for SFTP authentication
+        FilePath:
+          type: string
+          description: Path to the upgrade image file on the SFTP server
+      required:
+        - ServerAddress
+        - Username
+        - Password
+        - FilePath
+    UpgradeRequest:
+      type: object
+      description: Request body for triggering a system upgrade
+      properties:
+        ImageDownloadMode:
+          type: string
+          description: Method for downloading the upgrade image
+          enum:
+            - SFTP
+        UpgradeFileName:
+          type: string
+          description: Filename of the upgrade image
+          examples:
+            - s42701x14_2_0.tar.gz
+        AutoReboot:
+          type: boolean
+          description: Whether to automatically reboot after upgrade download completes
+          default: false
+      required:
+        - UpgradeFileName
+    UpgradeResponse:
+      type: object
+      description: Response from a system upgrade request
+      properties:
+        Status:
+          type: string
+          description: Current status of the upgrade operation
+          enum:
+            - Downloading
+            - Downloaded
+            - Upgrading
+            - Complete
+            - Failed
+        Message:
+          type: string
+          description: Human-readable status message
+    ChangePasswordRequest:
+      type: object
+      description: Request body for changing an administrator password
+      properties:
+        Username:
+          type: string
+          description: Administrator username
+          examples:
+            - admin
+        CurrentPassword:
+          type: string
+          format: password
+          description: Current password for the administrator account
+        NewPassword:
+          type: string
+          format: password
+          description: New password for the administrator account
+      required:
+        - Username
+        - CurrentPassword
+        - NewPassword
+    TraversalServerZone:
+      type: object
+      description: >-
+        Traversal server zone configuration on Expressway-E. Enables
+        firewall traversal services for traversal clients.
+      properties:
+        Name:
+          type: string
+          description: Unique name for the traversal server zone
+          examples:
+            - CEtoEXPE-Traversal
+        Type:
+          type: string
+          description: Zone type
+          const: TraversalServer
+        ConnectionCredentialsUsername:
+          type: string
+          description: Username for client authentication; must match client configuration
+        HopCount:
+          type: integer
+          description: Maximum number of times a request can be forwarded
+          minimum: 0
+          maximum: 255
+          default: 15
+        H323Mode:
+          type: string
+          description: Whether H.323 calls are enabled for this zone
+          enum:
+            - 'On'
+            - 'Off'
+        H323Port:
+          type: integer
+          description: UDP port for H.323 search requests
+          default: 6001
+        H323Protocol:
+          type: string
+          description: Firewall traversal protocol for H.323
+          enum:
+            - Assent
+            - H.460.18
+          default: Assent
+        SIPMode:
+          type: string
+          description: Whether SIP calls are enabled for this zone
+          enum:
+            - 'On'
+            - 'Off'
+        SIPPort:
+          type: integer
+          description: Port for SIP signaling
+          default: 7001
+        SIPTransport:
+          type: string
+          description: Transport protocol for SIP messages
+          enum:
+            - TLS
+            - TCP
+          default: TLS
+        SIPTLSVerifyMode:
+          type: string
+          description: Whether to verify TLS certificates from the peer
+          enum:
+            - 'On'
+            - 'Off'
+        MediaEncryptionMode:
+          type: string
+          description: Media encryption enforcement mode
+          enum:
+            - Force encrypted
+            - Force unencrypted
+            - Best effort
+            - Auto
+          default: Auto
+        ICESupport:
+          type: string
+          description: ICE message handling mode
+          enum:
+            - 'On'
+            - 'Off'
+          default: 'Off'
+        H46019DemultiplexingMode:
+          type: string
+          description: Determines media port sharing across multiple calls
+          enum:
+            - 'On'
+            - 'Off'
+          default: 'Off'
+        UnifiedCommunicationsMode:
+          type: string
+          description: Whether Unified Communications services (MRA) are enabled
+          enum:
+            - 'On'
+            - 'Off'
+          default: 'Off'
+        TLSVerifySubjectName:
+          type: string
+          description: >-
+            Certificate subject name for mutual TLS authentication. Must be
+            FQDN for clustered clients.
+        AuthenticationPolicy:
+          type: string
+          description: Authentication challenge behavior for incoming messages
+          enum:
+            - DoNotCheckCredentials
+            - TreatAsAuthenticated
+            - CheckCredentials
+    TraversalServerZoneInput:
+      type: object
+      description: Input for creating or updating a traversal server zone
+      allOf:
+        - $ref: '#/components/schemas/TraversalServerZone'
+      required:
+        - Name
+        - ConnectionCredentialsUsername
+    TraversalClientZone:
+      type: object
+      description: >-
+        Traversal client zone configuration on Expressway-C. Connects to a
+        traversal server (Expressway-E) across a firewall.
+      properties:
+        Name:
+          type: string
+          description: Unique name for the traversal client zone
+          examples:
+            - CtoEXPE-Traversal
+        Type:
+          type: string
+          description: Zone type
+          const: TraversalClient
+        PeerAddress:
+          type: string
+          description: IP address or FQDN of the traversal server (Expressway-E)
+          examples:
+            - expressway-e.example.com
+        ConnectionCredentialsUsername:
+          type: string
+          description: Username for server authentication; must match server configuration
+        ConnectionCredentialsPassword:
+          type: string
+          format: password
+          description: Password for server authentication
+        HopCount:
+          type: integer
+          description: Maximum number of times a request can be forwarded
+          minimum: 0
+          maximum: 255
+          default: 15
+        H323Mode:
+          type: string
+          description: Whether H.323 calls are enabled for this zone
+          enum:
+            - 'On'
+            - 'Off'
+        H323Port:
+          type: integer
+          description: UDP port for H.323 search requests
+          default: 6001
+        H323Protocol:
+          type: string
+          description: Firewall traversal protocol for H.323
+          enum:
+            - Assent
+            - H.460.18
+          default: Assent
+        SIPMode:
+          type: string
+          description: Whether SIP calls are enabled for this zone
+          enum:
+            - 'On'
+            - 'Off'
+        SIPPort:
+          type: integer
+          description: Port for SIP signaling
+          default: 7001
+        SIPTransport:
+          type: string
+          description: Transport protocol for SIP messages
+          enum:
+            - TLS
+            - TCP
+          default: TLS
+        SIPTLSVerifyMode:
+          type: string
+          description: Whether to verify TLS certificates from the peer
+          enum:
+            - 'On'
+            - 'Off'
+        SIPPoisonMode:
+          type: string
+          description: >-
+            Whether to mark outbound requests to prevent reprocessing if
+            returned to this Expressway
+          enum:
+            - 'On'
+            - 'Off'
+          default: 'Off'
+        MediaEncryptionMode:
+          type: string
+          description: Media encryption enforcement mode
+          enum:
+            - Force encrypted
+            - Force unencrypted
+            - Best effort
+            - Auto
+          default: Auto
+        RetryInterval:
+          type: integer
+          description: Frequency in seconds of retry attempts for failed connections
+          default: 120
+        DisconnectOnFailInterval:
+          type: integer
+          description: >-
+            Frequency in seconds of SIP OPTIONS ping disconnection during
+            failures
+          default: 120
+        AuthenticationPolicy:
+          type: string
+          description: Authentication challenge behavior for incoming messages
+          enum:
+            - DoNotCheckCredentials
+            - TreatAsAuthenticated
+            - CheckCredentials
+    TraversalClientZoneInput:
+      type: object
+      description: Input for creating or updating a traversal client zone
+      allOf:
+        - $ref: '#/components/schemas/TraversalClientZone'
+      required:
+        - Name
+        - PeerAddress
+        - ConnectionCredentialsUsername
+        - ConnectionCredentialsPassword
+    NeighborZone:
+      type: object
+      description: >-
+        Neighbor zone configuration. Connects the local Expressway to another
+        system such as another Expressway, Unified CM, or gatekeeper.
+      properties:
+        Name:
+          type: string
+          description: Unique name for the neighbor zone
+          examples:
+            - CUCM-Neighbor
+        Type:
+          type: string
+          description: Zone type
+          const: Neighbor
+        PeerAddresses:
+          type: array
+          description: >-
+            List of IP addresses or FQDNs of the peer system. Multiple
+            peers are required for clusters (up to 6).
+          items:
+            type: string
+          minItems: 1
+          maxItems: 6
+          examples:
+            - - cucm-pub.example.com
+              - cucm-sub1.example.com
+        LookUpPeersBy:
+          type: string
+          description: Method for discovering peer addresses
+          enum:
+            - Address
+            - Service record
+        HopCount:
+          type: integer
+          description: Maximum number of times a request can be forwarded
+          minimum: 0
+          maximum: 255
+          default: 15
+        ZoneProfile:
+          type: string
+          description: >-
+            Preconfigured profile for specific peer system types. Sets
+            multiple advanced settings automatically.
+          enum:
+            - Default
+            - Cisco Unified Communications Manager
+            - Nortel Communication Server 1000
+            - Custom
+          default: Default
+        H323Mode:
+          type: string
+          description: Whether H.323 calls are enabled for this zone
+          enum:
+            - 'On'
+            - 'Off'
+        H323Port:
+          type: integer
+          description: Port for H.323 communication
+          default: 1719
+        SIPMode:
+          type: string
+          description: Whether SIP calls are enabled for this zone
+          enum:
+            - 'On'
+            - 'Off'
+        SIPPort:
+          type: integer
+          description: Port for SIP communication
+          default: 5061
+        SIPTransport:
+          type: string
+          description: Transport protocol for SIP messages
+          enum:
+            - TLS
+            - TCP
+            - UDP
+          default: TLS
+        SIPTLSVerifyMode:
+          type: string
+          description: Whether to verify TLS certificates from the peer
+          enum:
+            - 'On'
+            - 'Off'
+        MediaEncryptionMode:
+          type: string
+          description: Media encryption enforcement mode
+          enum:
+            - Force encrypted
+            - Force unencrypted
+            - Best effort
+            - Auto
+          default: Auto
+        MultistreamMode:
+          type: string
+          description: Whether multistream call negotiation is permitted
+          enum:
+            - 'On'
+            - 'Off'
+          default: 'Off'
+        PreloadedSipRoutesSupport:
+          type: string
+          description: Controls Route header processing in SIP INVITE requests
+          enum:
+            - 'On'
+            - 'Off'
+          default: 'Off'
+        SIPAuthenticationTrustMode:
+          type: string
+          description: Whether P-Asserted-Identity headers from this zone are trusted
+          enum:
+            - 'On'
+            - 'Off'
+          default: 'Off'
+        MonitorPeerStatus:
+          type: string
+          description: >-
+            Whether to monitor the peer using H.323 LRQs and SIP OPTIONS
+          enum:
+            - 'On'
+            - 'Off'
+          default: 'On'
+        AuthenticationPolicy:
+          type: string
+          description: Authentication challenge behavior for incoming messages
+          enum:
+            - DoNotCheckCredentials
+            - TreatAsAuthenticated
+            - CheckCredentials
+    NeighborZoneInput:
+      type: object
+      description: Input for creating or updating a neighbor zone
+      allOf:
+        - $ref: '#/components/schemas/NeighborZone'
+      required:
+        - Name
+        - PeerAddresses
+    DnsZone:
+      type: object
+      description: >-
+        DNS zone configuration. Enables endpoint discovery through DNS
+        lookups for SIP and H.323 calls.
+      properties:
+        Name:
+          type: string
+          description: Unique name for the DNS zone
+          examples:
+            - DefaultDNSZone
+        Type:
+          type: string
+          description: Zone type
+          const: DNS
+        HopCount:
+          type: integer
+          description: Maximum number of times a request can be forwarded
+          minimum: 0
+          maximum: 255
+          default: 15
+        H323Mode:
+          type: string
+          description: Whether H.323 calls via DNS-located systems are enabled
+          enum:
+            - 'On'
+            - 'Off'
+        SIPMode:
+          type: string
+          description: Whether SIP calls via DNS-located systems are enabled
+          enum:
+            - 'On'
+            - 'Off'
+        FallbackTransportProtocol:
+          type: string
+          description: Default transport when DNS records do not specify preference
+          enum:
+            - TLS
+            - TCP
+            - UDP
+          default: TLS
+        ModifyDnsRequest:
+          type: string
+          description: >-
+            Whether to route calls to a manually specified SIP domain
+            instead of the dialed destination
+          enum:
+            - 'On'
+            - 'Off'
+          default: 'Off'
+        IncludeAddressRecord:
+          type: string
+          description: Whether to query A/AAAA records if SRV/NAPTR lookups fail
+          enum:
+            - 'On'
+            - 'Off'
+          default: 'On'
+        MediaEncryptionMode:
+          type: string
+          description: Media encryption enforcement mode
+          enum:
+            - Force encrypted
+            - Force unencrypted
+            - Best effort
+            - Auto
+          default: Auto
+    DnsZoneInput:
+      type: object
+      description: Input for creating or updating a DNS zone
+      allOf:
+        - $ref: '#/components/schemas/DnsZone'
+      required:
+        - Name
+    SearchRule:
+      type: object
+      description: >-
+        Search rule configuration. Defines how the Expressway routes incoming
+        search requests to the appropriate target zones or policy services
+        based on alias pattern matching.
+      properties:
+        Name:
+          type: string
+          description: Unique name for the search rule
+          examples:
+            - Route-to-CUCM
+        Priority:
+          type: integer
+          description: >-
+            Priority of the search rule. Lower numbers are evaluated first.
+          minimum: 1
+          maximum: 65534
+          default: 100
+          examples:
+            - 50
+        AliasPatternType:
+          type: string
+          description: Type of pattern matching to apply to the alias
+          enum:
+            - Prefix
+            - Suffix
+            - Regex
+            - Exact
+        AliasPatternString:
+          type: string
+          description: The pattern to match against the destination alias
+          examples:
+            - .*@example\.com
+        TargetZone:
+          type: string
+          description: Name of the zone to which matching requests are forwarded
+          examples:
+            - CUCM-Neighbor
+        SourceZone:
+          type: string
+          description: >-
+            Name of the source zone from which requests must originate for
+            this rule to apply. Leave empty for any zone.
+        Mode:
+          type: string
+          description: Whether the search rule is enabled
+          enum:
+            - 'On'
+            - 'Off'
+          default: 'On'
+        Protocol:
+          type: string
+          description: >-
+            Protocol filter. Only requests using this protocol will match.
+          enum:
+            - Any
+            - H.323
+            - SIP
+          default: Any
+        OnSuccessfulMatch:
+          type: string
+          description: >-
+            Action to take when a matching alias is found in the target zone
+          enum:
+            - Stop
+            - Continue
+          default: Stop
+        Description:
+          type: string
+          description: Optional description of the search rule's purpose
+        State:
+          type: string
+          description: Administrative state of the search rule
+          enum:
+            - Enabled
+            - Disabled
+          default: Enabled
+    SearchRuleInput:
+      type: object
+      description: Input for creating or updating a search rule
+      allOf:
+        - $ref: '#/components/schemas/SearchRule'
+      required:
+        - Name
+        - AliasPatternType
+        - AliasPatternString
+        - TargetZone
+    Transform:
+      type: object
+      description: >-
+        Pre-search transform configuration. Modifies the destination alias
+        in an incoming search request before any searches are performed,
+        enabling alias normalization and number rewriting.
+      properties:
+        Name:
+          type: string
+          description: Unique name for the transform
+          examples:
+            - StripPrefix
+        Priority:
+          type: integer
+          description: >-
+            Priority of the transform. Lower numbers are applied first.
+          minimum: 1
+          maximum: 65534
+          default: 1
+        PatternType:
+          type: string
+          description: Type of pattern matching for the alias
+          enum:
+            - Prefix
+            - Suffix
+            - Regex
+            - Exact
+        PatternString:
+          type: string
+          description: The pattern to match against the destination alias
+          examples:
+            - '9(.*)'
+        PatternBehavior:
+          type: string
+          description: Action to take when the pattern matches
+          enum:
+            - Replace
+            - Strip
+            - Add Prefix
+            - Add Suffix
+          default: Replace
+        ReplaceString:
+          type: string
+          description: >-
+            The replacement string applied when the pattern matches. Supports
+            regex capture group references.
+          examples:
+            - '\1'
+        State:
+          type: string
+          description: Administrative state of the transform
+          enum:
+            - Enabled
+            - Disabled
+          default: Enabled
+        Description:
+          type: string
+          description: Optional description of the transform's purpose
+    TransformInput:
+      type: object
+      description: Input for creating or updating a pre-search transform
+      allOf:
+        - $ref: '#/components/schemas/Transform'
+      required:
+        - Name
+        - PatternType
+        - PatternString
+    SipConfiguration:
+      type: object
+      description: SIP protocol configuration for the Expressway
+      properties:
+        SIPMode:
+          type: string
+          description: Whether SIP functionality is enabled
+          enum:
+            - 'On'
+            - 'Off'
+        TCPMode:
+          type: string
+          description: Whether SIP over TCP is enabled
+          enum:
+            - 'On'
+            - 'Off'
+        TCPPort:
+          type: integer
+          description: TCP port for SIP signaling
+          default: 5060
+        TLSPort:
+          type: integer
+          description: TLS port for SIP signaling
+          default: 5061
+        UDPMode:
+          type: string
+          description: Whether SIP over UDP is enabled
+          enum:
+            - 'On'
+            - 'Off'
+        UDPPort:
+          type: integer
+          description: UDP port for SIP signaling
+          default: 5060
+        SessionRefreshInterval:
+          type: integer
+          description: Session refresh interval in seconds
+          default: 1800
+        SessionRefreshMethod:
+          type: string
+          description: Method used for session refresh
+          enum:
+            - UPDATE
+            - INVITE
+        RegistrationProxyMode:
+          type: string
+          description: Whether the Expressway acts as a SIP registrar proxy
+          enum:
+            - 'On'
+            - 'Off'
+    SipConfigurationInput:
+      type: object
+      description: Input for updating SIP configuration
+      allOf:
+        - $ref: '#/components/schemas/SipConfiguration'
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
+  responses:
+    BadRequest:
+      description: >-
+        The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: >-
+        Authentication credentials are missing or invalid. The API requires
+        HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: >-
+        The authenticated user does not have sufficient permissions for this
+        operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: >-
+        The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: >-
+        A resource with the same identifier already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

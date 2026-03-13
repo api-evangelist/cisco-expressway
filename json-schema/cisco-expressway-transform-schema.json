@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-search/cisco-expressway/json-schema/cisco-expressway-transform-schema.json",
+  "title": "Cisco Expressway Pre-Search Transform",
+  "description": "Schema for a pre-search transform configuration on Cisco Expressway. Pre-search transforms modify the destination alias in an incoming search request before any searches are performed, enabling alias normalization, number rewriting, and E.164 dialing plan adjustments.",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "type": "string",
+      "description": "Unique name for the transform",
+      "minLength": 1,
+      "maxLength": 50,
+      "examples": ["StripPrefix", "AddE164Prefix"]
+    },
+    "Priority": {
+      "type": "integer",
+      "description": "Priority of the transform. Lower numbers are applied first. Transforms are applied sequentially in priority order.",
+      "minimum": 1,
+      "maximum": 65534,
+      "default": 1,
+      "examples": [1, 10, 50]
+    },
+    "PatternType": {
+      "type": "string",
+      "description": "Type of pattern matching for the destination alias",
+      "enum": ["Prefix", "Suffix", "Regex", "Exact"]
+    },
+    "PatternString": {
+      "type": "string",
+      "description": "The pattern to match against the destination alias. Format depends on PatternType: literal string for Prefix/Suffix/Exact, regular expression for Regex. Regex patterns support capture groups for use in ReplaceString.",
+      "examples": ["9(.*)", "^\\+1(\\d{10})$", "0044"]
+    },
+    "PatternBehavior": {
+      "type": "string",
+      "description": "Action to take when the pattern matches the destination alias",
+      "enum": ["Replace", "Strip", "Add Prefix", "Add Suffix"],
+      "default": "Replace"
+    },
+    "ReplaceString": {
+      "type": "string",
+      "description": "The replacement string applied when the pattern matches. Supports regex capture group references (e.g., \\1, \\2) when PatternType is Regex.",
+      "examples": ["\\1", "+1\\1", "sip:\\1@example.com"]
+    },
+    "State": {
+      "type": "string",
+      "description": "Administrative state of the transform",
+      "enum": ["Enabled", "Disabled"],
+      "default": "Enabled"
+    },
+    "Description": {
+      "type": "string",
+      "description": "Optional description of the transform's purpose and behavior",
+      "maxLength": 200
+    }
+  },
+  "required": ["Name", "PatternType", "PatternString"]
+}

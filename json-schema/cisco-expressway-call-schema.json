@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-search/cisco-expressway/json-schema/cisco-expressway-call-schema.json",
+  "title": "Cisco Expressway Call",
+  "description": "Schema for a call record on Cisco Expressway. Represents both active calls and completed call history records. Call history is limited to the most recent 500 calls, or fewer if calls used multiple components. Calls may be SIP, H.323, or interworked between protocols.",
+  "type": "object",
+  "properties": {
+    "CallId": {
+      "type": "string",
+      "description": "Unique identifier for the call"
+    },
+    "StartTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the call started, referenced to NTP time"
+    },
+    "EndTime": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the call ended. Null for active calls."
+    },
+    "Duration": {
+      "type": "integer",
+      "description": "Call duration in seconds. For active calls, this is the current elapsed time.",
+      "minimum": 0
+    },
+    "SourceAlias": {
+      "type": "string",
+      "description": "Alias of the calling endpoint or the transformed source identifier",
+      "examples": ["user1@example.com", "+14155551234"]
+    },
+    "DestinationAlias": {
+      "type": "string",
+      "description": "Alias of the called endpoint or the transformed destination identifier",
+      "examples": ["user2@example.com", "meeting@example.com"]
+    },
+    "CallType": {
+      "type": "string",
+      "description": "Type of call based on the signaling protocol(s) involved",
+      "enum": ["SIP", "H.323", "Interworked"]
+    },
+    "SIPVariant": {
+      "type": "string",
+      "description": "SIP variant for SIP-based calls, indicating the specific SIP dialect used",
+      "enum": ["Standard", "Microsoft AV", "Microsoft SIP IM&P"]
+    },
+    "Protocol": {
+      "type": "string",
+      "description": "Protocols involved in the call. May indicate single or multiple protocol components.",
+      "examples": ["SIP", "H.323", "SIP/H.323"]
+    },
+    "Status": {
+      "type": "string",
+      "description": "Call outcome or current state",
+      "examples": ["Active", "Completed", "Failed", "Rejected"]
+    },
+    "DisconnectReason": {
+      "type": "string",
+      "description": "Reason for call disconnection. Only present for completed calls."
+    },
+    "Bandwidth": {
+      "type": "integer",
+      "description": "Bandwidth usage in kbps. For active calls, this is the current bandwidth.",
+      "minimum": 0
+    },
+    "SourceZone": {
+      "type": "string",
+      "description": "Zone where the call originated",
+      "examples": ["LocalZone", "CEtoEXPE-Traversal"]
+    },
+    "DestinationZone": {
+      "type": "string",
+      "description": "Zone where the call terminates",
+      "examples": ["CUCM-Neighbor", "DefaultDNSZone"]
+    },
+    "Encrypted": {
+      "type": "boolean",
+      "description": "Whether media encryption is active for this call"
+    },
+    "ClusterPeer": {
+      "type": "string",
+      "description": "Identifier of the cluster node handling this call"
+    }
+  },
+  "required": ["CallId", "StartTime", "SourceAlias", "DestinationAlias", "CallType"]
+}

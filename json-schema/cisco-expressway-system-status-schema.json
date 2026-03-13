@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-search/cisco-expressway/json-schema/cisco-expressway-system-status-schema.json",
+  "title": "Cisco Expressway System Status",
+  "description": "Schema for the system status overview of a Cisco Expressway node. Includes system identification, software and hardware versions, network configuration, resource usage, cluster role, and option key status.",
+  "type": "object",
+  "properties": {
+    "SystemName": {
+      "type": "string",
+      "description": "The name assigned to the Expressway node",
+      "examples": ["Expressway-C-Primary", "Expressway-E-Edge"]
+    },
+    "SoftwareVersion": {
+      "type": "string",
+      "description": "Currently installed software version",
+      "examples": ["X14.2", "X15.0"]
+    },
+    "HardwareVersion": {
+      "type": "string",
+      "description": "Hardware appliance version or VM designation",
+      "examples": ["VM", "CE1200"]
+    },
+    "SerialNumber": {
+      "type": "string",
+      "description": "Hardware or VM serial number used for identification and licensing"
+    },
+    "Uptime": {
+      "type": "string",
+      "description": "Time elapsed since the system last restarted, in human-readable format",
+      "examples": ["45 days 12:34:56", "2 days 03:15:42"]
+    },
+    "IPv4Address": {
+      "type": "string",
+      "format": "ipv4",
+      "description": "IPv4 address of the Expressway node",
+      "examples": ["10.0.0.1"]
+    },
+    "IPv6Address": {
+      "type": ["string", "null"],
+      "format": "ipv6",
+      "description": "IPv6 address of the Expressway node, if configured"
+    },
+    "VMSize": {
+      "type": "string",
+      "description": "Virtual machine size designation which determines capacity limits",
+      "enum": ["Small", "Medium", "Large"]
+    },
+    "CurrentRegistrations": {
+      "type": "integer",
+      "description": "Number of devices currently registered with this Expressway node",
+      "minimum": 0,
+      "examples": [150]
+    },
+    "CurrentCalls": {
+      "type": "integer",
+      "description": "Number of calls currently active on this Expressway node",
+      "minimum": 0,
+      "examples": [12]
+    },
+    "ClusterRole": {
+      "type": "string",
+      "description": "Role of this node in a cluster configuration",
+      "enum": ["Primary", "Peer", "Standalone"]
+    },
+    "OptionKeys": {
+      "type": "array",
+      "description": "List of installed option keys and their activation status",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "description": "Feature or capacity option key name",
+            "examples": ["Rich Media Sessions", "Advanced Networking"]
+          },
+          "Status": {
+            "type": "string",
+            "description": "Activation status of the option key",
+            "enum": ["Active", "Expired", "Not Installed"]
+          }
+        },
+        "required": ["Name", "Status"]
+      }
+    }
+  },
+  "required": ["SystemName", "SoftwareVersion"]
+}
