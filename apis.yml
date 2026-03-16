@@ -1,4 +1,4 @@
-name: Cisco Expressway APIs
+name: Cisco Expressway
 description: API definitions for Cisco Expressway, a session border controller and firewall traversal solution for Unified Communications that provides secure remote and mobile access for collaboration workloads including video, voice, content, and presence.
 image: https://www.cisco.com/c/en/us/products/unified-communications/expressway-series/index.html
 created: '2024'
