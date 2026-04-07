@@ -34,22 +34,22 @@ servers:
 security:
   - basicAuth: []
 tags:
-  - name: System Status
-    description: System overview and health information
   - name: Alarms
     description: Active system alarms and warnings
   - name: Calls
     description: Active and historical call information
-  - name: Registrations
-    description: Device registration status and details
   - name: Licensing
     description: Smart licensing status and usage
+  - name: Registrations
+    description: Device registration status and details
+  - name: Resource Usage
+    description: System resource utilization metrics
+  - name: System Status
+    description: System overview and health information
   - name: Upgrade
     description: Upgrade progress and status
   - name: Zones
     description: Zone connectivity and bandwidth status
-  - name: Resource Usage
-    description: System resource utilization metrics
 paths:
   /status/common/systeminfo:
     get:

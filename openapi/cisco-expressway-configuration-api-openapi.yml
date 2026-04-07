@@ -34,26 +34,26 @@ servers:
 security:
   - basicAuth: []
 tags:
+  - name: Admin Account
+    description: Administrator account management
   - name: DNS
     description: DNS server configuration management
   - name: NTP
     description: NTP server configuration for time synchronization
-  - name: SFTP
-    description: SFTP configuration for system upgrades
-  - name: Upgrade
-    description: System upgrade operations
-  - name: Admin Account
-    description: Administrator account management
-  - name: Zones
-    description: Zone configuration for call routing and firewall traversal
   - name: Search Rules
     description: Search rule configuration for call routing decisions
-  - name: Transforms
-    description: Pre-search transform configuration for alias modification
+  - name: SFTP
+    description: SFTP configuration for system upgrades
   - name: SIP
     description: SIP protocol configuration
   - name: System
     description: System-level configuration and information
+  - name: Transforms
+    description: Pre-search transform configuration for alias modification
+  - name: Upgrade
+    description: System upgrade operations
+  - name: Zones
+    description: Zone configuration for call routing and firewall traversal
 paths:
   /provisioning/common/sysinfo:
     get:
