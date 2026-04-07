@@ -58,7 +58,7 @@ paths:
   /provisioning/common/sysinfo:
     get:
       operationId: getSystemInfo
-      summary: Retrieve system information
+      summary: Cisco Expressway Retrieve system information
       description: >-
         Returns basic system information for the Expressway node including the
         system name, software version, hardware details, serial number, and
@@ -79,7 +79,7 @@ paths:
   /v1/provisioning/common/dns/dnsserver:
     get:
       operationId: listDnsServers
-      summary: List all configured DNS servers
+      summary: Cisco Expressway List all configured DNS servers
       description: >-
         Retrieves the list of all DNS servers configured on the Expressway.
         Supports filtering by name or address using query path segments such
@@ -101,7 +101,7 @@ paths:
           $ref: '#/components/responses/Forbidden'
     post:
       operationId: createDnsServer
-      summary: Add a new DNS server
+      summary: Cisco Expressway Add a new DNS server
       description: >-
         Adds a new DNS server entry to the Expressway configuration. The
         Expressway supports up to five DNS server addresses.
@@ -130,7 +130,7 @@ paths:
           $ref: '#/components/responses/Conflict'
     put:
       operationId: updateDnsServer
-      summary: Modify a DNS server entry
+      summary: Cisco Expressway Modify a DNS server entry
       description: >-
         Updates an existing DNS server configuration on the Expressway.
         The target server is identified by its current address or index.
@@ -157,7 +157,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteDnsServer
-      summary: Delete a DNS server entry
+      summary: Cisco Expressway Delete a DNS server entry
       description: >-
         Removes a DNS server from the Expressway configuration. The target
         server is identified by its address or index in the configuration.
@@ -173,7 +173,7 @@ paths:
   /v1/provisioning/common/time/ntpserver:
     get:
       operationId: listNtpServers
-      summary: List all configured NTP servers
+      summary: Cisco Expressway List all configured NTP servers
       description: >-
         Retrieves the list of all NTP servers configured on the Expressway for
         time synchronization. Supports filtering by name or address.
@@ -194,7 +194,7 @@ paths:
           $ref: '#/components/responses/Forbidden'
     post:
       operationId: createNtpServer
-      summary: Add a new NTP server
+      summary: Cisco Expressway Add a new NTP server
       description: >-
         Adds a new NTP server entry to the Expressway configuration for time
         synchronization. Up to five NTP servers can be configured.
@@ -221,7 +221,7 @@ paths:
           $ref: '#/components/responses/Conflict'
     put:
       operationId: updateNtpServer
-      summary: Modify an NTP server entry
+      summary: Cisco Expressway Modify an NTP server entry
       description: >-
         Updates an existing NTP server configuration on the Expressway.
       tags:
@@ -247,7 +247,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteNtpServer
-      summary: Delete an NTP server entry
+      summary: Cisco Expressway Delete an NTP server entry
       description: >-
         Removes an NTP server from the Expressway configuration.
       tags:
@@ -262,7 +262,7 @@ paths:
   /v1/provisioning/common/sftpconfig:
     get:
       operationId: getSftpConfig
-      summary: Retrieve SFTP configuration
+      summary: Cisco Expressway Retrieve SFTP configuration
       description: >-
         Returns the current SFTP configuration used for system upgrades
         including the SFTP server address, port, path, and credentials.
@@ -281,7 +281,7 @@ paths:
           $ref: '#/components/responses/Forbidden'
     put:
       operationId: updateSftpConfig
-      summary: Update SFTP configuration
+      summary: Cisco Expressway Update SFTP configuration
       description: >-
         Updates the SFTP configuration for system upgrades. Configure the
         server address, credentials, and file path to the upgrade image.
@@ -309,7 +309,7 @@ paths:
   /v1/provisioning/common/upgrade:
     post:
       operationId: triggerUpgrade
-      summary: Trigger a system upgrade
+      summary: Cisco Expressway Trigger a system upgrade
       description: >-
         Initiates a system software upgrade on the Expressway. The SFTP
         configuration must be set before triggering the upgrade. The upgrade
@@ -339,7 +339,7 @@ paths:
   /v1/provisioning/common/adminaccount/changepassword:
     post:
       operationId: changeAdminPassword
-      summary: Change administrator password
+      summary: Cisco Expressway Change administrator password
       description: >-
         Changes the password for an administrator account on the Expressway.
         Requires the current password and the new password.
@@ -363,7 +363,7 @@ paths:
   /provisioning/edge/zone/traversalserver:
     get:
       operationId: listEdgeTraversalServerZones
-      summary: List Expressway-E traversal server zones
+      summary: Cisco Expressway List Expressway-E traversal server zones
       description: >-
         Retrieves all traversal server zones configured on the Expressway-E.
         Traversal server zones enable the Expressway-E to provide firewall
@@ -387,7 +387,7 @@ paths:
           $ref: '#/components/responses/Forbidden'
     post:
       operationId: createEdgeTraversalServerZone
-      summary: Create a traversal server zone on Expressway-E
+      summary: Cisco Expressway Create a traversal server zone on Expressway-E
       description: >-
         Creates a new traversal server zone on the Expressway-E to provide
         firewall traversal services. The zone defines connection credentials,
@@ -415,7 +415,7 @@ paths:
           $ref: '#/components/responses/Conflict'
     put:
       operationId: updateEdgeTraversalServerZone
-      summary: Update a traversal server zone on Expressway-E
+      summary: Cisco Expressway Update a traversal server zone on Expressway-E
       description: >-
         Modifies an existing traversal server zone configuration on the
         Expressway-E including connection credentials, protocol settings,
@@ -443,7 +443,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteEdgeTraversalServerZone
-      summary: Delete a traversal server zone from Expressway-E
+      summary: Cisco Expressway Delete a traversal server zone from Expressway-E
       description: >-
         Removes a traversal server zone from the Expressway-E configuration.
         The zone is identified by its name.
@@ -459,7 +459,7 @@ paths:
   /provisioning/controller/zone/traversalclient:
     get:
       operationId: listControllerTraversalClientZones
-      summary: List Expressway-C traversal client zones
+      summary: Cisco Expressway List Expressway-C traversal client zones
       description: >-
         Retrieves all traversal client zones configured on the Expressway-C.
         Traversal client zones define connections from the Expressway-C to
@@ -483,7 +483,7 @@ paths:
           $ref: '#/components/responses/Forbidden'
     post:
       operationId: createControllerTraversalClientZone
-      summary: Create a traversal client zone on Expressway-C
+      summary: Cisco Expressway Create a traversal client zone on Expressway-C
       description: >-
         Creates a new traversal client zone on the Expressway-C to connect
         to a traversal server (Expressway-E) across a firewall. The zone
@@ -512,7 +512,7 @@ paths:
           $ref: '#/components/responses/Conflict'
     put:
       operationId: updateControllerTraversalClientZone
-      summary: Update a traversal client zone on Expressway-C
+      summary: Cisco Expressway Update a traversal client zone on Expressway-C
       description: >-
         Modifies an existing traversal client zone configuration on the
         Expressway-C including connection credentials, retry intervals,
@@ -540,7 +540,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteControllerTraversalClientZone
-      summary: Delete a traversal client zone from Expressway-C
+      summary: Cisco Expressway Delete a traversal client zone from Expressway-C
       description: >-
         Removes a traversal client zone from the Expressway-C configuration.
       tags:
@@ -555,7 +555,7 @@ paths:
   /provisioning/common/zone/neighbor:
     get:
       operationId: listNeighborZones
-      summary: List all neighbor zones
+      summary: Cisco Expressway List all neighbor zones
       description: >-
         Retrieves all neighbor zones configured on the Expressway. Neighbor
         zones connect the local Expressway to another system such as another
@@ -577,7 +577,7 @@ paths:
           $ref: '#/components/responses/Forbidden'
     post:
       operationId: createNeighborZone
-      summary: Create a neighbor zone
+      summary: Cisco Expressway Create a neighbor zone
       description: >-
         Creates a new neighbor zone on the Expressway. Neighbor zones define
         connections to peer systems such as other Expressway nodes, Unified
@@ -606,7 +606,7 @@ paths:
           $ref: '#/components/responses/Conflict'
     put:
       operationId: updateNeighborZone
-      summary: Update a neighbor zone
+      summary: Cisco Expressway Update a neighbor zone
       description: >-
         Modifies an existing neighbor zone configuration on the Expressway
         including peer addresses, protocol settings, zone profile, and
@@ -634,7 +634,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteNeighborZone
-      summary: Delete a neighbor zone
+      summary: Cisco Expressway Delete a neighbor zone
       description: >-
         Removes a neighbor zone from the Expressway configuration.
       tags:
@@ -649,7 +649,7 @@ paths:
   /provisioning/common/zone/dns:
     get:
       operationId: listDnsZones
-      summary: List all DNS zones
+      summary: Cisco Expressway List all DNS zones
       description: >-
         Retrieves all DNS zones configured on the Expressway. DNS zones
         enable endpoint location through DNS lookups for SIP and H.323
@@ -671,7 +671,7 @@ paths:
           $ref: '#/components/responses/Forbidden'
     post:
       operationId: createDnsZone
-      summary: Create a DNS zone
+      summary: Cisco Expressway Create a DNS zone
       description: >-
         Creates a new DNS zone on the Expressway for endpoint discovery via
         DNS lookups. Configurable for H.323 and SIP protocols with fallback
@@ -700,7 +700,7 @@ paths:
   /provisioning/common/searchrule:
     get:
       operationId: listSearchRules
-      summary: List all search rules
+      summary: Cisco Expressway List all search rules
       description: >-
         Retrieves all search rules configured on the Expressway. Search
         rules define how the Expressway routes incoming search requests to
@@ -723,7 +723,7 @@ paths:
           $ref: '#/components/responses/Forbidden'
     post:
       operationId: createSearchRule
-      summary: Create a search rule
+      summary: Cisco Expressway Create a search rule
       description: >-
         Creates a new search rule on the Expressway. Search rules determine
         how incoming calls are routed to target zones based on alias
@@ -752,7 +752,7 @@ paths:
           $ref: '#/components/responses/Conflict'
     put:
       operationId: updateSearchRule
-      summary: Update a search rule
+      summary: Cisco Expressway Update a search rule
       description: >-
         Modifies an existing search rule configuration on the Expressway
         including the alias pattern, target zone, priority, and protocol
@@ -780,7 +780,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteSearchRule
-      summary: Delete a search rule
+      summary: Cisco Expressway Delete a search rule
       description: >-
         Removes a search rule from the Expressway configuration.
       tags:
@@ -795,7 +795,7 @@ paths:
   /provisioning/common/transform:
     get:
       operationId: listTransforms
-      summary: List all pre-search transforms
+      summary: Cisco Expressway List all pre-search transforms
       description: >-
         Retrieves all pre-search transforms configured on the Expressway.
         Pre-search transforms modify the destination alias in an incoming
@@ -818,7 +818,7 @@ paths:
           $ref: '#/components/responses/Forbidden'
     post:
       operationId: createTransform
-      summary: Create a pre-search transform
+      summary: Cisco Expressway Create a pre-search transform
       description: >-
         Creates a new pre-search transform on the Expressway. Transforms
         are applied to incoming search requests to modify the destination
@@ -847,7 +847,7 @@ paths:
           $ref: '#/components/responses/Conflict'
     put:
       operationId: updateTransform
-      summary: Update a pre-search transform
+      summary: Cisco Expressway Update a pre-search transform
       description: >-
         Modifies an existing pre-search transform configuration on the
         Expressway including the alias pattern, replacement string, and
@@ -875,7 +875,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteTransform
-      summary: Delete a pre-search transform
+      summary: Cisco Expressway Delete a pre-search transform
       description: >-
         Removes a pre-search transform from the Expressway configuration.
       tags:
@@ -890,7 +890,7 @@ paths:
   /provisioning/common/sip/configuration:
     get:
       operationId: getSipConfiguration
-      summary: Retrieve SIP configuration
+      summary: Cisco Expressway Retrieve SIP configuration
       description: >-
         Returns the current SIP protocol configuration for the Expressway
         including SIP mode, listening ports, transport protocols, registration
@@ -910,7 +910,7 @@ paths:
           $ref: '#/components/responses/Forbidden'
     put:
       operationId: updateSipConfiguration
-      summary: Update SIP configuration
+      summary: Cisco Expressway Update SIP configuration
       description: >-
         Modifies the SIP protocol configuration on the Expressway including
         SIP mode, transport settings, registration proxy behavior, and
@@ -1434,8 +1434,8 @@ components:
           minItems: 1
           maxItems: 6
           examples:
-            - - cucm-pub.example.com
-              - cucm-sub1.example.com
+            -   - cucm-pub.example.com
+                - cucm-sub1.example.com
         LookUpPeersBy:
           type: string
           description: Method for discovering peer addresses

@@ -54,7 +54,7 @@ paths:
   /status/common/systeminfo:
     get:
       operationId: getSystemStatus
-      summary: Retrieve system status overview
+      summary: Cisco Expressway Retrieve system status overview
       description: >-
         Returns a comprehensive system status overview for the Expressway
         node including the system name, software version, hardware version,
@@ -76,7 +76,7 @@ paths:
   /status/common/alarms:
     get:
       operationId: listAlarms
-      summary: List all active alarms
+      summary: Cisco Expressway List all active alarms
       description: >-
         Retrieves the list of all alarms currently active on the Expressway.
         Alarms indicate events or configuration changes that require
@@ -101,7 +101,7 @@ paths:
   /status/common/calls:
     get:
       operationId: listActiveCalls
-      summary: List all active calls
+      summary: Cisco Expressway List all active calls
       description: >-
         Retrieves the list of all currently active calls on the Expressway
         including source and destination endpoints, call type, protocol,
@@ -125,7 +125,7 @@ paths:
   /status/common/callhistory:
     get:
       operationId: getCallHistory
-      summary: Retrieve call history
+      summary: Cisco Expressway Retrieve call history
       description: >-
         Returns the call history for the Expressway limited to the most
         recent 500 calls or fewer if calls used multiple components. Each
@@ -189,7 +189,7 @@ paths:
   /status/common/registrations:
     get:
       operationId: listRegistrations
-      summary: List all current registrations
+      summary: Cisco Expressway List all current registrations
       description: >-
         Retrieves the list of all devices and endpoints currently registered
         with the Expressway, organized by device alias. Includes registration
@@ -212,7 +212,7 @@ paths:
   /v1/status/common/smartlicensing/licensing:
     get:
       operationId: getSmartLicensingStatus
-      summary: Retrieve smart licensing status
+      summary: Cisco Expressway Retrieve smart licensing status
       description: >-
         Returns the current smart licensing status for the Expressway
         including the license registration status, authorization status,
@@ -235,7 +235,7 @@ paths:
   /v1/status/common/upgradestatus:
     get:
       operationId: getUpgradeStatus
-      summary: Retrieve upgrade progress status
+      summary: Cisco Expressway Retrieve upgrade progress status
       description: >-
         Returns the current status of any in-progress or recent system
         upgrade on the Expressway, including the download progress
@@ -258,7 +258,7 @@ paths:
   /status/common/zones:
     get:
       operationId: listZoneStatus
-      summary: List zone connectivity status
+      summary: Cisco Expressway List zone connectivity status
       description: >-
         Retrieves the connectivity status for all configured zones on the
         Expressway including the zone name, type, connection state, and
@@ -281,7 +281,7 @@ paths:
   /status/common/resourceusage:
     get:
       operationId: getResourceUsage
-      summary: Retrieve system resource usage
+      summary: Cisco Expressway Retrieve system resource usage
       description: >-
         Returns current system resource utilization metrics including rich
         media session counts (current and peak), registration counts by
@@ -303,7 +303,7 @@ paths:
   /status/common/turnrelays:
     get:
       operationId: listTurnRelays
-      summary: List active TURN relay allocations
+      summary: Cisco Expressway List active TURN relay allocations
       description: >-
         Retrieves the list of all active TURN relay allocations on the
         Expressway including client IP addresses, media destination
