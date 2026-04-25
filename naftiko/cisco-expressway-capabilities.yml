@@ -1,0 +1,99 @@
+# Naftiko capabilities profile for Cisco Expressway.
+# Capabilities cover the highest-leverage operations across the
+# Configuration (/api/provisioning), Status (/api/status), and SNMP
+# surfaces of an Expressway-C/E pair used for SIP/H.323 firewall
+# traversal and Mobile and Remote Access (MRA).
+provider: cisco-expressway
+name: Cisco Expressway
+description: >-
+  Cisco Expressway is a session border controller and firewall traversal
+  solution for Unified Communications. These capabilities expose the
+  configuration and observability operations most often automated by
+  collaboration administrators.
+capabilities:
+  - id: expressway.zones.list
+    name: List zones
+    description: Return all SIP/H.323 zones configured on the Expressway.
+    api: cisco-expressway-configuration-api
+    operationRef: openapi/cisco-expressway-configuration-api-openapi.yml#/paths/~1api~1provisioning~1common~1zones~1zone/get
+
+  - id: expressway.zones.create
+    name: Create zone
+    description: Create a new neighbor, traversal, or DNS zone.
+    api: cisco-expressway-configuration-api
+    inputs:
+      - name
+      - type
+      - peers
+      - hopCount
+      - sipMediaEncryption
+
+  - id: expressway.zones.update
+    name: Update zone
+    description: Modify the configuration of an existing zone.
+    api: cisco-expressway-configuration-api
+
+  - id: expressway.zones.delete
+    name: Delete zone
+    description: Remove a zone from the configuration.
+    api: cisco-expressway-configuration-api
+
+  - id: expressway.search-rules.list
+    name: List search rules
+    description: Return all dial plan search rules.
+    api: cisco-expressway-configuration-api
+    operationRef: openapi/cisco-expressway-configuration-api-openapi.yml#/paths/~1api~1provisioning~1common~1searchrules~1searchrule/get
+
+  - id: expressway.search-rules.create
+    name: Create search rule
+    description: Add a new dial plan search rule.
+    api: cisco-expressway-configuration-api
+
+  - id: expressway.transforms.list
+    name: List transforms
+    description: Return active dial-string transforms.
+    api: cisco-expressway-configuration-api
+
+  - id: expressway.transforms.create
+    name: Create transform
+    description: Add a new pre-search transform.
+    api: cisco-expressway-configuration-api
+
+  - id: expressway.system.status
+    name: Get system status
+    description: Return overall system health, uptime, and resource utilization.
+    api: cisco-expressway-status-api
+    operationRef: openapi/cisco-expressway-status-api-openapi.yml#/paths/~1api~1status~1system/get
+
+  - id: expressway.alarms.list
+    name: List active alarms
+    description: Return active alarms with severity, state, and acknowledged flag.
+    api: cisco-expressway-status-api
+    operationRef: openapi/cisco-expressway-status-api-openapi.yml#/paths/~1api~1status~1alarms/get
+
+  - id: expressway.calls.list
+    name: List active calls
+    description: Return calls currently traversing the Expressway pair.
+    api: cisco-expressway-status-api
+    operationRef: openapi/cisco-expressway-status-api-openapi.yml#/paths/~1api~1status~1calls/get
+
+  - id: expressway.registrations.list
+    name: List registrations
+    description: Return SIP/H.323 endpoint registrations.
+    api: cisco-expressway-status-api
+    operationRef: openapi/cisco-expressway-status-api-openapi.yml#/paths/~1api~1status~1registrations/get
+
+  - id: expressway.licensing.status
+    name: Get licensing status
+    description: Return Smart Licensing entitlement and consumption.
+    api: cisco-expressway-status-api
+
+  - id: expressway.upgrade.status
+    name: Get upgrade status
+    description: Return progress and result of in-flight software upgrades.
+    api: cisco-expressway-status-api
+
+  - id: expressway.snmp.metrics
+    name: Poll SNMP metrics
+    description: Read system, CPU, memory, and traffic counters via SNMP v2c/v3.
+    api: cisco-expressway-snmp-api

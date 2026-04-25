@@ -1,10 +1,15 @@
+aid: cisco-expressway
 name: Cisco Expressway
-description: API definitions for Cisco Expressway, a session border controller and firewall traversal solution for Unified Communications that provides secure remote and mobile access for collaboration workloads including video, voice, content, and presence.
-image: https://www.cisco.com/c/en/us/products/unified-communications/expressway-series/index.html
-created: '2024'
-modified: '2026-03-04'
-specificationVersion: '0.18'
-url: https://example.com/apis.json
+description: API definitions for Cisco Expressway, a session border controller and firewall traversal solution for Unified Communications that provides secure remote and mobile access for collaboration workloads including video, voice, content, and presence. Programmatic access spans a REST API for configuration (/api/provisioning), a REST API for status and observability (/api/status), an SNMP MIB for metrics, and a legacy XML API for systems still in transition.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+type: Index
+access: 3rd-Party
+position: Consumer
+created: '2024-01-01'
+modified: '2026-04-23'
+specificationVersion: '0.19'
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/cisco-expressway/refs/heads/main/apis.yml
 tags:
   - Collaboration
   - Firewall Traversal
@@ -157,3 +162,7 @@ common:
     url: https://software.cisco.com/download/home/286282896
   - type: Compatibility
     url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-device-support-tables-list.html
+  - type: Spectral
+    url: spectral/cisco-expressway-spectral.yml
+  - type: Naftiko Capabilities
+    url: naftiko/cisco-expressway-capabilities.yml
