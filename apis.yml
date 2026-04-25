@@ -163,6 +163,6 @@ common:
   - type: Compatibility
     url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-device-support-tables-list.html
   - type: Spectral
-    url: spectral/cisco-expressway-spectral.yml
+    url: rules/cisco-expressway-rules.yml
   - type: Naftiko Capabilities
-    url: naftiko/cisco-expressway-capabilities.yml
+    url: capabilities/cisco-expressway-capabilities.yml

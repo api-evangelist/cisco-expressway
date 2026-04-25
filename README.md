@@ -102,8 +102,8 @@ Legacy XML-based API for configuration and status retrieval. Uses HTTP Basic aut
 - [Change Log](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html)
 - [Downloads](https://software.cisco.com/download/home/286282896)
 - [Compatibility](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-device-support-tables-list.html)
-- [Spectral Ruleset](spectral/cisco-expressway-spectral.yml)
-- [Naftiko Capabilities](naftiko/cisco-expressway-capabilities.yml)
+- [Spectral Ruleset](rules/cisco-expressway-rules.yml)
+- [Naftiko Capabilities](capabilities/cisco-expressway-capabilities.yml)
 
 ## Maintainers
 
