@@ -4,103 +4,45 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Cisco Expressway
 providerId: cisco-expressway
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Collaboration
-  - Firewall Traversal
-  - H.323
-  - Session Border Controller
-  - SIP
   - Unified Communications
   - Video Conferencing
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Cisco Expressway API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: Cisco Expressway is a customer-deployed appliance/VM. Per-API request rate limits are not
+  publicly documented as cloud-style quotas; throughput is bounded by the appliance's hardware/VM sizing
+  (Small / Medium / Large) and by call/registration capacity defined in the Cisco Expressway Administrator
+  Guide. Login throttling and SIP/H.323 traversal limits are managed via per-zone and per-domain settings
+  in the Expressway configuration UI rather than a uniform request-per-second policy.
+notes: Replace once Cisco publishes machine-readable rate-limit documentation for the Expressway REST
+  and XML APIs. Numbers below are placeholders pending verification.
+sources:
+  - https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-3/exwy_b_cisco-expressway-administrator-guide-x14-3.html
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Cisco Expressway Configuration API
-      - Cisco Expressway Status API
-      - Cisco Expressway SNMP API
-      - Cisco Expressway XML API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Cisco Expressway Configuration API
-      - Cisco Expressway Status API
-      - Cisco Expressway SNMP API
-      - Cisco Expressway XML API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Cisco Expressway Configuration API
-      - Cisco Expressway Status API
-      - Cisco Expressway SNMP API
-      - Cisco Expressway XML API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Cisco Expressway Configuration API
-      - Cisco Expressway Status API
-      - Cisco Expressway SNMP API
-      - Cisco Expressway XML API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Cisco Expressway Configuration API
-      - Cisco Expressway Status API
-      - Cisco Expressway SNMP API
-      - Cisco Expressway XML API
+  - name: REST API requests
+    scope: appliance
+    metric: varies
+    limit: see Expressway Administrator Guide for capacity per appliance size
+  - name: SIP / H.323 traversal calls
+    scope: appliance
+    metric: concurrent_calls
+    limit: see Cisco Expressway capacity datasheet (Small / Medium / Large)
 policies:
+  - name: Capacity-bounded
+    description: Limits are bounded by the Expressway VM/appliance size and Smart Licensing entitlement,
+      not by a cloud-style per-second API throttle.
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: Clients should implement exponential backoff with jitter on HTTP 429/503 responses
+      from the REST or XML configuration APIs.
+  - name: Administrative Throttles
+    description: Login throttling, registration restrictions, and per-zone bandwidth caps are configured
+      by the appliance administrator and override default behavior.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
