@@ -37,9 +37,9 @@ apis:
         url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
       - type: Authentication
         url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
-      - type: Getting Started
+      - type: GettingStarted
         url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
-      - type: Change Log
+      - type: ChangeLog
         url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
       - type: OpenAPI
         url: openapi/cisco-expressway-configuration-api-openapi.yml
@@ -73,9 +73,9 @@ apis:
         url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
       - type: Reference
         url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
-      - type: Getting Started
+      - type: GettingStarted
         url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
-      - type: Change Log
+      - type: ChangeLog
         url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
       - type: OpenAPI
         url: openapi/cisco-expressway-status-api-openapi.yml
@@ -106,7 +106,7 @@ apis:
         url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html
       - type: Reference
         url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html
-      - type: Change Log
+      - type: ChangeLog
         url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
   - name: Cisco Expressway XML API
     description: Legacy XML-based API for configuration and status retrieval on Cisco Expressway systems. Uses HTTP Basic Authentication over HTTPS for secure access to system configuration and management functions.
@@ -122,7 +122,7 @@ apis:
         url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
       - type: Authentication
         url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-0/exwy_b_cisco-expressway-administrator-guide/exwy_m_managing-security.html
-      - type: Change Log
+      - type: ChangeLog
         url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
 maintainers:
   - FN: Kin Lane
@@ -132,21 +132,21 @@ common:
     url: https://developer.cisco.com/
   - type: Documentation
     url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
-  - type: Getting Started
+  - type: GettingStarted
     url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
   - type: Authentication
     url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
   - type: Blog
     url: https://blogs.cisco.com/collaboration
-  - type: Status
+  - type: StatusPage
     url: https://www.cisco.com/c/en/us/support/web/cloud-status.html
   - type: Support
     url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.cisco.com/c/en/us/about/legal/privacy-full.html
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/CiscoDevNet
   - type: Community
     url: https://community.cisco.com/t5/devnet/ct-p/4409j-developer-home
@@ -154,9 +154,9 @@ common:
     url: https://www.cisco.com/c/en/us/products/unified-communications/expressway-series/index.html
   - type: Login
     url: https://developer.cisco.com/
-  - type: Sign Up
+  - type: SignUp
     url: https://developer.cisco.com/
-  - type: Change Log
+  - type: ChangeLog
     url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
   - type: Downloads
     url: https://software.cisco.com/download/home/286282896
