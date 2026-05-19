@@ -1,0 +1,71 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Cisco Expressway Configuration API — System
+  description: 'Cisco Expressway Configuration API — System. 1 operations. Lead operation: Cisco Expressway Retrieve system
+    information. Self-contained Naftiko capability covering one Cisco Expressway business surface.'
+  tags:
+  - Cisco Expressway
+  - System
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CISCO_EXPRESSWAY_API_KEY: CISCO_EXPRESSWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: configuration-system
+    baseUri: https://{host}/api
+    description: Cisco Expressway Configuration API — System business capability. Self-contained, no shared references.
+    resources:
+    - name: provisioning-common-sysinfo
+      path: /provisioning/common/sysinfo
+      operations:
+      - name: getsysteminfo
+        method: GET
+        description: Cisco Expressway Retrieve system information
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.CISCO_EXPRESSWAY_USER}}'
+      password: '{{env.CISCO_EXPRESSWAY_PASS}}'
+  exposes:
+  - type: rest
+    namespace: configuration-system-rest
+    port: 8080
+    description: REST adapter for Cisco Expressway Configuration API — System. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/provisioning/common/sysinfo
+      name: provisioning-common-sysinfo
+      description: REST surface for provisioning-common-sysinfo.
+      operations:
+      - method: GET
+        name: getsysteminfo
+        description: Cisco Expressway Retrieve system information
+        call: configuration-system.getsysteminfo
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: configuration-system-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Cisco Expressway Configuration API — System. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: cisco-expressway-retrieve-system-information
+      description: Cisco Expressway Retrieve system information
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: configuration-system.getsysteminfo
+      outputParameters:
+      - type: object
+        mapping: $.

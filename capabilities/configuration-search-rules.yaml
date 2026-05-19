@@ -1,0 +1,166 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Cisco Expressway Configuration API — Search Rules
+  description: 'Cisco Expressway Configuration API — Search Rules. 4 operations. Lead operation: Cisco Expressway List all
+    search rules. Self-contained Naftiko capability covering one Cisco Expressway business surface.'
+  tags:
+  - Cisco Expressway
+  - Search Rules
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CISCO_EXPRESSWAY_API_KEY: CISCO_EXPRESSWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: configuration-search-rules
+    baseUri: https://{host}/api
+    description: Cisco Expressway Configuration API — Search Rules business capability. Self-contained, no shared references.
+    resources:
+    - name: provisioning-common-searchrule
+      path: /provisioning/common/searchrule
+      operations:
+      - name: listsearchrules
+        method: GET
+        description: Cisco Expressway List all search rules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createsearchrule
+        method: POST
+        description: Cisco Expressway Create a search rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatesearchrule
+        method: PUT
+        description: Cisco Expressway Update a search rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletesearchrule
+        method: DELETE
+        description: Cisco Expressway Delete a search rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.CISCO_EXPRESSWAY_USER}}'
+      password: '{{env.CISCO_EXPRESSWAY_PASS}}'
+  exposes:
+  - type: rest
+    namespace: configuration-search-rules-rest
+    port: 8080
+    description: REST adapter for Cisco Expressway Configuration API — Search Rules. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/provisioning/common/searchrule
+      name: provisioning-common-searchrule
+      description: REST surface for provisioning-common-searchrule.
+      operations:
+      - method: GET
+        name: listsearchrules
+        description: Cisco Expressway List all search rules
+        call: configuration-search-rules.listsearchrules
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createsearchrule
+        description: Cisco Expressway Create a search rule
+        call: configuration-search-rules.createsearchrule
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatesearchrule
+        description: Cisco Expressway Update a search rule
+        call: configuration-search-rules.updatesearchrule
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletesearchrule
+        description: Cisco Expressway Delete a search rule
+        call: configuration-search-rules.deletesearchrule
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: configuration-search-rules-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Cisco Expressway Configuration API — Search Rules. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: cisco-expressway-list-all-search
+      description: Cisco Expressway List all search rules
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: configuration-search-rules.listsearchrules
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-create-search-rule
+      description: Cisco Expressway Create a search rule
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: configuration-search-rules.createsearchrule
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-update-search-rule
+      description: Cisco Expressway Update a search rule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: configuration-search-rules.updatesearchrule
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-delete-search-rule
+      description: Cisco Expressway Delete a search rule
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: configuration-search-rules.deletesearchrule
+      outputParameters:
+      - type: object
+        mapping: $.

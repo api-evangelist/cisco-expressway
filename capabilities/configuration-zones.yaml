@@ -1,0 +1,487 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Cisco Expressway Configuration API — Zones
+  description: 'Cisco Expressway Configuration API — Zones. 14 operations. Lead operation: Cisco Expressway List all DNS zones.
+    Self-contained Naftiko capability covering one Cisco Expressway business surface.'
+  tags:
+  - Cisco Expressway
+  - Zones
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CISCO_EXPRESSWAY_API_KEY: CISCO_EXPRESSWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: configuration-zones
+    baseUri: https://{host}/api
+    description: Cisco Expressway Configuration API — Zones business capability. Self-contained, no shared references.
+    resources:
+    - name: provisioning-common-zone-dns
+      path: /provisioning/common/zone/dns
+      operations:
+      - name: listdnszones
+        method: GET
+        description: Cisco Expressway List all DNS zones
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: creatednszone
+        method: POST
+        description: Cisco Expressway Create a DNS zone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: provisioning-common-zone-neighbor
+      path: /provisioning/common/zone/neighbor
+      operations:
+      - name: listneighborzones
+        method: GET
+        description: Cisco Expressway List all neighbor zones
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createneighborzone
+        method: POST
+        description: Cisco Expressway Create a neighbor zone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateneighborzone
+        method: PUT
+        description: Cisco Expressway Update a neighbor zone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteneighborzone
+        method: DELETE
+        description: Cisco Expressway Delete a neighbor zone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: provisioning-controller-zone-traversalclient
+      path: /provisioning/controller/zone/traversalclient
+      operations:
+      - name: listcontrollertraversalclientzones
+        method: GET
+        description: Cisco Expressway List Expressway-C traversal client zones
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createcontrollertraversalclientzone
+        method: POST
+        description: Cisco Expressway Create a traversal client zone on Expressway-C
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatecontrollertraversalclientzone
+        method: PUT
+        description: Cisco Expressway Update a traversal client zone on Expressway-C
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletecontrollertraversalclientzone
+        method: DELETE
+        description: Cisco Expressway Delete a traversal client zone from Expressway-C
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: provisioning-edge-zone-traversalserver
+      path: /provisioning/edge/zone/traversalserver
+      operations:
+      - name: listedgetraversalserverzones
+        method: GET
+        description: Cisco Expressway List Expressway-E traversal server zones
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createedgetraversalserverzone
+        method: POST
+        description: Cisco Expressway Create a traversal server zone on Expressway-E
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateedgetraversalserverzone
+        method: PUT
+        description: Cisco Expressway Update a traversal server zone on Expressway-E
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteedgetraversalserverzone
+        method: DELETE
+        description: Cisco Expressway Delete a traversal server zone from Expressway-E
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.CISCO_EXPRESSWAY_USER}}'
+      password: '{{env.CISCO_EXPRESSWAY_PASS}}'
+  exposes:
+  - type: rest
+    namespace: configuration-zones-rest
+    port: 8080
+    description: REST adapter for Cisco Expressway Configuration API — Zones. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/provisioning/common/zone/dns
+      name: provisioning-common-zone-dns
+      description: REST surface for provisioning-common-zone-dns.
+      operations:
+      - method: GET
+        name: listdnszones
+        description: Cisco Expressway List all DNS zones
+        call: configuration-zones.listdnszones
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: creatednszone
+        description: Cisco Expressway Create a DNS zone
+        call: configuration-zones.creatednszone
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/provisioning/common/zone/neighbor
+      name: provisioning-common-zone-neighbor
+      description: REST surface for provisioning-common-zone-neighbor.
+      operations:
+      - method: GET
+        name: listneighborzones
+        description: Cisco Expressway List all neighbor zones
+        call: configuration-zones.listneighborzones
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createneighborzone
+        description: Cisco Expressway Create a neighbor zone
+        call: configuration-zones.createneighborzone
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateneighborzone
+        description: Cisco Expressway Update a neighbor zone
+        call: configuration-zones.updateneighborzone
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteneighborzone
+        description: Cisco Expressway Delete a neighbor zone
+        call: configuration-zones.deleteneighborzone
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/provisioning/controller/zone/traversalclient
+      name: provisioning-controller-zone-traversalclient
+      description: REST surface for provisioning-controller-zone-traversalclient.
+      operations:
+      - method: GET
+        name: listcontrollertraversalclientzones
+        description: Cisco Expressway List Expressway-C traversal client zones
+        call: configuration-zones.listcontrollertraversalclientzones
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcontrollertraversalclientzone
+        description: Cisco Expressway Create a traversal client zone on Expressway-C
+        call: configuration-zones.createcontrollertraversalclientzone
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecontrollertraversalclientzone
+        description: Cisco Expressway Update a traversal client zone on Expressway-C
+        call: configuration-zones.updatecontrollertraversalclientzone
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecontrollertraversalclientzone
+        description: Cisco Expressway Delete a traversal client zone from Expressway-C
+        call: configuration-zones.deletecontrollertraversalclientzone
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/provisioning/edge/zone/traversalserver
+      name: provisioning-edge-zone-traversalserver
+      description: REST surface for provisioning-edge-zone-traversalserver.
+      operations:
+      - method: GET
+        name: listedgetraversalserverzones
+        description: Cisco Expressway List Expressway-E traversal server zones
+        call: configuration-zones.listedgetraversalserverzones
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createedgetraversalserverzone
+        description: Cisco Expressway Create a traversal server zone on Expressway-E
+        call: configuration-zones.createedgetraversalserverzone
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateedgetraversalserverzone
+        description: Cisco Expressway Update a traversal server zone on Expressway-E
+        call: configuration-zones.updateedgetraversalserverzone
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteedgetraversalserverzone
+        description: Cisco Expressway Delete a traversal server zone from Expressway-E
+        call: configuration-zones.deleteedgetraversalserverzone
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: configuration-zones-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Cisco Expressway Configuration API — Zones. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: cisco-expressway-list-all-dns
+      description: Cisco Expressway List all DNS zones
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: configuration-zones.listdnszones
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-create-dns-zone
+      description: Cisco Expressway Create a DNS zone
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: configuration-zones.creatednszone
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-list-all-neighbor
+      description: Cisco Expressway List all neighbor zones
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: configuration-zones.listneighborzones
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-create-neighbor-zone
+      description: Cisco Expressway Create a neighbor zone
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: configuration-zones.createneighborzone
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-update-neighbor-zone
+      description: Cisco Expressway Update a neighbor zone
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: configuration-zones.updateneighborzone
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-delete-neighbor-zone
+      description: Cisco Expressway Delete a neighbor zone
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: configuration-zones.deleteneighborzone
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-list-expressway-c
+      description: Cisco Expressway List Expressway-C traversal client zones
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: configuration-zones.listcontrollertraversalclientzones
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-create-traversal-client
+      description: Cisco Expressway Create a traversal client zone on Expressway-C
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: configuration-zones.createcontrollertraversalclientzone
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-update-traversal-client
+      description: Cisco Expressway Update a traversal client zone on Expressway-C
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: configuration-zones.updatecontrollertraversalclientzone
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-delete-traversal-client
+      description: Cisco Expressway Delete a traversal client zone from Expressway-C
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: configuration-zones.deletecontrollertraversalclientzone
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-list-expressway-e
+      description: Cisco Expressway List Expressway-E traversal server zones
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: configuration-zones.listedgetraversalserverzones
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-create-traversal-server
+      description: Cisco Expressway Create a traversal server zone on Expressway-E
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: configuration-zones.createedgetraversalserverzone
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-update-traversal-server
+      description: Cisco Expressway Update a traversal server zone on Expressway-E
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: configuration-zones.updateedgetraversalserverzone
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cisco-expressway-delete-traversal-server
+      description: Cisco Expressway Delete a traversal server zone from Expressway-E
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: configuration-zones.deleteedgetraversalserverzone
+      outputParameters:
+      - type: object
+        mapping: $.

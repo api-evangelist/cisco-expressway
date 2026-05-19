@@ -1,0 +1,71 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Cisco Expressway Status API — Upgrade
+  description: 'Cisco Expressway Status API — Upgrade. 1 operations. Lead operation: Cisco Expressway Retrieve upgrade progress
+    status. Self-contained Naftiko capability covering one Cisco Expressway business surface.'
+  tags:
+  - Cisco Expressway
+  - Upgrade
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CISCO_EXPRESSWAY_API_KEY: CISCO_EXPRESSWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: status-upgrade
+    baseUri: https://{host}/api
+    description: Cisco Expressway Status API — Upgrade business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-status-common-upgradestatus
+      path: /v1/status/common/upgradestatus
+      operations:
+      - name: getupgradestatus
+        method: GET
+        description: Cisco Expressway Retrieve upgrade progress status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.CISCO_EXPRESSWAY_USER}}'
+      password: '{{env.CISCO_EXPRESSWAY_PASS}}'
+  exposes:
+  - type: rest
+    namespace: status-upgrade-rest
+    port: 8080
+    description: REST adapter for Cisco Expressway Status API — Upgrade. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/status/common/upgradestatus
+      name: v1-status-common-upgradestatus
+      description: REST surface for v1-status-common-upgradestatus.
+      operations:
+      - method: GET
+        name: getupgradestatus
+        description: Cisco Expressway Retrieve upgrade progress status
+        call: status-upgrade.getupgradestatus
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: status-upgrade-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Cisco Expressway Status API — Upgrade. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: cisco-expressway-retrieve-upgrade-progress
+      description: Cisco Expressway Retrieve upgrade progress status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: status-upgrade.getupgradestatus
+      outputParameters:
+      - type: object
+        mapping: $.

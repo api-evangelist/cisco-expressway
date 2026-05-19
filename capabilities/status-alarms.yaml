@@ -1,0 +1,71 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Cisco Expressway Status API — Alarms
+  description: 'Cisco Expressway Status API — Alarms. 1 operations. Lead operation: Cisco Expressway List all active alarms.
+    Self-contained Naftiko capability covering one Cisco Expressway business surface.'
+  tags:
+  - Cisco Expressway
+  - Alarms
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CISCO_EXPRESSWAY_API_KEY: CISCO_EXPRESSWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: status-alarms
+    baseUri: https://{host}/api
+    description: Cisco Expressway Status API — Alarms business capability. Self-contained, no shared references.
+    resources:
+    - name: status-common-alarms
+      path: /status/common/alarms
+      operations:
+      - name: listalarms
+        method: GET
+        description: Cisco Expressway List all active alarms
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.CISCO_EXPRESSWAY_USER}}'
+      password: '{{env.CISCO_EXPRESSWAY_PASS}}'
+  exposes:
+  - type: rest
+    namespace: status-alarms-rest
+    port: 8080
+    description: REST adapter for Cisco Expressway Status API — Alarms. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/status/common/alarms
+      name: status-common-alarms
+      description: REST surface for status-common-alarms.
+      operations:
+      - method: GET
+        name: listalarms
+        description: Cisco Expressway List all active alarms
+        call: status-alarms.listalarms
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: status-alarms-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Cisco Expressway Status API — Alarms. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: cisco-expressway-list-all-active
+      description: Cisco Expressway List all active alarms
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: status-alarms.listalarms
+      outputParameters:
+      - type: object
+        mapping: $.
