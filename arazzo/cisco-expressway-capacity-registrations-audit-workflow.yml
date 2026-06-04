@@ -1,0 +1,83 @@
+arazzo: 1.0.1
+info:
+  title: Cisco Expressway Capacity and Registrations Audit
+  summary: Read resource usage, then list registrations and active calls to audit load.
+  description: >-
+    Audits the current load on an Expressway by reading resource usage metrics,
+    listing all current device registrations, and listing all active calls so the
+    registration and call counts can be reconciled against capacity. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: statusApi
+  url: ../openapi/cisco-expressway-status-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: capacity-registrations-audit
+  summary: Pull resource usage, registrations, and active calls for a load audit.
+  description: >-
+    Reads resource usage capacity metrics, then lists registrations and active
+    calls so a caller can reconcile real counts against reported capacity.
+  inputs:
+    type: object
+    required:
+    - host
+    - username
+    - password
+    properties:
+      host:
+        type: string
+        description: FQDN or IP address of the Expressway node (server variable host).
+      username:
+        type: string
+        description: Expressway administrator username for HTTP Basic auth.
+      password:
+        type: string
+        description: Expressway administrator password for HTTP Basic auth.
+  steps:
+  - stepId: readResourceUsage
+    description: >-
+      Read system resource utilization including registration counts and
+      capacity percentages.
+    operationId: getResourceUsage
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalRegistrations: $response.body#/TotalRegistrations
+      registrationCapacity: $response.body#/RegistrationCapacity
+      richMediaSessionsCurrent: $response.body#/RichMediaSessionsCurrent
+  - stepId: listRegistrations
+    description: >-
+      List all devices currently registered with the Expressway to reconcile
+      against the reported registration count.
+    operationId: listRegistrations
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      registrations: $response.body
+  - stepId: listActiveCalls
+    description: >-
+      List all currently active calls so the active call count can be reconciled
+      against the rich media session count.
+    operationId: listActiveCalls
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      activeCalls: $response.body
+  outputs:
+    totalRegistrations: $steps.readResourceUsage.outputs.totalRegistrations
+    registrations: $steps.listRegistrations.outputs.registrations
+    activeCalls: $steps.listActiveCalls.outputs.activeCalls

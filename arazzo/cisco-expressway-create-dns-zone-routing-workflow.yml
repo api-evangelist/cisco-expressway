@@ -1,0 +1,118 @@
+arazzo: 1.0.1
+info:
+  title: Cisco Expressway Create DNS Zone Routing
+  summary: Create a DNS zone for endpoint discovery and a search rule that routes to it.
+  description: >-
+    Enables DNS-based endpoint discovery by creating a DNS zone, creating a
+    search rule that forwards matching aliases to that zone, and then reading
+    zone connectivity status to confirm the new zone is being tracked. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: configurationApi
+  url: ../openapi/cisco-expressway-configuration-api-openapi.yml
+  type: openapi
+- name: statusApi
+  url: ../openapi/cisco-expressway-status-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-dns-zone-routing
+  summary: Create a DNS zone plus a search rule and confirm via zone status.
+  description: >-
+    Creates a DNS zone for SIP and H.323 discovery, creates a search rule that
+    targets it, and reads zone status to confirm the zone is present.
+  inputs:
+    type: object
+    required:
+    - host
+    - username
+    - password
+    - zoneName
+    - ruleName
+    - aliasPatternString
+    properties:
+      host:
+        type: string
+        description: FQDN or IP address of the Expressway node (server variable host).
+      username:
+        type: string
+        description: Expressway administrator username for HTTP Basic auth.
+      password:
+        type: string
+        description: Expressway administrator password for HTTP Basic auth.
+      zoneName:
+        type: string
+        description: Name for the DNS zone to create.
+      ruleName:
+        type: string
+        description: Name for the search rule that routes to the DNS zone.
+      aliasPatternString:
+        type: string
+        description: Regex pattern matched against the destination alias.
+  steps:
+  - stepId: createDnsZone
+    description: >-
+      Create a DNS zone that locates endpoints through DNS lookups for SIP and
+      H.323 calls.
+    operationId: createDnsZone
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.zoneName
+        SIPMode: 'On'
+        H323Mode: 'Off'
+        FallbackTransportProtocol: TLS
+        IncludeAddressRecord: 'On'
+        MediaEncryptionMode: Auto
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      zoneName: $response.body#/Name
+  - stepId: createRoutingRule
+    description: >-
+      Create a search rule that forwards matching aliases to the new DNS zone.
+    operationId: createSearchRule
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.ruleName
+        Priority: 100
+        AliasPatternType: Regex
+        AliasPatternString: $inputs.aliasPatternString
+        TargetZone: $steps.createDnsZone.outputs.zoneName
+        Protocol: SIP
+        Mode: 'On'
+        State: Enabled
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      ruleName: $response.body#/Name
+  - stepId: confirmZoneStatus
+    description: >-
+      Read zone connectivity status and confirm the new DNS zone is present in
+      the returned array.
+    operationId: listZoneStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $[?(@.ZoneName == '$inputs.zoneName')]
+      type: jsonpath
+    outputs:
+      zoneStatus: $response.body
+  outputs:
+    zoneName: $steps.createDnsZone.outputs.zoneName
+    ruleName: $steps.createRoutingRule.outputs.ruleName
+    zoneStatus: $steps.confirmZoneStatus.outputs.zoneStatus

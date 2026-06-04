@@ -1,0 +1,86 @@
+arazzo: 1.0.1
+info:
+  title: Cisco Expressway Upgrade Progress Monitor
+  summary: Read upgrade status, then read system status to confirm the running version.
+  description: >-
+    Monitors an in-flight or recent software upgrade by reading the upgrade
+    progress status and branching on the reported phase: when the upgrade is
+    Complete it reads the system status overview to confirm the running software
+    version, and when it is still progressing or failed the flow ends so the
+    phase is surfaced to the caller. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: statusApi
+  url: ../openapi/cisco-expressway-status-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upgrade-progress-monitor
+  summary: Read upgrade status and, when complete, confirm the running version.
+  description: >-
+    Reads upgrade progress status and, when the phase is Complete, reads system
+    status to confirm the running software version; otherwise it ends.
+  inputs:
+    type: object
+    required:
+    - host
+    - username
+    - password
+    properties:
+      host:
+        type: string
+        description: FQDN or IP address of the Expressway node (server variable host).
+      username:
+        type: string
+        description: Expressway administrator username for HTTP Basic auth.
+      password:
+        type: string
+        description: Expressway administrator password for HTTP Basic auth.
+  steps:
+  - stepId: readUpgradeStatus
+    description: >-
+      Read the upgrade progress status and branch on whether the upgrade phase is
+      Complete.
+    operationId: getUpgradeStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/Status
+      progressPercentage: $response.body#/ProgressPercentage
+    onSuccess:
+    - name: upgradeComplete
+      type: goto
+      stepId: confirmRunningVersion
+      criteria:
+      - context: $response.body
+        condition: $.Status == 'Complete'
+        type: jsonpath
+    - name: upgradeIncomplete
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.Status != 'Complete'
+        type: jsonpath
+  - stepId: confirmRunningVersion
+    description: >-
+      Read the system status overview to confirm the software version now running
+      after a completed upgrade.
+    operationId: getSystemStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      softwareVersion: $response.body#/SoftwareVersion
+      uptime: $response.body#/Uptime
+  outputs:
+    status: $steps.readUpgradeStatus.outputs.status
+    progressPercentage: $steps.readUpgradeStatus.outputs.progressPercentage
+    softwareVersion: $steps.confirmRunningVersion.outputs.softwareVersion

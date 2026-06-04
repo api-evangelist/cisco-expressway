@@ -1,0 +1,129 @@
+arazzo: 1.0.1
+info:
+  title: Cisco Expressway Create Dial Plan Transform
+  summary: Add a pre-search transform, confirm it, then add a search rule that uses the normalized alias.
+  description: >-
+    Builds the front half of a dial plan by creating a pre-search transform that
+    normalizes incoming destination aliases, confirming the transform appears in
+    the configured list, and then creating a search rule that routes the
+    normalized aliases. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: configurationApi
+  url: ../openapi/cisco-expressway-configuration-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-dial-plan-transform
+  summary: Create a pre-search transform and a downstream search rule.
+  description: >-
+    Creates a pre-search transform that rewrites the destination alias, lists
+    transforms to confirm it, and creates a search rule that routes the
+    post-transform alias to a target zone.
+  inputs:
+    type: object
+    required:
+    - host
+    - username
+    - password
+    - transformName
+    - patternType
+    - patternString
+    - ruleName
+    - targetZone
+    properties:
+      host:
+        type: string
+        description: FQDN or IP address of the Expressway node (server variable host).
+      username:
+        type: string
+        description: Expressway administrator username for HTTP Basic auth.
+      password:
+        type: string
+        description: Expressway administrator password for HTTP Basic auth.
+      transformName:
+        type: string
+        description: Name for the pre-search transform.
+      patternType:
+        type: string
+        description: Pattern match type (Prefix, Suffix, Regex, or Exact).
+      patternString:
+        type: string
+        description: Pattern matched against the destination alias.
+      replaceString:
+        type: string
+        description: Replacement string applied when the transform pattern matches.
+      ruleName:
+        type: string
+        description: Name for the downstream search rule.
+      targetZone:
+        type: string
+        description: Name of the zone the search rule forwards matching aliases to.
+  steps:
+  - stepId: createTransform
+    description: >-
+      Create a pre-search transform that rewrites the destination alias before
+      any zone searches are performed.
+    operationId: createTransform
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.transformName
+        Priority: 1
+        PatternType: $inputs.patternType
+        PatternString: $inputs.patternString
+        PatternBehavior: Replace
+        ReplaceString: $inputs.replaceString
+        State: Enabled
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transformName: $response.body#/Name
+  - stepId: confirmTransform
+    description: >-
+      List all pre-search transforms and confirm the new transform is present in
+      the returned array.
+    operationId: listTransforms
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $[?(@.Name == '$inputs.transformName')]
+      type: jsonpath
+    outputs:
+      transforms: $response.body
+  - stepId: createRoutingRule
+    description: >-
+      Create a search rule that routes the now-normalized destination alias to
+      the target zone.
+    operationId: createSearchRule
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.ruleName
+        Priority: 100
+        AliasPatternType: $inputs.patternType
+        AliasPatternString: $inputs.patternString
+        TargetZone: $inputs.targetZone
+        Protocol: Any
+        Mode: 'On'
+        State: Enabled
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      ruleName: $response.body#/Name
+  outputs:
+    transformName: $steps.createTransform.outputs.transformName
+    transforms: $steps.confirmTransform.outputs.transforms
+    ruleName: $steps.createRoutingRule.outputs.ruleName

@@ -1,0 +1,101 @@
+arazzo: 1.0.1
+info:
+  title: Cisco Expressway Provision NTP Server
+  summary: Add an NTP time source to an Expressway node and confirm it was applied.
+  description: >-
+    Adds a new NTP server to the Cisco Expressway common configuration for time
+    synchronization, then re-reads the configured NTP server list to confirm the
+    new entry is present, and reads system information to capture the node the
+    change targeted. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: configurationApi
+  url: ../openapi/cisco-expressway-configuration-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-ntp-server
+  summary: Add an NTP server entry and verify it appears in the configured list.
+  description: >-
+    Creates an NTP server entry, lists all configured NTP servers to confirm the
+    address is now present, and reads system information for the node.
+  inputs:
+    type: object
+    required:
+    - host
+    - username
+    - password
+    - address
+    properties:
+      host:
+        type: string
+        description: FQDN or IP address of the Expressway node (server variable host).
+      username:
+        type: string
+        description: Expressway administrator username for HTTP Basic auth.
+      password:
+        type: string
+        description: Expressway administrator password for HTTP Basic auth.
+      index:
+        type: integer
+        description: Index position (1-5) to assign the NTP server.
+      address:
+        type: string
+        description: Hostname or IP address of the NTP server (e.g. pool.ntp.org).
+      authenticationMode:
+        type: string
+        description: Authentication mode for the NTP connection (Off or Symmetric key).
+  steps:
+  - stepId: addNtpServer
+    description: >-
+      Add a new NTP server entry to the Expressway common configuration for time
+      synchronization. Up to five NTP servers can be configured.
+    operationId: createNtpServer
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    requestBody:
+      contentType: application/json
+      payload:
+        Index: $inputs.index
+        Address: $inputs.address
+        AuthenticationMode: $inputs.authenticationMode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      createdAddress: $response.body#/Address
+  - stepId: confirmNtpServers
+    description: >-
+      List all configured NTP servers and confirm the just-added address is
+      present in the returned array.
+    operationId: listNtpServers
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $[?(@.Address == '$inputs.address')]
+      type: jsonpath
+    outputs:
+      ntpServers: $response.body
+  - stepId: readSystemInfo
+    description: >-
+      Read basic system information so the caller can record which Expressway
+      node the NTP change was applied to.
+    operationId: getSystemInfo
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      systemName: $response.body#/SystemName
+      uptime: $response.body#/Uptime
+  outputs:
+    createdAddress: $steps.addNtpServer.outputs.createdAddress
+    ntpServers: $steps.confirmNtpServers.outputs.ntpServers
+    systemName: $steps.readSystemInfo.outputs.systemName

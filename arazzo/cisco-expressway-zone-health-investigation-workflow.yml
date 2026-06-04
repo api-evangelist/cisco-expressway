@@ -1,0 +1,98 @@
+arazzo: 1.0.1
+info:
+  title: Cisco Expressway Zone Health Investigation
+  summary: Inspect zone connectivity, active calls, and recent call history together.
+  description: >-
+    Investigates zone health by reading zone connectivity status, listing active
+    calls currently traversing the system, and pulling recent call history for a
+    time interval so failed or dropped calls through a degraded zone can be
+    correlated. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: statusApi
+  url: ../openapi/cisco-expressway-status-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: zone-health-investigation
+  summary: Read zone status, active calls, and interval call history.
+  description: >-
+    Reads zone connectivity status, lists active calls, and retrieves call
+    history for the supplied interval to correlate zone state with call outcomes.
+  inputs:
+    type: object
+    required:
+    - host
+    - username
+    - password
+    - startTime
+    - endTime
+    properties:
+      host:
+        type: string
+        description: FQDN or IP address of the Expressway node (server variable host).
+      username:
+        type: string
+        description: Expressway administrator username for HTTP Basic auth.
+      password:
+        type: string
+        description: Expressway administrator password for HTTP Basic auth.
+      startTime:
+        type: string
+        description: Interval start time in ISO 8601 format for call history filtering.
+      endTime:
+        type: string
+        description: Interval end time in ISO 8601 format for call history filtering.
+  steps:
+  - stepId: readZoneStatus
+    description: >-
+      Read zone connectivity status for all configured zones including connection
+      state and active call counts.
+    operationId: listZoneStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      zoneStatus: $response.body
+  - stepId: listActiveCalls
+    description: >-
+      List all currently active calls so calls traversing a degraded zone can be
+      identified.
+    operationId: listActiveCalls
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      activeCalls: $response.body
+  - stepId: readCallHistory
+    description: >-
+      Retrieve call history for the supplied interval so completed and failed
+      calls can be correlated with the zone status.
+    operationId: getCallHistory
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    - name: filter
+      in: query
+      value: get_records_for_interval
+    - name: start_time
+      in: query
+      value: $inputs.startTime
+    - name: end_time
+      in: query
+      value: $inputs.endTime
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      callHistory: $response.body
+  outputs:
+    zoneStatus: $steps.readZoneStatus.outputs.zoneStatus
+    activeCalls: $steps.listActiveCalls.outputs.activeCalls
+    callHistory: $steps.readCallHistory.outputs.callHistory

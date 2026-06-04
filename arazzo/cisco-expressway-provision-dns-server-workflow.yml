@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Cisco Expressway Provision DNS Server
+  summary: Add a DNS server to an Expressway node and confirm it was applied.
+  description: >-
+    Adds a new DNS server address to the Cisco Expressway common configuration,
+    then re-reads the full DNS server list to confirm the new entry is present,
+    and finally reads system information to capture the node identity the change
+    was applied to. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: configurationApi
+  url: ../openapi/cisco-expressway-configuration-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-dns-server
+  summary: Add a DNS server entry and verify it appears in the configured list.
+  description: >-
+    Creates a DNS server entry at a chosen index, lists all configured DNS
+    servers to confirm the address is now present, and reads system information
+    for the node the change targeted.
+  inputs:
+    type: object
+    required:
+    - host
+    - username
+    - password
+    - address
+    properties:
+      host:
+        type: string
+        description: FQDN or IP address of the Expressway node (server variable host).
+      username:
+        type: string
+        description: Expressway administrator username for HTTP Basic auth.
+      password:
+        type: string
+        description: Expressway administrator password for HTTP Basic auth.
+      index:
+        type: integer
+        description: Index position (1-5) to assign the DNS server.
+      address:
+        type: string
+        description: IP address of the DNS server to add (e.g. 8.8.8.8).
+  steps:
+  - stepId: addDnsServer
+    description: >-
+      Add a new DNS server entry to the Expressway common configuration. Up to
+      five DNS server addresses are supported.
+    operationId: createDnsServer
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    requestBody:
+      contentType: application/json
+      payload:
+        Index: $inputs.index
+        Address: $inputs.address
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      createdAddress: $response.body#/Address
+      createdIndex: $response.body#/Index
+  - stepId: confirmDnsServers
+    description: >-
+      List all configured DNS servers and confirm the just-added address is
+      present in the returned array.
+    operationId: listDnsServers
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $[?(@.Address == '$inputs.address')]
+      type: jsonpath
+    outputs:
+      dnsServers: $response.body
+  - stepId: readSystemInfo
+    description: >-
+      Read basic system information for the node so the caller can record which
+      Expressway the DNS change was applied to.
+    operationId: getSystemInfo
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      systemName: $response.body#/SystemName
+      softwareVersion: $response.body#/SoftwareVersion
+  outputs:
+    createdAddress: $steps.addDnsServer.outputs.createdAddress
+    dnsServers: $steps.confirmDnsServers.outputs.dnsServers
+    systemName: $steps.readSystemInfo.outputs.systemName

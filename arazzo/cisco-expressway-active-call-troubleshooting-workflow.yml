@@ -1,0 +1,85 @@
+arazzo: 1.0.1
+info:
+  title: Cisco Expressway Active Call Troubleshooting
+  summary: List active calls, active TURN relays, and recent call history for media diagnosis.
+  description: >-
+    Diagnoses an in-progress media problem by listing all active calls, listing
+    active TURN relay allocations that back the media path for traversal calls,
+    and pulling the most recent call history so a problematic call can be traced
+    across signaling and media. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: statusApi
+  url: ../openapi/cisco-expressway-status-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: active-call-troubleshooting
+  summary: Pull active calls, TURN relays, and recent call history together.
+  description: >-
+    Lists active calls, lists active TURN relay allocations, and retrieves the
+    most recent call history so a media issue can be traced across the system.
+  inputs:
+    type: object
+    required:
+    - host
+    - username
+    - password
+    properties:
+      host:
+        type: string
+        description: FQDN or IP address of the Expressway node (server variable host).
+      username:
+        type: string
+        description: Expressway administrator username for HTTP Basic auth.
+      password:
+        type: string
+        description: Expressway administrator password for HTTP Basic auth.
+  steps:
+  - stepId: listActiveCalls
+    description: >-
+      List all currently active calls including protocol, duration, and bandwidth
+      usage.
+    operationId: listActiveCalls
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      activeCalls: $response.body
+  - stepId: listTurnRelays
+    description: >-
+      List active TURN relay allocations so the media relays backing traversal
+      calls can be inspected.
+    operationId: listTurnRelays
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      turnRelays: $response.body
+  - stepId: readRecentCallHistory
+    description: >-
+      Retrieve the most recent call history records so a problematic call can be
+      traced after it ends.
+    operationId: getCallHistory
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    - name: filter
+      in: query
+      value: get_all_records
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      callHistory: $response.body
+  outputs:
+    activeCalls: $steps.listActiveCalls.outputs.activeCalls
+    turnRelays: $steps.listTurnRelays.outputs.turnRelays
+    callHistory: $steps.readRecentCallHistory.outputs.callHistory

@@ -1,0 +1,128 @@
+arazzo: 1.0.1
+info:
+  title: Cisco Expressway Onboard Neighbor Zone Routing
+  summary: Create a neighbor zone and a search rule that routes matching calls to it.
+  description: >-
+    Connects the Expressway to a peer system (such as a Unified CM cluster or
+    another Expressway) by creating a neighbor zone, then creating a search rule
+    whose target zone is that neighbor so matching aliases are routed to the new
+    peer, and finally listing all search rules to confirm the rule is in place.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: configurationApi
+  url: ../openapi/cisco-expressway-configuration-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: onboard-neighbor-zone-routing
+  summary: Create a neighbor zone then a search rule that targets it, and confirm.
+  description: >-
+    Creates a neighbor zone to a peer system, creates a search rule that forwards
+    matching aliases to that zone, and lists search rules to confirm the new rule
+    is present.
+  inputs:
+    type: object
+    required:
+    - host
+    - username
+    - password
+    - zoneName
+    - peerAddress
+    - ruleName
+    - aliasPatternType
+    - aliasPatternString
+    properties:
+      host:
+        type: string
+        description: FQDN or IP address of the Expressway node (server variable host).
+      username:
+        type: string
+        description: Expressway administrator username for HTTP Basic auth.
+      password:
+        type: string
+        description: Expressway administrator password for HTTP Basic auth.
+      zoneName:
+        type: string
+        description: Name for the neighbor zone to create.
+      peerAddress:
+        type: string
+        description: IP address or FQDN of the peer system for the neighbor zone.
+      ruleName:
+        type: string
+        description: Name for the search rule to create.
+      aliasPatternType:
+        type: string
+        description: Pattern match type for the rule (Prefix, Suffix, Regex, or Exact).
+      aliasPatternString:
+        type: string
+        description: Pattern matched against the destination alias.
+      priority:
+        type: integer
+        description: Search rule priority; lower numbers are evaluated first.
+  steps:
+  - stepId: createNeighborZone
+    description: >-
+      Create a neighbor zone that connects the local Expressway to the specified
+      peer system address.
+    operationId: createNeighborZone
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.zoneName
+        PeerAddresses:
+        - $inputs.peerAddress
+        LookUpPeersBy: Address
+        ZoneProfile: Cisco Unified Communications Manager
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      zoneName: $response.body#/Name
+  - stepId: createRouteRule
+    description: >-
+      Create a search rule that forwards aliases matching the supplied pattern to
+      the neighbor zone created in the previous step.
+    operationId: createSearchRule
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.ruleName
+        Priority: $inputs.priority
+        AliasPatternType: $inputs.aliasPatternType
+        AliasPatternString: $inputs.aliasPatternString
+        TargetZone: $steps.createNeighborZone.outputs.zoneName
+        Protocol: Any
+        Mode: 'On'
+        State: Enabled
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      ruleName: $response.body#/Name
+  - stepId: confirmSearchRules
+    description: >-
+      List all search rules and confirm the new routing rule is present in the
+      returned array.
+    operationId: listSearchRules
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $[?(@.Name == '$inputs.ruleName')]
+      type: jsonpath
+    outputs:
+      searchRules: $response.body
+  outputs:
+    zoneName: $steps.createNeighborZone.outputs.zoneName
+    ruleName: $steps.createRouteRule.outputs.ruleName
+    searchRules: $steps.confirmSearchRules.outputs.searchRules

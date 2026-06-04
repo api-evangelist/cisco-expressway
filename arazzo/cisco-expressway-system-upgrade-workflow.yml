@@ -1,0 +1,141 @@
+arazzo: 1.0.1
+info:
+  title: Cisco Expressway System Upgrade
+  summary: Set SFTP details, trigger a software upgrade, then poll upgrade status.
+  description: >-
+    Drives a software upgrade end to end by writing the SFTP configuration that
+    points at the upgrade image, triggering the upgrade so the image is fetched
+    over SFTP, and reading upgrade progress status. The status read branches on
+    the reported phase so a failed upgrade ends the flow distinctly from one that
+    is downloading or complete. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: configurationApi
+  url: ../openapi/cisco-expressway-configuration-api-openapi.yml
+  type: openapi
+- name: statusApi
+  url: ../openapi/cisco-expressway-status-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: system-upgrade
+  summary: Configure SFTP, trigger the upgrade, then read upgrade progress.
+  description: >-
+    Updates the SFTP upgrade configuration, triggers the system upgrade using the
+    supplied image filename, and reads upgrade status, branching on whether the
+    upgrade has failed.
+  inputs:
+    type: object
+    required:
+    - host
+    - username
+    - password
+    - sftpServerAddress
+    - sftpUsername
+    - sftpPassword
+    - sftpFilePath
+    - upgradeFileName
+    properties:
+      host:
+        type: string
+        description: FQDN or IP address of the Expressway node (server variable host).
+      username:
+        type: string
+        description: Expressway administrator username for HTTP Basic auth.
+      password:
+        type: string
+        description: Expressway administrator password for HTTP Basic auth.
+      sftpServerAddress:
+        type: string
+        description: Hostname or IP of the SFTP server holding the upgrade image.
+      sftpPort:
+        type: integer
+        description: SFTP server port (defaults to 22).
+      sftpUsername:
+        type: string
+        description: Username for SFTP authentication.
+      sftpPassword:
+        type: string
+        description: Password for SFTP authentication.
+      sftpFilePath:
+        type: string
+        description: Path to the upgrade image file on the SFTP server.
+      upgradeFileName:
+        type: string
+        description: Filename of the upgrade image (e.g. s42701x14_2_0.tar.gz).
+      autoReboot:
+        type: boolean
+        description: Whether to automatically reboot after the download completes.
+  steps:
+  - stepId: setSftpConfig
+    description: >-
+      Write the SFTP configuration so the upgrade process knows where to fetch
+      the image from.
+    operationId: updateSftpConfig
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    requestBody:
+      contentType: application/json
+      payload:
+        ServerAddress: $inputs.sftpServerAddress
+        Port: $inputs.sftpPort
+        Username: $inputs.sftpUsername
+        Password: $inputs.sftpPassword
+        FilePath: $inputs.sftpFilePath
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      sftpServer: $response.body#/ServerAddress
+  - stepId: triggerUpgrade
+    description: >-
+      Trigger the system upgrade, which downloads the image via SFTP and
+      optionally reboots when complete.
+    operationId: triggerUpgrade
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    requestBody:
+      contentType: application/json
+      payload:
+        ImageDownloadMode: SFTP
+        UpgradeFileName: $inputs.upgradeFileName
+        AutoReboot: $inputs.autoReboot
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      triggerStatus: $response.body#/Status
+  - stepId: readUpgradeStatus
+    description: >-
+      Read the upgrade progress status and branch when the reported phase is
+      Failed so callers can distinguish a failed upgrade from one in progress.
+    operationId: getUpgradeStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/Status
+      progressPercentage: $response.body#/ProgressPercentage
+    onSuccess:
+    - name: upgradeFailed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.Status == 'Failed'
+        type: jsonpath
+    - name: upgradeProgressing
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.Status != 'Failed'
+        type: jsonpath
+  outputs:
+    triggerStatus: $steps.triggerUpgrade.outputs.triggerStatus
+    status: $steps.readUpgradeStatus.outputs.status
+    progressPercentage: $steps.readUpgradeStatus.outputs.progressPercentage

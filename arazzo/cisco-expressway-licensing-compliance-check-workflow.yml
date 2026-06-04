@@ -1,0 +1,85 @@
+arazzo: 1.0.1
+info:
+  title: Cisco Expressway Licensing Compliance Check
+  summary: Read smart licensing status and branch on registration to read resource usage.
+  description: >-
+    Checks smart licensing health by reading the smart licensing status and
+    branching on the registration status: when the node is registered it reads
+    resource usage to capture license utilization, and when it is not registered
+    the flow ends so the registration can be addressed first. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: statusApi
+  url: ../openapi/cisco-expressway-status-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: licensing-compliance-check
+  summary: Read licensing status, then read resource usage when registered.
+  description: >-
+    Reads smart licensing status and, when the node is registered, reads resource
+    usage to capture license utilization; otherwise it ends.
+  inputs:
+    type: object
+    required:
+    - host
+    - username
+    - password
+    properties:
+      host:
+        type: string
+        description: FQDN or IP address of the Expressway node (server variable host).
+      username:
+        type: string
+        description: Expressway administrator username for HTTP Basic auth.
+      password:
+        type: string
+        description: Expressway administrator password for HTTP Basic auth.
+  steps:
+  - stepId: readLicensingStatus
+    description: >-
+      Read smart licensing status and branch on whether the node is registered to
+      Cisco Smart Software Licensing.
+    operationId: getSmartLicensingStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      registrationStatus: $response.body#/RegistrationStatus
+      authorizationStatus: $response.body#/AuthorizationStatus
+    onSuccess:
+    - name: registered
+      type: goto
+      stepId: readResourceUsage
+      criteria:
+      - context: $response.body
+        condition: $.RegistrationStatus == 'Registered'
+        type: jsonpath
+    - name: notRegistered
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.RegistrationStatus != 'Registered'
+        type: jsonpath
+  - stepId: readResourceUsage
+    description: >-
+      Read resource usage to capture current license utilization for the
+      registered node.
+    operationId: getResourceUsage
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      licenseUtilizationPercent: $response.body#/LicenseUtilizationPercent
+      totalRegistrations: $response.body#/TotalRegistrations
+  outputs:
+    registrationStatus: $steps.readLicensingStatus.outputs.registrationStatus
+    authorizationStatus: $steps.readLicensingStatus.outputs.authorizationStatus
+    licenseUtilizationPercent: $steps.readResourceUsage.outputs.licenseUtilizationPercent

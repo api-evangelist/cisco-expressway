@@ -1,0 +1,132 @@
+arazzo: 1.0.1
+info:
+  title: Cisco Expressway Set Up Firewall Traversal Pair
+  summary: Create the matched server/client zones that form an Expressway-E to Expressway-C traversal.
+  description: >-
+    Establishes firewall traversal between an Expressway-E and an Expressway-C by
+    creating a traversal server zone on the Expressway-E, creating the matching
+    traversal client zone on the Expressway-C using the same shared credentials,
+    and then reading zone connectivity status to confirm the pairing is active.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: configurationApi
+  url: ../openapi/cisco-expressway-configuration-api-openapi.yml
+  type: openapi
+- name: statusApi
+  url: ../openapi/cisco-expressway-status-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: setup-traversal-pair
+  summary: Create a traversal server zone on the E and a matching client zone on the C.
+  description: >-
+    Creates the server side of a firewall traversal on the Expressway-E, creates
+    the matching client side on the Expressway-C with the same credentials, then
+    reads zone connectivity status on the Expressway-C to confirm the link.
+  inputs:
+    type: object
+    required:
+    - edgeHost
+    - controllerHost
+    - username
+    - password
+    - serverZoneName
+    - clientZoneName
+    - sharedUsername
+    - sharedPassword
+    - edgeAddress
+    properties:
+      edgeHost:
+        type: string
+        description: FQDN or IP of the Expressway-E node (server variable host).
+      controllerHost:
+        type: string
+        description: FQDN or IP of the Expressway-C node (server variable host).
+      username:
+        type: string
+        description: Administrator username for HTTP Basic auth on both nodes.
+      password:
+        type: string
+        description: Administrator password for HTTP Basic auth on both nodes.
+      serverZoneName:
+        type: string
+        description: Name for the traversal server zone created on the Expressway-E.
+      clientZoneName:
+        type: string
+        description: Name for the traversal client zone created on the Expressway-C.
+      sharedUsername:
+        type: string
+        description: Connection credentials username shared by both zones.
+      sharedPassword:
+        type: string
+        description: Connection credentials password shared by both zones.
+      edgeAddress:
+        type: string
+        description: FQDN or IP of the Expressway-E that the client zone connects to.
+  steps:
+  - stepId: createServerZone
+    description: >-
+      Create the traversal server zone on the Expressway-E so it can provide
+      firewall traversal services to a traversal client.
+    operationId: createEdgeTraversalServerZone
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.serverZoneName
+        ConnectionCredentialsUsername: $inputs.sharedUsername
+        SIPMode: 'On'
+        SIPPort: 7001
+        SIPTransport: TLS
+        MediaEncryptionMode: Auto
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      serverZoneName: $response.body#/Name
+  - stepId: createClientZone
+    description: >-
+      Create the matching traversal client zone on the Expressway-C that connects
+      to the Expressway-E using the same shared connection credentials.
+    operationId: createControllerTraversalClientZone
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.clientZoneName
+        PeerAddress: $inputs.edgeAddress
+        ConnectionCredentialsUsername: $inputs.sharedUsername
+        ConnectionCredentialsPassword: $inputs.sharedPassword
+        SIPMode: 'On'
+        SIPPort: 7001
+        SIPTransport: TLS
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      clientZoneName: $response.body#/Name
+  - stepId: confirmZoneStatus
+    description: >-
+      Read zone connectivity status on the Expressway-C and confirm the new
+      client zone is present so the traversal pairing can be verified.
+    operationId: listZoneStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $[?(@.ZoneName == '$inputs.clientZoneName')]
+      type: jsonpath
+    outputs:
+      zoneStatus: $response.body
+  outputs:
+    serverZoneName: $steps.createServerZone.outputs.serverZoneName
+    clientZoneName: $steps.createClientZone.outputs.clientZoneName
+    zoneStatus: $steps.confirmZoneStatus.outputs.zoneStatus

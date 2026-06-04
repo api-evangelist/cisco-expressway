@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Cisco Expressway Pre-Upgrade Health Check
+  summary: Read system status, active alarms, and resource usage to gate an upgrade.
+  description: >-
+    Performs a readiness gate before a maintenance window by reading the system
+    status overview, listing active alarms, and reading resource usage. The alarm
+    list branches: when alarms are present the flow ends so an operator can clear
+    them first, otherwise it proceeds to capture resource utilization. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: statusApi
+  url: ../openapi/cisco-expressway-status-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: pre-upgrade-health-check
+  summary: Check system status and alarms, branching to resource usage when clear.
+  description: >-
+    Reads the system status overview, lists active alarms, and branches on
+    whether alarms exist; when none are present it reads resource usage.
+  inputs:
+    type: object
+    required:
+    - host
+    - username
+    - password
+    properties:
+      host:
+        type: string
+        description: FQDN or IP address of the Expressway node (server variable host).
+      username:
+        type: string
+        description: Expressway administrator username for HTTP Basic auth.
+      password:
+        type: string
+        description: Expressway administrator password for HTTP Basic auth.
+  steps:
+  - stepId: readSystemStatus
+    description: >-
+      Read the comprehensive system status overview including current
+      registration and call counts.
+    operationId: getSystemStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      softwareVersion: $response.body#/SoftwareVersion
+      currentCalls: $response.body#/CurrentCalls
+      currentRegistrations: $response.body#/CurrentRegistrations
+  - stepId: listAlarms
+    description: >-
+      List all active alarms and branch on whether any alarms are present; when
+      alarms exist the flow ends so they can be cleared before upgrading.
+    operationId: listAlarms
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      alarms: $response.body
+    onSuccess:
+    - name: alarmsPresent
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.length > 0
+        type: jsonpath
+    - name: noAlarms
+      type: goto
+      stepId: readResourceUsage
+      criteria:
+      - context: $response.body
+        condition: $.length == 0
+        type: jsonpath
+  - stepId: readResourceUsage
+    description: >-
+      Read system resource utilization so the operator can confirm there is
+      headroom before starting the upgrade.
+    operationId: getResourceUsage
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      systemCapacityPercent: $response.body#/SystemCapacityPercent
+      licenseUtilizationPercent: $response.body#/LicenseUtilizationPercent
+  outputs:
+    softwareVersion: $steps.readSystemStatus.outputs.softwareVersion
+    alarms: $steps.listAlarms.outputs.alarms
+    systemCapacityPercent: $steps.readResourceUsage.outputs.systemCapacityPercent

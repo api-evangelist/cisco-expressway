@@ -1,0 +1,103 @@
+arazzo: 1.0.1
+info:
+  title: Cisco Expressway Update SIP Configuration
+  summary: Read current SIP configuration, apply changes, then confirm via system status.
+  description: >-
+    Safely changes SIP protocol settings by first reading the current SIP
+    configuration as a baseline, applying the new transport and port settings,
+    and then reading the system status overview to confirm the node is still
+    healthy after the change. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: configurationApi
+  url: ../openapi/cisco-expressway-configuration-api-openapi.yml
+  type: openapi
+- name: statusApi
+  url: ../openapi/cisco-expressway-status-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: update-sip-configuration
+  summary: Read SIP config, update it, then confirm system status.
+  description: >-
+    Reads the current SIP configuration baseline, updates SIP transport and port
+    settings, and reads system status to confirm the node remains healthy.
+  inputs:
+    type: object
+    required:
+    - host
+    - username
+    - password
+    - sipMode
+    properties:
+      host:
+        type: string
+        description: FQDN or IP address of the Expressway node (server variable host).
+      username:
+        type: string
+        description: Expressway administrator username for HTTP Basic auth.
+      password:
+        type: string
+        description: Expressway administrator password for HTTP Basic auth.
+      sipMode:
+        type: string
+        description: Whether SIP functionality is enabled (On or Off).
+      tcpMode:
+        type: string
+        description: Whether SIP over TCP is enabled (On or Off).
+      tlsPort:
+        type: integer
+        description: TLS port for SIP signaling (defaults to 5061).
+  steps:
+  - stepId: readSipConfig
+    description: >-
+      Read the current SIP configuration to capture a baseline before applying
+      changes.
+    operationId: getSipConfiguration
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      currentSipMode: $response.body#/SIPMode
+      currentTlsPort: $response.body#/TLSPort
+  - stepId: applySipConfig
+    description: >-
+      Update the SIP protocol configuration with the supplied mode, transport,
+      and port settings.
+    operationId: updateSipConfiguration
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    requestBody:
+      contentType: application/json
+      payload:
+        SIPMode: $inputs.sipMode
+        TCPMode: $inputs.tcpMode
+        TLSPort: $inputs.tlsPort
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      appliedSipMode: $response.body#/SIPMode
+      appliedTlsPort: $response.body#/TLSPort
+  - stepId: confirmSystemStatus
+    description: >-
+      Read the system status overview to confirm the node remains healthy after
+      the SIP configuration change.
+    operationId: getSystemStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.username:$inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      currentRegistrations: $response.body#/CurrentRegistrations
+      currentCalls: $response.body#/CurrentCalls
+  outputs:
+    currentSipMode: $steps.readSipConfig.outputs.currentSipMode
+    appliedSipMode: $steps.applySipConfig.outputs.appliedSipMode
+    currentRegistrations: $steps.confirmSystemStatus.outputs.currentRegistrations
