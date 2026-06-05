@@ -1,9 +1,10 @@
 aid: cisco-expressway
 name: Cisco Expressway
-description: API definitions for Cisco Expressway, a session border controller and firewall traversal solution for Unified
-  Communications that provides secure remote and mobile access for collaboration workloads including video, voice, content,
-  and presence. Programmatic access spans a REST API for configuration (/api/provisioning), a REST API for status and observability
-  (/api/status), an SNMP MIB for metrics, and a legacy XML API for systems still in transition.
+description: >-
+  API definitions for Cisco Expressway, a session border controller and firewall traversal solution for Unified
+  Communications that provides secure remote and mobile access for collaboration workloads including video, voice,
+  content, and presence. Programmatic access spans a REST API for configuration (/api/provisioning), a REST API for
+  status and observability (/api/status), an SNMP MIB for metrics, and a legacy XML API for systems still in transition.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 type: Index
 access: 3rd-Party
@@ -13,247 +14,241 @@ modified: '2026-05-19'
 specificationVersion: '0.19'
 url: https://raw.githubusercontent.com/api-evangelist/cisco-expressway/refs/heads/main/apis.yml
 tags:
-- Collaboration
-- Firewall Traversal
-- H.323
-- Session Border Controller
-- SIP
-- Unified Communications
-- Video Conferencing
-apis:
-- name: Cisco Expressway Configuration API
-  description: RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms,
-    DNS, NTP, and system settings. Uses JSON Schema version 4 for request and response schemas.
-  image: https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
-  humanURL: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
-  baseURL: https://expressway.example.com/api/provisioning
-  tags:
-  - Configuration
-  - Management
-  - Provisioning
-  - REST
+  - Collaboration
+  - Firewall Traversal
+  - H.323
+  - Session Border Controller
+  - SIP
   - Unified Communications
-  properties:
-  - type: Documentation
-    url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
-  - type: Reference
-    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
-  - type: Authentication
-    url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
-  - type: GettingStarted
-    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
-  - type: ChangeLog
-    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
-  - type: OpenAPI
-    url: openapi/cisco-expressway-configuration-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/cisco-expressway-zone-schema.json
-  - type: JSONSchema
-    url: json-schema/cisco-expressway-search-rule-schema.json
-  - type: JSONSchema
-    url: json-schema/cisco-expressway-transform-schema.json
-  - type: JSONSchema
-    url: json-schema/cisco-expressway-system-status-schema.json
-  - type: JSONLD
-    url: json-ld/cisco-expressway-context.jsonld
-  - type: NaftikoCapability
-    url: capabilities/configuration-admin-account.yaml
-  - type: NaftikoCapability
-    url: capabilities/configuration-dns.yaml
-  - type: NaftikoCapability
-    url: capabilities/configuration-ntp.yaml
-  - type: NaftikoCapability
-    url: capabilities/configuration-sftp.yaml
-  - type: NaftikoCapability
-    url: capabilities/configuration-sip.yaml
-  - type: NaftikoCapability
-    url: capabilities/configuration-search-rules.yaml
-  - type: NaftikoCapability
-    url: capabilities/configuration-system.yaml
-  - type: NaftikoCapability
-    url: capabilities/configuration-transforms.yaml
-  - type: NaftikoCapability
-    url: capabilities/configuration-upgrade.yaml
-  - type: NaftikoCapability
-    url: capabilities/configuration-zones.yaml
-  contact:
-  - FN: Cisco TAC
-    email: tac@cisco.com
-    X-twitter: CiscoUC
-- name: Cisco Expressway Status API
-  description: RESTful API for retrieving status information, alarms, call history, licensing status, upgrade status, and
-    system health metrics from Cisco Expressway. Endpoints follow the pattern /api/status/common/ for items common between
-    Expressway-E and Expressway-C.
-  image: https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
-  humanURL: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
-  baseURL: https://expressway.example.com/api/status
-  tags:
-  - Alarms
-  - Health Check
-  - Licensing
-  - Monitoring
-  - Status
-  properties:
-  - type: Documentation
-    url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
-  - type: Reference
-    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
-  - type: GettingStarted
-    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
-  - type: ChangeLog
-    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
-  - type: OpenAPI
-    url: openapi/cisco-expressway-status-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/cisco-expressway-alarm-schema.json
-  - type: JSONSchema
-    url: json-schema/cisco-expressway-call-schema.json
-  - type: JSONSchema
-    url: json-schema/cisco-expressway-registration-schema.json
-  - type: JSONSchema
-    url: json-schema/cisco-expressway-system-status-schema.json
-  - type: JSONLD
-    url: json-ld/cisco-expressway-context.jsonld
-  - type: NaftikoCapability
-    url: capabilities/status-alarms.yaml
-  - type: NaftikoCapability
-    url: capabilities/status-calls.yaml
-  - type: NaftikoCapability
-    url: capabilities/status-licensing.yaml
-  - type: NaftikoCapability
-    url: capabilities/status-registrations.yaml
-  - type: NaftikoCapability
-    url: capabilities/status-resource-usage.yaml
-  - type: NaftikoCapability
-    url: capabilities/status-system-status.yaml
-  - type: NaftikoCapability
-    url: capabilities/status-upgrade.yaml
-  - type: NaftikoCapability
-    url: capabilities/status-zones.yaml
-  contact:
-  - FN: Cisco TAC
-    email: tac@cisco.com
-- name: Cisco Expressway SNMP API
-  description: SNMP-based monitoring and management interface for Cisco Expressway providing access to system metrics, alarms,
-    and configuration data. Supports SNMP versions v2c and v3 for secure network management integration.
-  humanURL: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html
-  baseURL: snmp://expressway.example.com:161
-  tags:
-  - Metrics
-  - Monitoring
-  - Network Management
-  - SNMP
-  properties:
-  - type: Documentation
-    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html
-  - type: Reference
-    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html
-  - type: ChangeLog
-    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
-- name: Cisco Expressway XML API
-  description: Legacy XML-based API for configuration and status retrieval on Cisco Expressway systems. Uses HTTP Basic Authentication
-    over HTTPS for secure access to system configuration and management functions.
-  humanURL: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
-  baseURL: https://expressway.example.com/xmlapi
-  tags:
-  - Configuration
-  - Legacy
-  - Management
-  - XML
-  properties:
-  - type: Documentation
-    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
-  - type: Authentication
-    url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-0/exwy_b_cisco-expressway-administrator-guide/exwy_m_managing-security.html
-  - type: ChangeLog
-    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - Video Conferencing
+apis:
+  - name: Cisco Expressway Configuration API
+    description: >-
+      RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS,
+      NTP, and system settings. Uses JSON Schema version 4 for request and response schemas.
+    image: >-
+      https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
+    humanURL: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+    baseURL: https://expressway.example.com/api/provisioning
+    tags:
+      - Configuration
+      - Management
+      - Provisioning
+      - REST
+      - Unified Communications
+    properties:
+      - type: Documentation
+        url: >-
+          https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+      - type: Reference
+        url: >-
+          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+      - type: Authentication
+        url: >-
+          https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+      - type: GettingStarted
+        url: >-
+          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+      - type: ChangeLog
+        url: >-
+          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+      - type: OpenAPI
+        url: openapi/cisco-expressway-configuration-api-openapi.yml
+      - type: JSONSchema
+        url: json-schema/cisco-expressway-zone-schema.json
+      - type: JSONSchema
+        url: json-schema/cisco-expressway-search-rule-schema.json
+      - type: JSONSchema
+        url: json-schema/cisco-expressway-transform-schema.json
+      - type: JSONSchema
+        url: json-schema/cisco-expressway-system-status-schema.json
+      - type: JSONLD
+        url: json-ld/cisco-expressway-context.jsonld
+    contact:
+      - FN: Cisco TAC
+        email: tac@cisco.com
+        X-twitter: CiscoUC
+  - name: Cisco Expressway Status API
+    description: >-
+      RESTful API for retrieving status information, alarms, call history, licensing status, upgrade status, and system
+      health metrics from Cisco Expressway. Endpoints follow the pattern /api/status/common/ for items common between
+      Expressway-E and Expressway-C.
+    image: >-
+      https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
+    humanURL: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+    baseURL: https://expressway.example.com/api/status
+    tags:
+      - Alarms
+      - Health Check
+      - Licensing
+      - Monitoring
+      - Status
+    properties:
+      - type: Documentation
+        url: >-
+          https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+      - type: Reference
+        url: >-
+          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+      - type: GettingStarted
+        url: >-
+          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+      - type: ChangeLog
+        url: >-
+          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+      - type: OpenAPI
+        url: openapi/cisco-expressway-status-api-openapi.yml
+      - type: JSONSchema
+        url: json-schema/cisco-expressway-alarm-schema.json
+      - type: JSONSchema
+        url: json-schema/cisco-expressway-call-schema.json
+      - type: JSONSchema
+        url: json-schema/cisco-expressway-registration-schema.json
+      - type: JSONSchema
+        url: json-schema/cisco-expressway-system-status-schema.json
+      - type: JSONLD
+        url: json-ld/cisco-expressway-context.jsonld
+    contact:
+      - FN: Cisco TAC
+        email: tac@cisco.com
+  - name: Cisco Expressway SNMP API
+    description: >-
+      SNMP-based monitoring and management interface for Cisco Expressway providing access to system metrics, alarms,
+      and configuration data. Supports SNMP versions v2c and v3 for secure network management integration.
+    humanURL: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html
+    baseURL: snmp://expressway.example.com:161
+    tags:
+      - Metrics
+      - Monitoring
+      - Network Management
+      - SNMP
+    properties:
+      - type: Documentation
+        url: >-
+          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html
+      - type: Reference
+        url: >-
+          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html
+      - type: ChangeLog
+        url: >-
+          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - name: Cisco Expressway XML API
+    description: >-
+      Legacy XML-based API for configuration and status retrieval on Cisco Expressway systems. Uses HTTP Basic
+      Authentication over HTTPS for secure access to system configuration and management functions.
+    humanURL: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+    baseURL: https://expressway.example.com/xmlapi
+    tags:
+      - Configuration
+      - Legacy
+      - Management
+      - XML
+    properties:
+      - type: Documentation
+        url: >-
+          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+      - type: Authentication
+        url: >-
+          https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-0/exwy_b_cisco-expressway-administrator-guide/exwy_m_managing-security.html
+      - type: ChangeLog
+        url: >-
+          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
 common:
-- type: ArazzoWorkflows
-  url: arazzo/
-  workflows:
-  - url: arazzo/cisco-expressway-active-call-troubleshooting-workflow.yml
-    name: Cisco Expressway Active Call Troubleshooting
-    summary: List active calls, active TURN relays, and recent call history for media diagnosis.
-  - url: arazzo/cisco-expressway-capacity-registrations-audit-workflow.yml
-    name: Cisco Expressway Capacity and Registrations Audit
-    summary: Read resource usage, then list registrations and active calls to audit load.
-  - url: arazzo/cisco-expressway-create-dial-plan-transform-workflow.yml
-    name: Cisco Expressway Create Dial Plan Transform
-    summary: Add a pre-search transform, confirm it, then add a search rule that uses the normalized alias.
-  - url: arazzo/cisco-expressway-create-dns-zone-routing-workflow.yml
-    name: Cisco Expressway Create DNS Zone Routing
-    summary: Create a DNS zone for endpoint discovery and a search rule that routes to it.
-  - url: arazzo/cisco-expressway-licensing-compliance-check-workflow.yml
-    name: Cisco Expressway Licensing Compliance Check
-    summary: Read smart licensing status and branch on registration to read resource usage.
-  - url: arazzo/cisco-expressway-onboard-neighbor-zone-routing-workflow.yml
-    name: Cisco Expressway Onboard Neighbor Zone Routing
-    summary: Create a neighbor zone and a search rule that routes matching calls to it.
-  - url: arazzo/cisco-expressway-pre-upgrade-health-check-workflow.yml
-    name: Cisco Expressway Pre-Upgrade Health Check
-    summary: Read system status, active alarms, and resource usage to gate an upgrade.
-  - url: arazzo/cisco-expressway-provision-dns-server-workflow.yml
-    name: Cisco Expressway Provision DNS Server
-    summary: Add a DNS server to an Expressway node and confirm it was applied.
-  - url: arazzo/cisco-expressway-provision-ntp-server-workflow.yml
-    name: Cisco Expressway Provision NTP Server
-    summary: Add an NTP time source to an Expressway node and confirm it was applied.
-  - url: arazzo/cisco-expressway-rotate-admin-password-workflow.yml
-    name: Cisco Expressway Rotate Admin Password
-    summary: Identify the node, then change an administrator account password.
-  - url: arazzo/cisco-expressway-setup-traversal-pair-workflow.yml
-    name: Cisco Expressway Set Up Firewall Traversal Pair
-    summary: Create the matched server/client zones that form an Expressway-E to Expressway-C traversal.
-  - url: arazzo/cisco-expressway-system-upgrade-workflow.yml
-    name: Cisco Expressway System Upgrade
-    summary: Set SFTP details, trigger a software upgrade, then poll upgrade status.
-  - url: arazzo/cisco-expressway-update-sip-configuration-workflow.yml
-    name: Cisco Expressway Update SIP Configuration
-    summary: Read current SIP configuration, apply changes, then confirm via system status.
-  - url: arazzo/cisco-expressway-upgrade-progress-monitor-workflow.yml
-    name: Cisco Expressway Upgrade Progress Monitor
-    summary: Read upgrade status, then read system status to confirm the running version.
-  - url: arazzo/cisco-expressway-zone-health-investigation-workflow.yml
-    name: Cisco Expressway Zone Health Investigation
-    summary: Inspect zone connectivity, active calls, and recent call history together.
-- type: Portal
-  url: https://developer.cisco.com/
-- type: Documentation
-  url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
-- type: GettingStarted
-  url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
-- type: Authentication
-  url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
-- type: Blog
-  url: https://blogs.cisco.com/collaboration
-- type: StatusPage
-  url: https://www.cisco.com/c/en/us/support/web/cloud-status.html
-- type: Support
-  url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
-- type: TermsOfService
-  url: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
-- type: PrivacyPolicy
-  url: https://www.cisco.com/c/en/us/about/legal/privacy-full.html
-- type: GitHubOrganization
-  url: https://github.com/CiscoDevNet
-- type: Community
-  url: https://community.cisco.com/t5/devnet/ct-p/4409j-developer-home
-- type: Website
-  url: https://www.cisco.com/c/en/us/products/unified-communications/expressway-series/index.html
-- type: Login
-  url: https://developer.cisco.com/
-- type: SignUp
-  url: https://developer.cisco.com/
-- type: ChangeLog
-  url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
-- type: Downloads
-  url: https://software.cisco.com/download/home/286282896
-- type: Compatibility
-  url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-device-support-tables-list.html
-- type: Spectral
-  url: rules/cisco-expressway-rules.yml
-- type: Naftiko Capabilities
-  url: capabilities/cisco-expressway-capabilities.yml
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/cisco-expressway/overview
+  - type: ArazzoWorkflows
+    url: arazzo/
+    workflows:
+      - url: arazzo/cisco-expressway-active-call-troubleshooting-workflow.yml
+        name: Cisco Expressway Active Call Troubleshooting
+        summary: List active calls, active TURN relays, and recent call history for media diagnosis.
+      - url: arazzo/cisco-expressway-capacity-registrations-audit-workflow.yml
+        name: Cisco Expressway Capacity and Registrations Audit
+        summary: Read resource usage, then list registrations and active calls to audit load.
+      - url: arazzo/cisco-expressway-create-dial-plan-transform-workflow.yml
+        name: Cisco Expressway Create Dial Plan Transform
+        summary: Add a pre-search transform, confirm it, then add a search rule that uses the normalized alias.
+      - url: arazzo/cisco-expressway-create-dns-zone-routing-workflow.yml
+        name: Cisco Expressway Create DNS Zone Routing
+        summary: Create a DNS zone for endpoint discovery and a search rule that routes to it.
+      - url: arazzo/cisco-expressway-licensing-compliance-check-workflow.yml
+        name: Cisco Expressway Licensing Compliance Check
+        summary: Read smart licensing status and branch on registration to read resource usage.
+      - url: arazzo/cisco-expressway-onboard-neighbor-zone-routing-workflow.yml
+        name: Cisco Expressway Onboard Neighbor Zone Routing
+        summary: Create a neighbor zone and a search rule that routes matching calls to it.
+      - url: arazzo/cisco-expressway-pre-upgrade-health-check-workflow.yml
+        name: Cisco Expressway Pre-Upgrade Health Check
+        summary: Read system status, active alarms, and resource usage to gate an upgrade.
+      - url: arazzo/cisco-expressway-provision-dns-server-workflow.yml
+        name: Cisco Expressway Provision DNS Server
+        summary: Add a DNS server to an Expressway node and confirm it was applied.
+      - url: arazzo/cisco-expressway-provision-ntp-server-workflow.yml
+        name: Cisco Expressway Provision NTP Server
+        summary: Add an NTP time source to an Expressway node and confirm it was applied.
+      - url: arazzo/cisco-expressway-rotate-admin-password-workflow.yml
+        name: Cisco Expressway Rotate Admin Password
+        summary: Identify the node, then change an administrator account password.
+      - url: arazzo/cisco-expressway-setup-traversal-pair-workflow.yml
+        name: Cisco Expressway Set Up Firewall Traversal Pair
+        summary: Create the matched server/client zones that form an Expressway-E to Expressway-C traversal.
+      - url: arazzo/cisco-expressway-system-upgrade-workflow.yml
+        name: Cisco Expressway System Upgrade
+        summary: Set SFTP details, trigger a software upgrade, then poll upgrade status.
+      - url: arazzo/cisco-expressway-update-sip-configuration-workflow.yml
+        name: Cisco Expressway Update SIP Configuration
+        summary: Read current SIP configuration, apply changes, then confirm via system status.
+      - url: arazzo/cisco-expressway-upgrade-progress-monitor-workflow.yml
+        name: Cisco Expressway Upgrade Progress Monitor
+        summary: Read upgrade status, then read system status to confirm the running version.
+      - url: arazzo/cisco-expressway-zone-health-investigation-workflow.yml
+        name: Cisco Expressway Zone Health Investigation
+        summary: Inspect zone connectivity, active calls, and recent call history together.
+  - type: Portal
+    url: https://developer.cisco.com/
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Blog
+    url: https://blogs.cisco.com/collaboration
+  - type: StatusPage
+    url: https://www.cisco.com/c/en/us/support/web/cloud-status.html
+  - type: Support
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
+  - type: TermsOfService
+    url: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  - type: PrivacyPolicy
+    url: https://www.cisco.com/c/en/us/about/legal/privacy-full.html
+  - type: GitHubOrganization
+    url: https://github.com/CiscoDevNet
+  - type: Community
+    url: https://community.cisco.com/t5/devnet/ct-p/4409j-developer-home
+  - type: Website
+    url: https://www.cisco.com/c/en/us/products/unified-communications/expressway-series/index.html
+  - type: Login
+    url: https://developer.cisco.com/
+  - type: SignUp
+    url: https://developer.cisco.com/
+  - type: ChangeLog
+    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: Downloads
+    url: https://software.cisco.com/download/home/286282896
+  - type: Compatibility
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-device-support-tables-list.html
+  - type: Spectral
+    url: rules/cisco-expressway-rules.yml
