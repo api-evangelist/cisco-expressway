@@ -1,0 +1,1913 @@
+{
+  "info": {
+    "_postman_id": "27c890f1-3658-47f2-ae65-6b4594c04d07",
+    "name": "Cisco Expressway Status API",
+    "description": "RESTful API for retrieving status information, alarms, call history, licensing status, upgrade progress, registration details, and system health metrics from Cisco Expressway. Status endpoints follow the pattern /api/status/common/ for items common between Expressway-E and Expressway-C. The API uses JSON Schema version 4 for response schemas and requires HTTPS with HTTP Basic Authentication using Expressway administrator credentials.\n\nContact Support:\n Name: Cisco TAC\n Email: tac@cisco.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:06:47.000Z",
+    "updatedAt": "2026-06-05T15:06:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-27c890f1-3658-47f2-ae65-6b4594c04d07"
+  },
+  "item": [
+    {
+      "name": "status",
+      "item": [
+        {
+          "name": "common",
+          "item": [
+            {
+              "name": "systeminfo",
+              "item": [
+                {
+                  "name": "Cisco Expressway Retrieve system status overview",
+                  "id": "802e2cdc-1356-4372-b795-ddbef2a57967",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/status/common/systeminfo",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "status",
+                        "common",
+                        "systeminfo"
+                      ]
+                    },
+                    "description": "Returns a comprehensive system status overview for the Expressway node including the system name, software version, hardware version, serial number, uptime, IPv4 and IPv6 addresses, virtual machine size, current registration and call counts, and option key status."
+                  },
+                  "response": [
+                    {
+                      "id": "b8d3438e-cafe-4513-9575-130f1f627ff8",
+                      "name": "System status retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/systeminfo",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "systeminfo"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"SystemName\": \"<string>\",\n  \"SoftwareVersion\": \"<string>\",\n  \"HardwareVersion\": \"<string>\",\n  \"SerialNumber\": \"<string>\",\n  \"Uptime\": \"<string>\",\n  \"IPv4Address\": \"<ipv4>\",\n  \"IPv6Address\": \"<ipv6>\",\n  \"VMSize\": \"Medium\",\n  \"CurrentRegistrations\": \"<integer>\",\n  \"CurrentCalls\": \"<integer>\",\n  \"OptionKeys\": [\n    {\n      \"Name\": \"<string>\",\n      \"Status\": \"Active\"\n    },\n    {\n      \"Name\": \"<string>\",\n      \"Status\": \"Expired\"\n    }\n  ],\n  \"ClusterRole\": \"Primary\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-b8d3438e-cafe-4513-9575-130f1f627ff8"
+                    },
+                    {
+                      "id": "97983ea5-7158-43a8-b18e-0c794b13b32e",
+                      "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/systeminfo",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "systeminfo"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-97983ea5-7158-43a8-b18e-0c794b13b32e"
+                    },
+                    {
+                      "id": "bdcbf91f-5be2-403b-886c-d88e7deab8ba",
+                      "name": "The authenticated user does not have sufficient permissions for this operation.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/systeminfo",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "systeminfo"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-bdcbf91f-5be2-403b-886c-d88e7deab8ba"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:06:47.000Z",
+                  "updatedAt": "2026-06-05T15:06:47.000Z",
+                  "uid": "35240-802e2cdc-1356-4372-b795-ddbef2a57967"
+                }
+              ],
+              "id": "c43451d7-f019-4875-a4dc-da7136b4aa82",
+              "createdAt": "2026-06-05T15:06:47.000Z",
+              "updatedAt": "2026-06-05T15:06:47.000Z",
+              "uid": "35240-c43451d7-f019-4875-a4dc-da7136b4aa82"
+            },
+            {
+              "name": "alarms",
+              "item": [
+                {
+                  "name": "Cisco Expressway List all active alarms",
+                  "id": "03471930-4b63-4281-b0e5-ebe3050bd629",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/status/common/alarms",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "status",
+                        "common",
+                        "alarms"
+                      ]
+                    },
+                    "description": "Retrieves the list of all alarms currently active on the Expressway. Alarms indicate events or configuration changes that require administrator intervention, or hardware and environmental issues such as faulty disks, fans, or high temperatures. Alarms are categorized by severity and ID prefix ranges."
+                  },
+                  "response": [
+                    {
+                      "id": "6aa2417c-2c21-480d-8bd9-9bd1ffc9779a",
+                      "name": "Alarm list retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/alarms",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "alarms"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"AlarmId\": \"<string>\",\n    \"Severity\": \"Warning\",\n    \"Title\": \"<string>\",\n    \"Description\": \"<string>\",\n    \"TimeRaised\": \"<dateTime>\",\n    \"Category\": \"Security\"\n  },\n  {\n    \"AlarmId\": \"<string>\",\n    \"Severity\": \"Information\",\n    \"Title\": \"<string>\",\n    \"Description\": \"<string>\",\n    \"TimeRaised\": \"<dateTime>\",\n    \"Category\": \"Cluster\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-6aa2417c-2c21-480d-8bd9-9bd1ffc9779a"
+                    },
+                    {
+                      "id": "5726bcea-6cde-4b9e-a292-e9a9b4aa1ae3",
+                      "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/alarms",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "alarms"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-5726bcea-6cde-4b9e-a292-e9a9b4aa1ae3"
+                    },
+                    {
+                      "id": "e807cf4d-1fb8-4230-a557-b9253cf6b636",
+                      "name": "The authenticated user does not have sufficient permissions for this operation.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/alarms",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "alarms"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-e807cf4d-1fb8-4230-a557-b9253cf6b636"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:06:47.000Z",
+                  "updatedAt": "2026-06-05T15:06:47.000Z",
+                  "uid": "35240-03471930-4b63-4281-b0e5-ebe3050bd629"
+                }
+              ],
+              "id": "6827e9ab-225a-4e83-b872-81b6aff7546a",
+              "createdAt": "2026-06-05T15:06:47.000Z",
+              "updatedAt": "2026-06-05T15:06:47.000Z",
+              "uid": "35240-6827e9ab-225a-4e83-b872-81b6aff7546a"
+            },
+            {
+              "name": "calls",
+              "item": [
+                {
+                  "name": "Cisco Expressway List all active calls",
+                  "id": "acb15e2d-d455-48b9-8194-424cd51f7c69",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/status/common/calls",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "status",
+                        "common",
+                        "calls"
+                      ]
+                    },
+                    "description": "Retrieves the list of all currently active calls on the Expressway including source and destination endpoints, call type, protocol, duration, and bandwidth usage. Active calls are displayed with component-level details for interworked calls."
+                  },
+                  "response": [
+                    {
+                      "id": "a04e4871-df6d-4d20-96f2-cb63fb29ff9b",
+                      "name": "Active call list retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/calls",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "calls"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"CallId\": \"<string>\",\n    \"StartTime\": \"<dateTime>\",\n    \"Duration\": \"<integer>\",\n    \"SourceAlias\": \"<string>\",\n    \"DestinationAlias\": \"<string>\",\n    \"CallType\": \"SIP\",\n    \"SIPVariant\": \"Microsoft AV\",\n    \"Protocol\": \"<string>\",\n    \"Bandwidth\": \"<integer>\",\n    \"SourceZone\": \"<string>\",\n    \"DestinationZone\": \"<string>\",\n    \"Encrypted\": \"<boolean>\",\n    \"ClusterPeer\": \"<string>\"\n  },\n  {\n    \"CallId\": \"<string>\",\n    \"StartTime\": \"<dateTime>\",\n    \"Duration\": \"<integer>\",\n    \"SourceAlias\": \"<string>\",\n    \"DestinationAlias\": \"<string>\",\n    \"CallType\": \"SIP\",\n    \"SIPVariant\": \"Microsoft SIP IM&P\",\n    \"Protocol\": \"<string>\",\n    \"Bandwidth\": \"<integer>\",\n    \"SourceZone\": \"<string>\",\n    \"DestinationZone\": \"<string>\",\n    \"Encrypted\": \"<boolean>\",\n    \"ClusterPeer\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-a04e4871-df6d-4d20-96f2-cb63fb29ff9b"
+                    },
+                    {
+                      "id": "f17b58ee-a29d-44b3-8e7f-c60aef6d48cb",
+                      "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/calls",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "calls"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-f17b58ee-a29d-44b3-8e7f-c60aef6d48cb"
+                    },
+                    {
+                      "id": "42704118-2a43-400d-b071-3229198375b3",
+                      "name": "The authenticated user does not have sufficient permissions for this operation.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/calls",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "calls"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-42704118-2a43-400d-b071-3229198375b3"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:06:47.000Z",
+                  "updatedAt": "2026-06-05T15:06:47.000Z",
+                  "uid": "35240-acb15e2d-d455-48b9-8194-424cd51f7c69"
+                }
+              ],
+              "id": "643bd5ac-9b16-4742-bc1a-649ca17a9825",
+              "createdAt": "2026-06-05T15:06:47.000Z",
+              "updatedAt": "2026-06-05T15:06:47.000Z",
+              "uid": "35240-643bd5ac-9b16-4742-bc1a-649ca17a9825"
+            },
+            {
+              "name": "callhistory",
+              "item": [
+                {
+                  "name": "Cisco Expressway Retrieve call history",
+                  "id": "da229eed-7fec-4adf-afcf-4601d5ce2e03",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/status/common/callhistory?filter=get_records_for_filter&start_time=<dateTime>&end_time=<dateTime>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "status",
+                        "common",
+                        "callhistory"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter type for call history records. Supported values include get_all_records, get_records_for_interval, get_records_for_filter, and get_all_csv_records.",
+                          "key": "filter",
+                          "value": "get_records_for_filter"
+                        },
+                        {
+                          "description": "Start time for interval-based filtering in ISO 8601 format. Used with get_records_for_interval.",
+                          "key": "start_time",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End time for interval-based filtering in ISO 8601 format. Used with get_records_for_interval.",
+                          "key": "end_time",
+                          "value": "<dateTime>"
+                        }
+                      ]
+                    },
+                    "description": "Returns the call history for the Expressway limited to the most recent 500 calls or fewer if calls used multiple components. Each record includes start and end times, duration, source and destination aliases, call type, protocol, and status. Supports filtering by time interval and custom field filters."
+                  },
+                  "response": [
+                    {
+                      "id": "690dbdfd-0e4f-475f-ba3c-8e4b3a131aa7",
+                      "name": "Call history retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/callhistory?filter=get_records_for_filter&start_time=<dateTime>&end_time=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "callhistory"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter type for call history records. Supported values include get_all_records, get_records_for_interval, get_records_for_filter, and get_all_csv_records.",
+                              "key": "filter",
+                              "value": "get_records_for_filter"
+                            },
+                            {
+                              "description": "Start time for interval-based filtering in ISO 8601 format. Used with get_records_for_interval.",
+                              "key": "start_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "End time for interval-based filtering in ISO 8601 format. Used with get_records_for_interval.",
+                              "key": "end_time",
+                              "value": "<dateTime>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"CallId\": \"<string>\",\n    \"StartTime\": \"<dateTime>\",\n    \"EndTime\": \"<dateTime>\",\n    \"Duration\": \"<integer>\",\n    \"SourceAlias\": \"<string>\",\n    \"DestinationAlias\": \"<string>\",\n    \"CallType\": \"H.323\",\n    \"Protocol\": \"<string>\",\n    \"Status\": \"<string>\",\n    \"DisconnectReason\": \"<string>\",\n    \"ClusterPeer\": \"<string>\"\n  },\n  {\n    \"CallId\": \"<string>\",\n    \"StartTime\": \"<dateTime>\",\n    \"EndTime\": \"<dateTime>\",\n    \"Duration\": \"<integer>\",\n    \"SourceAlias\": \"<string>\",\n    \"DestinationAlias\": \"<string>\",\n    \"CallType\": \"SIP\",\n    \"Protocol\": \"<string>\",\n    \"Status\": \"<string>\",\n    \"DisconnectReason\": \"<string>\",\n    \"ClusterPeer\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-690dbdfd-0e4f-475f-ba3c-8e4b3a131aa7"
+                    },
+                    {
+                      "id": "7b55632f-3260-4479-83af-a0aa22634c39",
+                      "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/callhistory?filter=get_records_for_filter&start_time=<dateTime>&end_time=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "callhistory"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter type for call history records. Supported values include get_all_records, get_records_for_interval, get_records_for_filter, and get_all_csv_records.",
+                              "key": "filter",
+                              "value": "get_records_for_filter"
+                            },
+                            {
+                              "description": "Start time for interval-based filtering in ISO 8601 format. Used with get_records_for_interval.",
+                              "key": "start_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "End time for interval-based filtering in ISO 8601 format. Used with get_records_for_interval.",
+                              "key": "end_time",
+                              "value": "<dateTime>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-7b55632f-3260-4479-83af-a0aa22634c39"
+                    },
+                    {
+                      "id": "6242dc5f-22e9-4b0f-8c6d-c383d0ee979c",
+                      "name": "The authenticated user does not have sufficient permissions for this operation.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/callhistory?filter=get_records_for_filter&start_time=<dateTime>&end_time=<dateTime>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "callhistory"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter type for call history records. Supported values include get_all_records, get_records_for_interval, get_records_for_filter, and get_all_csv_records.",
+                              "key": "filter",
+                              "value": "get_records_for_filter"
+                            },
+                            {
+                              "description": "Start time for interval-based filtering in ISO 8601 format. Used with get_records_for_interval.",
+                              "key": "start_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "End time for interval-based filtering in ISO 8601 format. Used with get_records_for_interval.",
+                              "key": "end_time",
+                              "value": "<dateTime>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-6242dc5f-22e9-4b0f-8c6d-c383d0ee979c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:06:47.000Z",
+                  "updatedAt": "2026-06-05T15:06:47.000Z",
+                  "uid": "35240-da229eed-7fec-4adf-afcf-4601d5ce2e03"
+                }
+              ],
+              "id": "44d615dd-1029-467b-97f5-374566b4f936",
+              "createdAt": "2026-06-05T15:06:47.000Z",
+              "updatedAt": "2026-06-05T15:06:47.000Z",
+              "uid": "35240-44d615dd-1029-467b-97f5-374566b4f936"
+            },
+            {
+              "name": "registrations",
+              "item": [
+                {
+                  "name": "Cisco Expressway List all current registrations",
+                  "id": "c0904e7c-5adb-43b5-b46e-494d21e3eadc",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/status/common/registrations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "status",
+                        "common",
+                        "registrations"
+                      ]
+                    },
+                    "description": "Retrieves the list of all devices and endpoints currently registered with the Expressway, organized by device alias. Includes registration type (SIP or H.323), contact address, and registration timestamp."
+                  },
+                  "response": [
+                    {
+                      "id": "54c002c1-c347-468d-8faa-dc0ad58f60c1",
+                      "name": "Registration list retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/registrations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "registrations"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"Alias\": \"<string>\",\n    \"Type\": \"H.323\",\n    \"ContactAddress\": \"<string>\",\n    \"RegisteredAt\": \"<dateTime>\",\n    \"ExpiresAt\": \"<dateTime>\",\n    \"DeviceType\": \"<string>\",\n    \"Subzone\": \"<string>\"\n  },\n  {\n    \"Alias\": \"<string>\",\n    \"Type\": \"H.323\",\n    \"ContactAddress\": \"<string>\",\n    \"RegisteredAt\": \"<dateTime>\",\n    \"ExpiresAt\": \"<dateTime>\",\n    \"DeviceType\": \"<string>\",\n    \"Subzone\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-54c002c1-c347-468d-8faa-dc0ad58f60c1"
+                    },
+                    {
+                      "id": "f0bc04ae-aac3-4ddf-b22f-aae7b0c7ecbd",
+                      "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/registrations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "registrations"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-f0bc04ae-aac3-4ddf-b22f-aae7b0c7ecbd"
+                    },
+                    {
+                      "id": "ee847e64-a54f-4402-aa55-25f68e48ed3a",
+                      "name": "The authenticated user does not have sufficient permissions for this operation.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/registrations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "registrations"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-ee847e64-a54f-4402-aa55-25f68e48ed3a"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:06:47.000Z",
+                  "updatedAt": "2026-06-05T15:06:47.000Z",
+                  "uid": "35240-c0904e7c-5adb-43b5-b46e-494d21e3eadc"
+                }
+              ],
+              "id": "a1faadcd-5a66-486d-ad29-8a251cdbb1e6",
+              "createdAt": "2026-06-05T15:06:47.000Z",
+              "updatedAt": "2026-06-05T15:06:47.000Z",
+              "uid": "35240-a1faadcd-5a66-486d-ad29-8a251cdbb1e6"
+            },
+            {
+              "name": "zones",
+              "item": [
+                {
+                  "name": "Cisco Expressway List zone connectivity status",
+                  "id": "e4e0be10-2deb-4b4c-9d8b-85f0e9dd1b37",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/status/common/zones",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "status",
+                        "common",
+                        "zones"
+                      ]
+                    },
+                    "description": "Retrieves the connectivity status for all configured zones on the Expressway including the zone name, type, connection state, and any active calls traversing each zone."
+                  },
+                  "response": [
+                    {
+                      "id": "0207f528-fccc-43de-a05c-05f385e4df98",
+                      "name": "Zone status list retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/zones",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "zones"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"ZoneName\": \"<string>\",\n    \"ZoneType\": \"ENUM\",\n    \"ConnectionState\": \"Failed\",\n    \"ActiveCalls\": \"<integer>\",\n    \"BandwidthUsed\": \"<integer>\",\n    \"BandwidthLimit\": \"<integer>\",\n    \"PeerAddress\": \"<string>\"\n  },\n  {\n    \"ZoneName\": \"<string>\",\n    \"ZoneType\": \"DNS\",\n    \"ConnectionState\": \"Active\",\n    \"ActiveCalls\": \"<integer>\",\n    \"BandwidthUsed\": \"<integer>\",\n    \"BandwidthLimit\": \"<integer>\",\n    \"PeerAddress\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-0207f528-fccc-43de-a05c-05f385e4df98"
+                    },
+                    {
+                      "id": "df9e93e6-70db-42db-8846-edb5447482a7",
+                      "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/zones",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "zones"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-df9e93e6-70db-42db-8846-edb5447482a7"
+                    },
+                    {
+                      "id": "5b3f611f-ab35-4e18-a73a-70890fa84f2d",
+                      "name": "The authenticated user does not have sufficient permissions for this operation.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/zones",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "zones"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-5b3f611f-ab35-4e18-a73a-70890fa84f2d"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:06:47.000Z",
+                  "updatedAt": "2026-06-05T15:06:47.000Z",
+                  "uid": "35240-e4e0be10-2deb-4b4c-9d8b-85f0e9dd1b37"
+                }
+              ],
+              "id": "194b23bc-5646-408a-9464-f816e0f8f93c",
+              "createdAt": "2026-06-05T15:06:47.000Z",
+              "updatedAt": "2026-06-05T15:06:47.000Z",
+              "uid": "35240-194b23bc-5646-408a-9464-f816e0f8f93c"
+            },
+            {
+              "name": "resourceusage",
+              "item": [
+                {
+                  "name": "Cisco Expressway Retrieve system resource usage",
+                  "id": "dae201ca-cac0-4298-b6e0-09397fd00289",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/status/common/resourceusage",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "status",
+                        "common",
+                        "resourceusage"
+                      ]
+                    },
+                    "description": "Returns current system resource utilization metrics including rich media session counts (current and peak), registration counts by type, license consumption percentage, system capacity utilization, and MRA device registration tracking."
+                  },
+                  "response": [
+                    {
+                      "id": "2f4cb1f5-cc4d-4090-9c44-cca24f929876",
+                      "name": "Resource usage retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/resourceusage",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "resourceusage"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"RichMediaSessionsCurrent\": \"<integer>\",\n  \"RichMediaSessionsPeak\": \"<integer>\",\n  \"RichMediaSessionsCapacity\": \"<integer>\",\n  \"SIPRegistrations\": \"<integer>\",\n  \"H323Registrations\": \"<integer>\",\n  \"TotalRegistrations\": \"<integer>\",\n  \"RegistrationCapacity\": \"<integer>\",\n  \"LicenseUtilizationPercent\": \"<float>\",\n  \"SystemCapacityPercent\": \"<float>\",\n  \"MRADevices\": \"<integer>\",\n  \"TURNRelaysActive\": \"<integer>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-2f4cb1f5-cc4d-4090-9c44-cca24f929876"
+                    },
+                    {
+                      "id": "c91c0786-fdb7-4f65-bbcf-d42890919290",
+                      "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/resourceusage",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "resourceusage"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-c91c0786-fdb7-4f65-bbcf-d42890919290"
+                    },
+                    {
+                      "id": "9d1b4a81-2ab3-4cad-9355-04a3b6c236de",
+                      "name": "The authenticated user does not have sufficient permissions for this operation.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/resourceusage",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "resourceusage"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-9d1b4a81-2ab3-4cad-9355-04a3b6c236de"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:06:47.000Z",
+                  "updatedAt": "2026-06-05T15:06:47.000Z",
+                  "uid": "35240-dae201ca-cac0-4298-b6e0-09397fd00289"
+                }
+              ],
+              "id": "9f61a1f4-7fe1-4af5-9744-a18cbccf071a",
+              "createdAt": "2026-06-05T15:06:47.000Z",
+              "updatedAt": "2026-06-05T15:06:47.000Z",
+              "uid": "35240-9f61a1f4-7fe1-4af5-9744-a18cbccf071a"
+            },
+            {
+              "name": "turnrelays",
+              "item": [
+                {
+                  "name": "Cisco Expressway List active TURN relay allocations",
+                  "id": "92ba633d-9e92-4881-a4d5-5326b329b2e9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/status/common/turnrelays",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "status",
+                        "common",
+                        "turnrelays"
+                      ]
+                    },
+                    "description": "Retrieves the list of all active TURN relay allocations on the Expressway including client IP addresses, media destination addresses, connection protocol, active relay count per client, and permission, channel, and request counters."
+                  },
+                  "response": [
+                    {
+                      "id": "75a416e9-9b83-4acb-b958-9feecaa2890f",
+                      "name": "TURN relay list retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/turnrelays",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "turnrelays"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"ClientAddress\": \"<string>\",\n    \"MediaDestination\": \"<string>\",\n    \"ConnectionProtocol\": \"TCP\",\n    \"ActiveRelays\": \"<integer>\",\n    \"Permissions\": \"<integer>\",\n    \"Channels\": \"<integer>\",\n    \"Requests\": \"<integer>\"\n  },\n  {\n    \"ClientAddress\": \"<string>\",\n    \"MediaDestination\": \"<string>\",\n    \"ConnectionProtocol\": \"UDP\",\n    \"ActiveRelays\": \"<integer>\",\n    \"Permissions\": \"<integer>\",\n    \"Channels\": \"<integer>\",\n    \"Requests\": \"<integer>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-75a416e9-9b83-4acb-b958-9feecaa2890f"
+                    },
+                    {
+                      "id": "8ddaf390-3966-42a5-b8d5-6cc8e21fff0d",
+                      "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/turnrelays",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "turnrelays"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-8ddaf390-3966-42a5-b8d5-6cc8e21fff0d"
+                    },
+                    {
+                      "id": "f9ae8596-6166-4d98-8e4d-1d049c4f7223",
+                      "name": "The authenticated user does not have sufficient permissions for this operation.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/status/common/turnrelays",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "status",
+                            "common",
+                            "turnrelays"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-f9ae8596-6166-4d98-8e4d-1d049c4f7223"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:06:47.000Z",
+                  "updatedAt": "2026-06-05T15:06:47.000Z",
+                  "uid": "35240-92ba633d-9e92-4881-a4d5-5326b329b2e9"
+                }
+              ],
+              "id": "0307b7a4-e1e8-409e-8c1e-78294f694157",
+              "createdAt": "2026-06-05T15:06:47.000Z",
+              "updatedAt": "2026-06-05T15:06:47.000Z",
+              "uid": "35240-0307b7a4-e1e8-409e-8c1e-78294f694157"
+            }
+          ],
+          "id": "a674c76b-9828-4a4a-a396-9571d0dcb963",
+          "createdAt": "2026-06-05T15:06:47.000Z",
+          "updatedAt": "2026-06-05T15:06:47.000Z",
+          "uid": "35240-a674c76b-9828-4a4a-a396-9571d0dcb963"
+        }
+      ],
+      "id": "4bb95921-b8de-463a-9f46-d834c93e42ce",
+      "createdAt": "2026-06-05T15:06:47.000Z",
+      "updatedAt": "2026-06-05T15:06:47.000Z",
+      "uid": "35240-4bb95921-b8de-463a-9f46-d834c93e42ce"
+    },
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "status",
+          "item": [
+            {
+              "name": "common",
+              "item": [
+                {
+                  "name": "smartlicensing",
+                  "item": [
+                    {
+                      "name": "licensing",
+                      "item": [
+                        {
+                          "name": "Cisco Expressway Retrieve smart licensing status",
+                          "id": "ae6e4d1e-e848-4e08-9ce2-b9bde6f316f8",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/status/common/smartlicensing/licensing",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "status",
+                                "common",
+                                "smartlicensing",
+                                "licensing"
+                              ]
+                            },
+                            "description": "Returns the current smart licensing status for the Expressway including the license registration status, authorization status, license entitlements, usage counts, and compliance state. This endpoint is documented in the Cisco Expressway REST API Summary Guide as a primary status retrieval endpoint."
+                          },
+                          "response": [
+                            {
+                              "id": "f93b61b9-0ee0-492b-b741-0e2d4ff52acc",
+                              "name": "Smart licensing status retrieved successfully",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/status/common/smartlicensing/licensing",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "status",
+                                    "common",
+                                    "smartlicensing",
+                                    "licensing"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"RegistrationStatus\": \"Registration Expired\",\n  \"AuthorizationStatus\": \"Authorization Expired\",\n  \"SmartAccountName\": \"<string>\",\n  \"VirtualAccountName\": \"<string>\",\n  \"LastRenewalAttempt\": \"<dateTime>\",\n  \"NextRenewalAttempt\": \"<dateTime>\",\n  \"Entitlements\": [\n    {\n      \"Name\": \"<string>\",\n      \"InUse\": \"<integer>\",\n      \"Authorized\": \"<integer>\",\n      \"ComplianceStatus\": \"Out of Compliance\"\n    },\n    {\n      \"Name\": \"<string>\",\n      \"InUse\": \"<integer>\",\n      \"Authorized\": \"<integer>\",\n      \"ComplianceStatus\": \"In Compliance\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:06:47.000Z",
+                              "updatedAt": "2026-06-05T15:06:47.000Z",
+                              "uid": "35240-f93b61b9-0ee0-492b-b741-0e2d4ff52acc"
+                            },
+                            {
+                              "id": "59d7b0da-d83f-4a89-86de-4a4c5700c9ba",
+                              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/status/common/smartlicensing/licensing",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "status",
+                                    "common",
+                                    "smartlicensing",
+                                    "licensing"
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:06:47.000Z",
+                              "updatedAt": "2026-06-05T15:06:47.000Z",
+                              "uid": "35240-59d7b0da-d83f-4a89-86de-4a4c5700c9ba"
+                            },
+                            {
+                              "id": "e86192ed-074a-4f4c-9807-e88a1433effc",
+                              "name": "The authenticated user does not have sufficient permissions for this operation.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/status/common/smartlicensing/licensing",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "status",
+                                    "common",
+                                    "smartlicensing",
+                                    "licensing"
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:06:47.000Z",
+                              "updatedAt": "2026-06-05T15:06:47.000Z",
+                              "uid": "35240-e86192ed-074a-4f4c-9807-e88a1433effc"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:06:47.000Z",
+                          "updatedAt": "2026-06-05T15:06:47.000Z",
+                          "uid": "35240-ae6e4d1e-e848-4e08-9ce2-b9bde6f316f8"
+                        }
+                      ],
+                      "id": "a7f19927-beda-47f6-94b5-0d6251eac1de",
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-a7f19927-beda-47f6-94b5-0d6251eac1de"
+                    }
+                  ],
+                  "id": "e48c6c02-8c2e-4433-ba34-9b01e9d3ecaa",
+                  "createdAt": "2026-06-05T15:06:47.000Z",
+                  "updatedAt": "2026-06-05T15:06:47.000Z",
+                  "uid": "35240-e48c6c02-8c2e-4433-ba34-9b01e9d3ecaa"
+                },
+                {
+                  "name": "upgradestatus",
+                  "item": [
+                    {
+                      "name": "Cisco Expressway Retrieve upgrade progress status",
+                      "id": "ce888a32-49d8-4e6a-8df2-20ef709592cd",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/status/common/upgradestatus",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "status",
+                            "common",
+                            "upgradestatus"
+                          ]
+                        },
+                        "description": "Returns the current status of any in-progress or recent system upgrade on the Expressway, including the download progress percentage, upgrade phase, and any error messages. This endpoint is documented in the Cisco Expressway REST API Summary Guide as a primary status retrieval endpoint."
+                      },
+                      "response": [
+                        {
+                          "id": "d2296bd2-ac0e-4820-99e0-05a164aa705d",
+                          "name": "Upgrade status retrieved successfully",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/status/common/upgradestatus",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "status",
+                                "common",
+                                "upgradestatus"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Status\": \"Complete\",\n  \"ProgressPercentage\": \"<integer>\",\n  \"CurrentVersion\": \"<string>\",\n  \"TargetVersion\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"LastUpgradeTime\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-06-05T15:06:47.000Z",
+                          "updatedAt": "2026-06-05T15:06:47.000Z",
+                          "uid": "35240-d2296bd2-ac0e-4820-99e0-05a164aa705d"
+                        },
+                        {
+                          "id": "241c13d3-5a72-4a5f-a92e-accad4a5d448",
+                          "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/status/common/upgradestatus",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "status",
+                                "common",
+                                "upgradestatus"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:06:47.000Z",
+                          "updatedAt": "2026-06-05T15:06:47.000Z",
+                          "uid": "35240-241c13d3-5a72-4a5f-a92e-accad4a5d448"
+                        },
+                        {
+                          "id": "05913949-7180-4df0-8f7d-f50c2923e165",
+                          "name": "The authenticated user does not have sufficient permissions for this operation.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/status/common/upgradestatus",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "status",
+                                "common",
+                                "upgradestatus"
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:06:47.000Z",
+                          "updatedAt": "2026-06-05T15:06:47.000Z",
+                          "uid": "35240-05913949-7180-4df0-8f7d-f50c2923e165"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:06:47.000Z",
+                      "updatedAt": "2026-06-05T15:06:47.000Z",
+                      "uid": "35240-ce888a32-49d8-4e6a-8df2-20ef709592cd"
+                    }
+                  ],
+                  "id": "40079a95-6052-4a76-ac4d-92d5d5de06df",
+                  "createdAt": "2026-06-05T15:06:47.000Z",
+                  "updatedAt": "2026-06-05T15:06:47.000Z",
+                  "uid": "35240-40079a95-6052-4a76-ac4d-92d5d5de06df"
+                }
+              ],
+              "id": "08014c54-60b8-4495-8d37-770f8f4622e5",
+              "createdAt": "2026-06-05T15:06:47.000Z",
+              "updatedAt": "2026-06-05T15:06:47.000Z",
+              "uid": "35240-08014c54-60b8-4495-8d37-770f8f4622e5"
+            }
+          ],
+          "id": "6ff7ff4b-9f08-461b-abdb-6ce4c2d7906a",
+          "createdAt": "2026-06-05T15:06:47.000Z",
+          "updatedAt": "2026-06-05T15:06:47.000Z",
+          "uid": "35240-6ff7ff4b-9f08-461b-abdb-6ce4c2d7906a"
+        }
+      ],
+      "id": "aff80ea2-d4ac-47b6-acde-c357ce63e13d",
+      "createdAt": "2026-06-05T15:06:47.000Z",
+      "updatedAt": "2026-06-05T15:06:47.000Z",
+      "uid": "35240-aff80ea2-d4ac-47b6-acde-c357ce63e13d"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "host",
+      "value": "expressway.example.com"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{host}}/api"
+    }
+  ]
+}

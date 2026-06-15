@@ -1,0 +1,211 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cisco Expressway Status API",
+    "version": "14.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "System Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway Retrieve system status overview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/status/common/systeminfo"
+          },
+          "docs": "Returns a comprehensive system status overview for the Expressway node including the system name, software version, hardware version, serial number, uptime, IPv4 and IPv6 addresses, virtual machine size, current registration and call counts, and option key status."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Alarms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway List all active alarms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/status/common/alarms"
+          },
+          "docs": "Retrieves the list of all alarms currently active on the Expressway. Alarms indicate events or configuration changes that require administrator intervention, or hardware and environmental issues such as faulty disks, fans, or high temperatures. Alarms are categorized by severity and ID prefix ranges."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Calls",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway List all active calls",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/status/common/calls"
+          },
+          "docs": "Retrieves the list of all currently active calls on the Expressway including source and destination endpoints, call type, protocol, duration, and bandwidth usage. Active calls are displayed with component-level details for interworked calls."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Retrieve call history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/status/common/callhistory",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter type for call history records. Supported values include get_all_records, get_records_for_interval, get_records_for_filter, and get_all_csv_records."
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "Start time for interval-based filtering in ISO 8601 format. Used with get_records_for_interval."
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "End time for interval-based filtering in ISO 8601 format. Used with get_records_for_interval."
+              }
+            ]
+          },
+          "docs": "Returns the call history for the Expressway limited to the most recent 500 calls or fewer if calls used multiple components. Each record includes start and end times, duration, source and destination aliases, call type, protocol, and status. Supports filtering by time interval and custom field filters."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Registrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway List all current registrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/status/common/registrations"
+          },
+          "docs": "Retrieves the list of all devices and endpoints currently registered with the Expressway, organized by device alias. Includes registration type (SIP or H.323), contact address, and registration timestamp."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Licensing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway Retrieve smart licensing status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/v1/status/common/smartlicensing/licensing"
+          },
+          "docs": "Returns the current smart licensing status for the Expressway including the license registration status, authorization status, license entitlements, usage counts, and compliance state. This endpoint is documented in the Cisco Expressway REST API Summary Guide as a primary status retrieval endpoint."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Upgrade",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway Retrieve upgrade progress status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/v1/status/common/upgradestatus"
+          },
+          "docs": "Returns the current status of any in-progress or recent system upgrade on the Expressway, including the download progress percentage, upgrade phase, and any error messages. This endpoint is documented in the Cisco Expressway REST API Summary Guide as a primary status retrieval endpoint."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Zones",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway List zone connectivity status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/status/common/zones"
+          },
+          "docs": "Retrieves the connectivity status for all configured zones on the Expressway including the zone name, type, connection state, and any active calls traversing each zone."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Resource Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway Retrieve system resource usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/status/common/resourceusage"
+          },
+          "docs": "Returns current system resource utilization metrics including rich media session counts (current and peak), registration counts by type, license consumption percentage, system capacity utilization, and MRA device registration tracking."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway List active TURN relay allocations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/status/common/turnrelays"
+          },
+          "docs": "Retrieves the list of all active TURN relay allocations on the Expressway including client IP addresses, media destination addresses, connection protocol, active relay count per client, and permission, channel, and request counters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
