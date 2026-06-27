@@ -163,54 +163,51 @@ maintainers:
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/cisco-expressway/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/cisco-expressway-active-call-troubleshooting-workflow.yml
-        name: Cisco Expressway Active Call Troubleshooting
-        summary: List active calls, active TURN relays, and recent call history for media diagnosis.
-      - url: arazzo/cisco-expressway-capacity-registrations-audit-workflow.yml
-        name: Cisco Expressway Capacity and Registrations Audit
-        summary: Read resource usage, then list registrations and active calls to audit load.
-      - url: arazzo/cisco-expressway-create-dial-plan-transform-workflow.yml
-        name: Cisco Expressway Create Dial Plan Transform
-        summary: Add a pre-search transform, confirm it, then add a search rule that uses the normalized alias.
-      - url: arazzo/cisco-expressway-create-dns-zone-routing-workflow.yml
-        name: Cisco Expressway Create DNS Zone Routing
-        summary: Create a DNS zone for endpoint discovery and a search rule that routes to it.
-      - url: arazzo/cisco-expressway-licensing-compliance-check-workflow.yml
-        name: Cisco Expressway Licensing Compliance Check
-        summary: Read smart licensing status and branch on registration to read resource usage.
-      - url: arazzo/cisco-expressway-onboard-neighbor-zone-routing-workflow.yml
-        name: Cisco Expressway Onboard Neighbor Zone Routing
-        summary: Create a neighbor zone and a search rule that routes matching calls to it.
-      - url: arazzo/cisco-expressway-pre-upgrade-health-check-workflow.yml
-        name: Cisco Expressway Pre-Upgrade Health Check
-        summary: Read system status, active alarms, and resource usage to gate an upgrade.
-      - url: arazzo/cisco-expressway-provision-dns-server-workflow.yml
-        name: Cisco Expressway Provision DNS Server
-        summary: Add a DNS server to an Expressway node and confirm it was applied.
-      - url: arazzo/cisco-expressway-provision-ntp-server-workflow.yml
-        name: Cisco Expressway Provision NTP Server
-        summary: Add an NTP time source to an Expressway node and confirm it was applied.
-      - url: arazzo/cisco-expressway-rotate-admin-password-workflow.yml
-        name: Cisco Expressway Rotate Admin Password
-        summary: Identify the node, then change an administrator account password.
-      - url: arazzo/cisco-expressway-setup-traversal-pair-workflow.yml
-        name: Cisco Expressway Set Up Firewall Traversal Pair
-        summary: Create the matched server/client zones that form an Expressway-E to Expressway-C traversal.
-      - url: arazzo/cisco-expressway-system-upgrade-workflow.yml
-        name: Cisco Expressway System Upgrade
-        summary: Set SFTP details, trigger a software upgrade, then poll upgrade status.
-      - url: arazzo/cisco-expressway-update-sip-configuration-workflow.yml
-        name: Cisco Expressway Update SIP Configuration
-        summary: Read current SIP configuration, apply changes, then confirm via system status.
-      - url: arazzo/cisco-expressway-upgrade-progress-monitor-workflow.yml
-        name: Cisco Expressway Upgrade Progress Monitor
-        summary: Read upgrade status, then read system status to confirm the running version.
-      - url: arazzo/cisco-expressway-zone-health-investigation-workflow.yml
-        name: Cisco Expressway Zone Health Investigation
-        summary: Inspect zone connectivity, active calls, and recent call history together.
+  - type: Arazzo
+    url: arazzo/cisco-expressway-active-call-troubleshooting-workflow.yml
+    name: Cisco Expressway Active Call Troubleshooting
+  - type: Arazzo
+    url: arazzo/cisco-expressway-capacity-registrations-audit-workflow.yml
+    name: Cisco Expressway Capacity and Registrations Audit
+  - type: Arazzo
+    url: arazzo/cisco-expressway-create-dial-plan-transform-workflow.yml
+    name: Cisco Expressway Create Dial Plan Transform
+  - type: Arazzo
+    url: arazzo/cisco-expressway-create-dns-zone-routing-workflow.yml
+    name: Cisco Expressway Create DNS Zone Routing
+  - type: Arazzo
+    url: arazzo/cisco-expressway-licensing-compliance-check-workflow.yml
+    name: Cisco Expressway Licensing Compliance Check
+  - type: Arazzo
+    url: arazzo/cisco-expressway-onboard-neighbor-zone-routing-workflow.yml
+    name: Cisco Expressway Onboard Neighbor Zone Routing
+  - type: Arazzo
+    url: arazzo/cisco-expressway-pre-upgrade-health-check-workflow.yml
+    name: Cisco Expressway Pre-Upgrade Health Check
+  - type: Arazzo
+    url: arazzo/cisco-expressway-provision-dns-server-workflow.yml
+    name: Cisco Expressway Provision DNS Server
+  - type: Arazzo
+    url: arazzo/cisco-expressway-provision-ntp-server-workflow.yml
+    name: Cisco Expressway Provision NTP Server
+  - type: Arazzo
+    url: arazzo/cisco-expressway-rotate-admin-password-workflow.yml
+    name: Cisco Expressway Rotate Admin Password
+  - type: Arazzo
+    url: arazzo/cisco-expressway-setup-traversal-pair-workflow.yml
+    name: Cisco Expressway Set Up Firewall Traversal Pair
+  - type: Arazzo
+    url: arazzo/cisco-expressway-system-upgrade-workflow.yml
+    name: Cisco Expressway System Upgrade
+  - type: Arazzo
+    url: arazzo/cisco-expressway-update-sip-configuration-workflow.yml
+    name: Cisco Expressway Update SIP Configuration
+  - type: Arazzo
+    url: arazzo/cisco-expressway-upgrade-progress-monitor-workflow.yml
+    name: Cisco Expressway Upgrade Progress Monitor
+  - type: Arazzo
+    url: arazzo/cisco-expressway-zone-health-investigation-workflow.yml
+    name: Cisco Expressway Zone Health Investigation
   - type: Portal
     url: https://developer.cisco.com/
   - type: Documentation
@@ -241,7 +238,7 @@ common:
     url: https://www.cisco.com/c/en/us/products/unified-communications/expressway-series/index.html
   - type: Login
     url: https://developer.cisco.com/
-  - type: SignUp
+  - type: Signup
     url: https://developer.cisco.com/
   - type: ChangeLog
     url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
