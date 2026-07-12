@@ -161,6 +161,12 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: VulnerabilityDisclosure
+    url: security/cisco-expressway-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/cisco-expressway-domain-security.yml
+  - type: Authentication
+    url: authentication/cisco-expressway-authentication.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/cisco-expressway/overview
   - type: Arazzo
