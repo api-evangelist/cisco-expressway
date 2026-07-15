@@ -161,6 +161,8 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/cisco-expressway-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/cisco-expressway-vulnerability-disclosure.yml
   - type: DomainSecurity
