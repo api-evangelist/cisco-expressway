@@ -1,0 +1,171 @@
+openapi: 3.1.0
+info:
+  title: Cisco Expressway Configuration Admin Account Resource Usage API
+  description: RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.
+  version: 14.2.0
+  contact:
+    name: Cisco TAC
+    email: tac@cisco.com
+    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
+  license:
+    name: Cisco EULA
+    url: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
+  x-logo:
+    url: https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
+servers:
+- url: https://{host}/api
+  description: Cisco Expressway server
+  variables:
+    host:
+      default: expressway.example.com
+      description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
+security:
+- basicAuth: []
+tags:
+- name: Resource Usage
+  description: System resource utilization metrics
+paths:
+  /status/common/resourceusage:
+    get:
+      operationId: getResourceUsage
+      summary: Cisco Expressway Retrieve system resource usage
+      description: Returns current system resource utilization metrics including rich media session counts (current and peak), registration counts by type, license consumption percentage, system capacity utilization, and MRA device registration tracking.
+      tags:
+      - Resource Usage
+      responses:
+        '200':
+          description: Resource usage retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceUsage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /status/common/turnrelays:
+    get:
+      operationId: listTurnRelays
+      summary: Cisco Expressway List active TURN relay allocations
+      description: Retrieves the list of all active TURN relay allocations on the Expressway including client IP addresses, media destination addresses, connection protocol, active relay count per client, and permission, channel, and request counters.
+      tags:
+      - Resource Usage
+      responses:
+        '200':
+          description: TURN relay list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TurnRelay'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  schemas:
+    ResourceUsage:
+      type: object
+      description: System resource utilization metrics for the Expressway
+      properties:
+        RichMediaSessionsCurrent:
+          type: integer
+          description: Number of currently active rich media sessions
+        RichMediaSessionsPeak:
+          type: integer
+          description: Peak number of rich media sessions since last restart
+        RichMediaSessionsCapacity:
+          type: integer
+          description: Maximum rich media session capacity
+        SIPRegistrations:
+          type: integer
+          description: Number of active SIP registrations
+        H323Registrations:
+          type: integer
+          description: Number of active H.323 registrations
+        TotalRegistrations:
+          type: integer
+          description: Total number of active registrations
+        RegistrationCapacity:
+          type: integer
+          description: Maximum registration capacity
+        LicenseUtilizationPercent:
+          type: number
+          format: float
+          description: Current license utilization as a percentage
+          minimum: 0
+          maximum: 100
+        SystemCapacityPercent:
+          type: number
+          format: float
+          description: Overall system capacity utilization as a percentage
+          minimum: 0
+          maximum: 100
+        MRADevices:
+          type: integer
+          description: Number of Mobile and Remote Access devices registered
+        TURNRelaysActive:
+          type: integer
+          description: Number of active TURN relay allocations
+    TurnRelay:
+      type: object
+      description: An active TURN relay allocation on the Expressway
+      properties:
+        ClientAddress:
+          type: string
+          description: IP address of the TURN client
+          examples:
+          - 192.168.1.100
+        MediaDestination:
+          type: string
+          description: Media destination address
+        ConnectionProtocol:
+          type: string
+          description: Connection protocol used
+          enum:
+          - TCP
+          - UDP
+        ActiveRelays:
+          type: integer
+          description: Number of active relays for this client
+        Permissions:
+          type: integer
+          description: Number of permissions created
+        Channels:
+          type: integer
+          description: Number of channels bound
+        Requests:
+          type: integer
+          description: Total number of requests processed
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Expressway administrator credentials. The API is only accessible via HTTPS.
+externalDocs:
+  description: Cisco Expressway REST API Summary Guide (X14.2)
+  url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html

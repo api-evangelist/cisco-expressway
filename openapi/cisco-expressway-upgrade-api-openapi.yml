@@ -1,0 +1,182 @@
+openapi: 3.1.0
+info:
+  title: Cisco Expressway Configuration Admin Account Upgrade API
+  description: RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.
+  version: 14.2.0
+  contact:
+    name: Cisco TAC
+    email: tac@cisco.com
+    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
+  license:
+    name: Cisco EULA
+    url: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
+  x-logo:
+    url: https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
+servers:
+- url: https://{host}/api
+  description: Cisco Expressway server
+  variables:
+    host:
+      default: expressway.example.com
+      description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
+security:
+- basicAuth: []
+tags:
+- name: Upgrade
+  description: System upgrade operations
+paths:
+  /v1/provisioning/common/upgrade:
+    post:
+      operationId: triggerUpgrade
+      summary: Cisco Expressway Trigger a system upgrade
+      description: Initiates a system software upgrade on the Expressway. The SFTP configuration must be set before triggering the upgrade. The upgrade process downloads the image via SFTP and optionally reboots the system automatically.
+      tags:
+      - Upgrade
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpgradeRequest'
+      responses:
+        '200':
+          description: Upgrade initiated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpgradeResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /v1/status/common/upgradestatus:
+    get:
+      operationId: getUpgradeStatus
+      summary: Cisco Expressway Retrieve upgrade progress status
+      description: Returns the current status of any in-progress or recent system upgrade on the Expressway, including the download progress percentage, upgrade phase, and any error messages. This endpoint is documented in the Cisco Expressway REST API Summary Guide as a primary status retrieval endpoint.
+      tags:
+      - Upgrade
+      responses:
+        '200':
+          description: Upgrade status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpgradeStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    UpgradeStatus:
+      type: object
+      description: Status of an in-progress or recent system upgrade operation
+      properties:
+        Status:
+          type: string
+          description: Current phase of the upgrade
+          enum:
+          - Idle
+          - Downloading
+          - Downloaded
+          - Upgrading
+          - Complete
+          - Failed
+        ProgressPercentage:
+          type: integer
+          description: Download or upgrade progress as a percentage (0-100)
+          minimum: 0
+          maximum: 100
+        CurrentVersion:
+          type: string
+          description: Currently installed software version
+          examples:
+          - X14.0
+        TargetVersion:
+          type: string
+          description: Target software version for the upgrade
+          examples:
+          - X14.2
+        Message:
+          type: string
+          description: Human-readable status or error message
+        LastUpgradeTime:
+          type: string
+          format: date-time
+          description: Timestamp of the last completed upgrade
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
+    UpgradeRequest:
+      type: object
+      description: Request body for triggering a system upgrade
+      properties:
+        ImageDownloadMode:
+          type: string
+          description: Method for downloading the upgrade image
+          enum:
+          - SFTP
+        UpgradeFileName:
+          type: string
+          description: Filename of the upgrade image
+          examples:
+          - s42701x14_2_0.tar.gz
+        AutoReboot:
+          type: boolean
+          description: Whether to automatically reboot after upgrade download completes
+          default: false
+      required:
+      - UpgradeFileName
+    UpgradeResponse:
+      type: object
+      description: Response from a system upgrade request
+      properties:
+        Status:
+          type: string
+          description: Current status of the upgrade operation
+          enum:
+          - Downloading
+          - Downloaded
+          - Upgrading
+          - Complete
+          - Failed
+        Message:
+          type: string
+          description: Human-readable status message
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Expressway administrator credentials. The API is only accessible via HTTPS.
+externalDocs:
+  description: Cisco Expressway REST API Summary Guide (X14.2)
+  url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html

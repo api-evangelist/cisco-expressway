@@ -1,0 +1,124 @@
+openapi: 3.1.0
+info:
+  title: Cisco Expressway Configuration Admin Account System API
+  description: RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.
+  version: 14.2.0
+  contact:
+    name: Cisco TAC
+    email: tac@cisco.com
+    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
+  license:
+    name: Cisco EULA
+    url: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
+  x-logo:
+    url: https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
+servers:
+- url: https://{host}/api
+  description: Cisco Expressway server
+  variables:
+    host:
+      default: expressway.example.com
+      description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
+security:
+- basicAuth: []
+tags:
+- name: System
+  description: System-level configuration and information
+paths:
+  /provisioning/common/sysinfo:
+    get:
+      operationId: getSystemInfo
+      summary: Cisco Expressway Retrieve system information
+      description: Returns basic system information for the Expressway node including the system name, software version, hardware details, serial number, and uptime.
+      tags:
+      - System
+      responses:
+        '200':
+          description: System information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemInfo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
+    SystemInfo:
+      type: object
+      description: System information for the Expressway node
+      properties:
+        SystemName:
+          type: string
+          description: The name assigned to the Expressway
+          examples:
+          - Expressway-C-Primary
+        SoftwareVersion:
+          type: string
+          description: Currently installed software version
+          examples:
+          - X14.2
+        HardwareVersion:
+          type: string
+          description: Hardware or virtual appliance version
+          examples:
+          - VM
+        SerialNumber:
+          type: string
+          description: Hardware or VM serial number
+          examples:
+          - A1B2C3D4E5F6
+        Uptime:
+          type: string
+          description: Time elapsed since the system last restarted
+          examples:
+          - 45 days 12:34:56
+        IPv4Address:
+          type: string
+          format: ipv4
+          description: IPv4 address of the Expressway
+          examples:
+          - 10.0.0.1
+        IPv6Address:
+          type: string
+          format: ipv6
+          description: IPv6 address of the Expressway
+        VMSize:
+          type: string
+          description: Virtual machine size designation
+          enum:
+          - Small
+          - Medium
+          - Large
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Expressway administrator credentials. The API is only accessible via HTTPS.
+externalDocs:
+  description: Cisco Expressway REST API Summary Guide (X14.2)
+  url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html

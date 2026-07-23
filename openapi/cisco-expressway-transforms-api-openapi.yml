@@ -1,0 +1,222 @@
+openapi: 3.1.0
+info:
+  title: Cisco Expressway Configuration Admin Account Transforms API
+  description: RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.
+  version: 14.2.0
+  contact:
+    name: Cisco TAC
+    email: tac@cisco.com
+    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
+  license:
+    name: Cisco EULA
+    url: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
+  x-logo:
+    url: https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
+servers:
+- url: https://{host}/api
+  description: Cisco Expressway server
+  variables:
+    host:
+      default: expressway.example.com
+      description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
+security:
+- basicAuth: []
+tags:
+- name: Transforms
+  description: Pre-search transform configuration for alias modification
+paths:
+  /provisioning/common/transform:
+    get:
+      operationId: listTransforms
+      summary: Cisco Expressway List all pre-search transforms
+      description: Retrieves all pre-search transforms configured on the Expressway. Pre-search transforms modify the destination alias in an incoming search request before any searches are sent to external zones, enabling alias normalization and rewriting.
+      tags:
+      - Transforms
+      responses:
+        '200':
+          description: Transform list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transform'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createTransform
+      summary: Cisco Expressway Create a pre-search transform
+      description: Creates a new pre-search transform on the Expressway. Transforms are applied to incoming search requests to modify the destination alias before routing decisions are made, using pattern matching and replacement strings.
+      tags:
+      - Transforms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransformInput'
+      responses:
+        '200':
+          description: Transform created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transform'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    put:
+      operationId: updateTransform
+      summary: Cisco Expressway Update a pre-search transform
+      description: Modifies an existing pre-search transform configuration on the Expressway including the alias pattern, replacement string, and priority.
+      tags:
+      - Transforms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransformInput'
+      responses:
+        '200':
+          description: Transform updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transform'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteTransform
+      summary: Cisco Expressway Delete a pre-search transform
+      description: Removes a pre-search transform from the Expressway configuration.
+      tags:
+      - Transforms
+      responses:
+        '200':
+          description: Transform deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    TransformInput:
+      type: object
+      description: Input for creating or updating a pre-search transform
+      allOf:
+      - $ref: '#/components/schemas/Transform'
+      required:
+      - Name
+      - PatternType
+      - PatternString
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
+    Transform:
+      type: object
+      description: Pre-search transform configuration. Modifies the destination alias in an incoming search request before any searches are performed, enabling alias normalization and number rewriting.
+      properties:
+        Name:
+          type: string
+          description: Unique name for the transform
+          examples:
+          - StripPrefix
+        Priority:
+          type: integer
+          description: Priority of the transform. Lower numbers are applied first.
+          minimum: 1
+          maximum: 65534
+          default: 1
+        PatternType:
+          type: string
+          description: Type of pattern matching for the alias
+          enum:
+          - Prefix
+          - Suffix
+          - Regex
+          - Exact
+        PatternString:
+          type: string
+          description: The pattern to match against the destination alias
+          examples:
+          - 9(.*)
+        PatternBehavior:
+          type: string
+          description: Action to take when the pattern matches
+          enum:
+          - Replace
+          - Strip
+          - Add Prefix
+          - Add Suffix
+          default: Replace
+        ReplaceString:
+          type: string
+          description: The replacement string applied when the pattern matches. Supports regex capture group references.
+          examples:
+          - \1
+        State:
+          type: string
+          description: Administrative state of the transform
+          enum:
+          - Enabled
+          - Disabled
+          default: Enabled
+        Description:
+          type: string
+          description: Optional description of the transform's purpose
+  responses:
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: A resource with the same identifier already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Expressway administrator credentials. The API is only accessible via HTTPS.
+externalDocs:
+  description: Cisco Expressway REST API Summary Guide (X14.2)
+  url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html

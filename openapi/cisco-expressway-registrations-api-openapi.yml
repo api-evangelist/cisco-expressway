@@ -1,0 +1,118 @@
+openapi: 3.1.0
+info:
+  title: Cisco Expressway Configuration Admin Account Registrations API
+  description: RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.
+  version: 14.2.0
+  contact:
+    name: Cisco TAC
+    email: tac@cisco.com
+    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
+  license:
+    name: Cisco EULA
+    url: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
+  x-logo:
+    url: https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
+servers:
+- url: https://{host}/api
+  description: Cisco Expressway server
+  variables:
+    host:
+      default: expressway.example.com
+      description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
+security:
+- basicAuth: []
+tags:
+- name: Registrations
+  description: Device registration status and details
+paths:
+  /status/common/registrations:
+    get:
+      operationId: listRegistrations
+      summary: Cisco Expressway List all current registrations
+      description: Retrieves the list of all devices and endpoints currently registered with the Expressway, organized by device alias. Includes registration type (SIP or H.323), contact address, and registration timestamp.
+      tags:
+      - Registrations
+      responses:
+        '200':
+          description: Registration list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Registration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Registration:
+      type: object
+      description: A registered device or endpoint
+      properties:
+        Alias:
+          type: string
+          description: Registered alias of the device
+          examples:
+          - user1@example.com
+        Type:
+          type: string
+          description: Registration protocol type
+          enum:
+          - SIP
+          - H.323
+        ContactAddress:
+          type: string
+          description: Network contact address of the device
+          examples:
+          - 192.168.1.100:5060
+        RegisteredAt:
+          type: string
+          format: date-time
+          description: Timestamp when the device registered
+        ExpiresAt:
+          type: string
+          format: date-time
+          description: Timestamp when the registration expires
+        DeviceType:
+          type: string
+          description: Type of registered device
+          examples:
+          - Cisco CE Software
+        Subzone:
+          type: string
+          description: Subzone where the device is registered
+          examples:
+          - DefaultSubzone
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Expressway administrator credentials. The API is only accessible via HTTPS.
+externalDocs:
+  description: Cisco Expressway REST API Summary Guide (X14.2)
+  url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html

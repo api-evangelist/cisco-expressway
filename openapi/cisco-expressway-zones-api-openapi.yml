@@ -1,0 +1,852 @@
+openapi: 3.1.0
+info:
+  title: Cisco Expressway Configuration Admin Account Zones API
+  description: RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.
+  version: 14.2.0
+  contact:
+    name: Cisco TAC
+    email: tac@cisco.com
+    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
+  license:
+    name: Cisco EULA
+    url: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
+  x-logo:
+    url: https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
+servers:
+- url: https://{host}/api
+  description: Cisco Expressway server
+  variables:
+    host:
+      default: expressway.example.com
+      description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
+security:
+- basicAuth: []
+tags:
+- name: Zones
+  description: Zone configuration for call routing and firewall traversal
+paths:
+  /provisioning/edge/zone/traversalserver:
+    get:
+      operationId: listEdgeTraversalServerZones
+      summary: Cisco Expressway List Expressway-E traversal server zones
+      description: Retrieves all traversal server zones configured on the Expressway-E. Traversal server zones enable the Expressway-E to provide firewall traversal services to traversal clients (Expressway-C). Supports filtering by name using the path pattern /zone/traversalserver/name/{zoneName}.
+      tags:
+      - Zones
+      responses:
+        '200':
+          description: Traversal server zone list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TraversalServerZone'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createEdgeTraversalServerZone
+      summary: Cisco Expressway Create a traversal server zone on Expressway-E
+      description: Creates a new traversal server zone on the Expressway-E to provide firewall traversal services. The zone defines connection credentials, H.323 and SIP protocol settings, and media encryption mode.
+      tags:
+      - Zones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TraversalServerZoneInput'
+      responses:
+        '200':
+          description: Traversal server zone created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraversalServerZone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    put:
+      operationId: updateEdgeTraversalServerZone
+      summary: Cisco Expressway Update a traversal server zone on Expressway-E
+      description: Modifies an existing traversal server zone configuration on the Expressway-E including connection credentials, protocol settings, and media encryption parameters.
+      tags:
+      - Zones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TraversalServerZoneInput'
+      responses:
+        '200':
+          description: Traversal server zone updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraversalServerZone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteEdgeTraversalServerZone
+      summary: Cisco Expressway Delete a traversal server zone from Expressway-E
+      description: Removes a traversal server zone from the Expressway-E configuration. The zone is identified by its name.
+      tags:
+      - Zones
+      responses:
+        '200':
+          description: Traversal server zone deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /provisioning/controller/zone/traversalclient:
+    get:
+      operationId: listControllerTraversalClientZones
+      summary: Cisco Expressway List Expressway-C traversal client zones
+      description: Retrieves all traversal client zones configured on the Expressway-C. Traversal client zones define connections from the Expressway-C to a traversal server (Expressway-E) across a firewall. Supports filtering by name using the path pattern /zone/traversalclient/name/{zoneName}.
+      tags:
+      - Zones
+      responses:
+        '200':
+          description: Traversal client zone list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TraversalClientZone'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createControllerTraversalClientZone
+      summary: Cisco Expressway Create a traversal client zone on Expressway-C
+      description: Creates a new traversal client zone on the Expressway-C to connect to a traversal server (Expressway-E) across a firewall. The zone defines connection credentials, retry intervals, and protocol settings.
+      tags:
+      - Zones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TraversalClientZoneInput'
+      responses:
+        '200':
+          description: Traversal client zone created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraversalClientZone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    put:
+      operationId: updateControllerTraversalClientZone
+      summary: Cisco Expressway Update a traversal client zone on Expressway-C
+      description: Modifies an existing traversal client zone configuration on the Expressway-C including connection credentials, retry intervals, and protocol settings.
+      tags:
+      - Zones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TraversalClientZoneInput'
+      responses:
+        '200':
+          description: Traversal client zone updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraversalClientZone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteControllerTraversalClientZone
+      summary: Cisco Expressway Delete a traversal client zone from Expressway-C
+      description: Removes a traversal client zone from the Expressway-C configuration.
+      tags:
+      - Zones
+      responses:
+        '200':
+          description: Traversal client zone deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /provisioning/common/zone/neighbor:
+    get:
+      operationId: listNeighborZones
+      summary: Cisco Expressway List all neighbor zones
+      description: Retrieves all neighbor zones configured on the Expressway. Neighbor zones connect the local Expressway to another system such as another Expressway, Unified CM, or a gatekeeper. Supports filtering by name.
+      tags:
+      - Zones
+      responses:
+        '200':
+          description: Neighbor zone list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NeighborZone'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createNeighborZone
+      summary: Cisco Expressway Create a neighbor zone
+      description: Creates a new neighbor zone on the Expressway. Neighbor zones define connections to peer systems such as other Expressway nodes, Unified CM clusters, or gatekeepers with configurable H.323 and SIP protocol settings.
+      tags:
+      - Zones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NeighborZoneInput'
+      responses:
+        '200':
+          description: Neighbor zone created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NeighborZone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    put:
+      operationId: updateNeighborZone
+      summary: Cisco Expressway Update a neighbor zone
+      description: Modifies an existing neighbor zone configuration on the Expressway including peer addresses, protocol settings, zone profile, and authentication options.
+      tags:
+      - Zones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NeighborZoneInput'
+      responses:
+        '200':
+          description: Neighbor zone updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NeighborZone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteNeighborZone
+      summary: Cisco Expressway Delete a neighbor zone
+      description: Removes a neighbor zone from the Expressway configuration.
+      tags:
+      - Zones
+      responses:
+        '200':
+          description: Neighbor zone deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /provisioning/common/zone/dns:
+    get:
+      operationId: listDnsZones
+      summary: Cisco Expressway List all DNS zones
+      description: Retrieves all DNS zones configured on the Expressway. DNS zones enable endpoint location through DNS lookups for SIP and H.323 calls.
+      tags:
+      - Zones
+      responses:
+        '200':
+          description: DNS zone list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DnsZone'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createDnsZone
+      summary: Cisco Expressway Create a DNS zone
+      description: Creates a new DNS zone on the Expressway for endpoint discovery via DNS lookups. Configurable for H.323 and SIP protocols with fallback transport and TLS mapping options.
+      tags:
+      - Zones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DnsZoneInput'
+      responses:
+        '200':
+          description: DNS zone created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DnsZone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+  /status/common/zones:
+    get:
+      operationId: listZoneStatus
+      summary: Cisco Expressway List zone connectivity status
+      description: Retrieves the connectivity status for all configured zones on the Expressway including the zone name, type, connection state, and any active calls traversing each zone.
+      tags:
+      - Zones
+      responses:
+        '200':
+          description: Zone status list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ZoneStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  schemas:
+    DnsZone:
+      type: object
+      description: DNS zone configuration. Enables endpoint discovery through DNS lookups for SIP and H.323 calls.
+      properties:
+        Name:
+          type: string
+          description: Unique name for the DNS zone
+          examples:
+          - DefaultDNSZone
+        Type:
+          type: string
+          description: Zone type
+          const: DNS
+        HopCount:
+          type: integer
+          description: Maximum number of times a request can be forwarded
+          minimum: 0
+          maximum: 255
+          default: 15
+        H323Mode:
+          type: string
+          description: Whether H.323 calls via DNS-located systems are enabled
+          enum:
+          - 'On'
+          - 'Off'
+        SIPMode:
+          type: string
+          description: Whether SIP calls via DNS-located systems are enabled
+          enum:
+          - 'On'
+          - 'Off'
+        FallbackTransportProtocol:
+          type: string
+          description: Default transport when DNS records do not specify preference
+          enum:
+          - TLS
+          - TCP
+          - UDP
+          default: TLS
+        ModifyDnsRequest:
+          type: string
+          description: Whether to route calls to a manually specified SIP domain instead of the dialed destination
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        IncludeAddressRecord:
+          type: string
+          description: Whether to query A/AAAA records if SRV/NAPTR lookups fail
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'On'
+        MediaEncryptionMode:
+          type: string
+          description: Media encryption enforcement mode
+          enum:
+          - Force encrypted
+          - Force unencrypted
+          - Best effort
+          - Auto
+          default: Auto
+    TraversalClientZone:
+      type: object
+      description: Traversal client zone configuration on Expressway-C. Connects to a traversal server (Expressway-E) across a firewall.
+      properties:
+        Name:
+          type: string
+          description: Unique name for the traversal client zone
+          examples:
+          - CtoEXPE-Traversal
+        Type:
+          type: string
+          description: Zone type
+          const: TraversalClient
+        PeerAddress:
+          type: string
+          description: IP address or FQDN of the traversal server (Expressway-E)
+          examples:
+          - expressway-e.example.com
+        ConnectionCredentialsUsername:
+          type: string
+          description: Username for server authentication; must match server configuration
+        ConnectionCredentialsPassword:
+          type: string
+          format: password
+          description: Password for server authentication
+        HopCount:
+          type: integer
+          description: Maximum number of times a request can be forwarded
+          minimum: 0
+          maximum: 255
+          default: 15
+        H323Mode:
+          type: string
+          description: Whether H.323 calls are enabled for this zone
+          enum:
+          - 'On'
+          - 'Off'
+        H323Port:
+          type: integer
+          description: UDP port for H.323 search requests
+          default: 6001
+        H323Protocol:
+          type: string
+          description: Firewall traversal protocol for H.323
+          enum:
+          - Assent
+          - H.460.18
+          default: Assent
+        SIPMode:
+          type: string
+          description: Whether SIP calls are enabled for this zone
+          enum:
+          - 'On'
+          - 'Off'
+        SIPPort:
+          type: integer
+          description: Port for SIP signaling
+          default: 7001
+        SIPTransport:
+          type: string
+          description: Transport protocol for SIP messages
+          enum:
+          - TLS
+          - TCP
+          default: TLS
+        SIPTLSVerifyMode:
+          type: string
+          description: Whether to verify TLS certificates from the peer
+          enum:
+          - 'On'
+          - 'Off'
+        SIPPoisonMode:
+          type: string
+          description: Whether to mark outbound requests to prevent reprocessing if returned to this Expressway
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        MediaEncryptionMode:
+          type: string
+          description: Media encryption enforcement mode
+          enum:
+          - Force encrypted
+          - Force unencrypted
+          - Best effort
+          - Auto
+          default: Auto
+        RetryInterval:
+          type: integer
+          description: Frequency in seconds of retry attempts for failed connections
+          default: 120
+        DisconnectOnFailInterval:
+          type: integer
+          description: Frequency in seconds of SIP OPTIONS ping disconnection during failures
+          default: 120
+        AuthenticationPolicy:
+          type: string
+          description: Authentication challenge behavior for incoming messages
+          enum:
+          - DoNotCheckCredentials
+          - TreatAsAuthenticated
+          - CheckCredentials
+    ZoneStatus:
+      type: object
+      description: Connectivity status for a configured zone on the Expressway
+      properties:
+        ZoneName:
+          type: string
+          description: Name of the zone
+          examples:
+          - CEtoEXPE-Traversal
+        ZoneType:
+          type: string
+          description: Type of zone
+          enum:
+          - Neighbor
+          - TraversalClient
+          - TraversalServer
+          - DNS
+          - ENUM
+          - Webex
+        ConnectionState:
+          type: string
+          description: Current connection state of the zone
+          enum:
+          - Active
+          - Inactive
+          - Failed
+          - Searching
+        ActiveCalls:
+          type: integer
+          description: Number of active calls traversing this zone
+        BandwidthUsed:
+          type: integer
+          description: Current bandwidth usage in kbps for this zone
+        BandwidthLimit:
+          type: integer
+          description: Configured bandwidth limit in kbps for this zone
+        PeerAddress:
+          type: string
+          description: Address of the connected peer system
+    NeighborZone:
+      type: object
+      description: Neighbor zone configuration. Connects the local Expressway to another system such as another Expressway, Unified CM, or gatekeeper.
+      properties:
+        Name:
+          type: string
+          description: Unique name for the neighbor zone
+          examples:
+          - CUCM-Neighbor
+        Type:
+          type: string
+          description: Zone type
+          const: Neighbor
+        PeerAddresses:
+          type: array
+          description: List of IP addresses or FQDNs of the peer system. Multiple peers are required for clusters (up to 6).
+          items:
+            type: string
+          minItems: 1
+          maxItems: 6
+          examples:
+          - - cucm-pub.example.com
+            - cucm-sub1.example.com
+        LookUpPeersBy:
+          type: string
+          description: Method for discovering peer addresses
+          enum:
+          - Address
+          - Service record
+        HopCount:
+          type: integer
+          description: Maximum number of times a request can be forwarded
+          minimum: 0
+          maximum: 255
+          default: 15
+        ZoneProfile:
+          type: string
+          description: Preconfigured profile for specific peer system types. Sets multiple advanced settings automatically.
+          enum:
+          - Default
+          - Cisco Unified Communications Manager
+          - Nortel Communication Server 1000
+          - Custom
+          default: Default
+        H323Mode:
+          type: string
+          description: Whether H.323 calls are enabled for this zone
+          enum:
+          - 'On'
+          - 'Off'
+        H323Port:
+          type: integer
+          description: Port for H.323 communication
+          default: 1719
+        SIPMode:
+          type: string
+          description: Whether SIP calls are enabled for this zone
+          enum:
+          - 'On'
+          - 'Off'
+        SIPPort:
+          type: integer
+          description: Port for SIP communication
+          default: 5061
+        SIPTransport:
+          type: string
+          description: Transport protocol for SIP messages
+          enum:
+          - TLS
+          - TCP
+          - UDP
+          default: TLS
+        SIPTLSVerifyMode:
+          type: string
+          description: Whether to verify TLS certificates from the peer
+          enum:
+          - 'On'
+          - 'Off'
+        MediaEncryptionMode:
+          type: string
+          description: Media encryption enforcement mode
+          enum:
+          - Force encrypted
+          - Force unencrypted
+          - Best effort
+          - Auto
+          default: Auto
+        MultistreamMode:
+          type: string
+          description: Whether multistream call negotiation is permitted
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        PreloadedSipRoutesSupport:
+          type: string
+          description: Controls Route header processing in SIP INVITE requests
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        SIPAuthenticationTrustMode:
+          type: string
+          description: Whether P-Asserted-Identity headers from this zone are trusted
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        MonitorPeerStatus:
+          type: string
+          description: Whether to monitor the peer using H.323 LRQs and SIP OPTIONS
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'On'
+        AuthenticationPolicy:
+          type: string
+          description: Authentication challenge behavior for incoming messages
+          enum:
+          - DoNotCheckCredentials
+          - TreatAsAuthenticated
+          - CheckCredentials
+    TraversalServerZoneInput:
+      type: object
+      description: Input for creating or updating a traversal server zone
+      allOf:
+      - $ref: '#/components/schemas/TraversalServerZone'
+      required:
+      - Name
+      - ConnectionCredentialsUsername
+    TraversalClientZoneInput:
+      type: object
+      description: Input for creating or updating a traversal client zone
+      allOf:
+      - $ref: '#/components/schemas/TraversalClientZone'
+      required:
+      - Name
+      - PeerAddress
+      - ConnectionCredentialsUsername
+      - ConnectionCredentialsPassword
+    DnsZoneInput:
+      type: object
+      description: Input for creating or updating a DNS zone
+      allOf:
+      - $ref: '#/components/schemas/DnsZone'
+      required:
+      - Name
+    TraversalServerZone:
+      type: object
+      description: Traversal server zone configuration on Expressway-E. Enables firewall traversal services for traversal clients.
+      properties:
+        Name:
+          type: string
+          description: Unique name for the traversal server zone
+          examples:
+          - CEtoEXPE-Traversal
+        Type:
+          type: string
+          description: Zone type
+          const: TraversalServer
+        ConnectionCredentialsUsername:
+          type: string
+          description: Username for client authentication; must match client configuration
+        HopCount:
+          type: integer
+          description: Maximum number of times a request can be forwarded
+          minimum: 0
+          maximum: 255
+          default: 15
+        H323Mode:
+          type: string
+          description: Whether H.323 calls are enabled for this zone
+          enum:
+          - 'On'
+          - 'Off'
+        H323Port:
+          type: integer
+          description: UDP port for H.323 search requests
+          default: 6001
+        H323Protocol:
+          type: string
+          description: Firewall traversal protocol for H.323
+          enum:
+          - Assent
+          - H.460.18
+          default: Assent
+        SIPMode:
+          type: string
+          description: Whether SIP calls are enabled for this zone
+          enum:
+          - 'On'
+          - 'Off'
+        SIPPort:
+          type: integer
+          description: Port for SIP signaling
+          default: 7001
+        SIPTransport:
+          type: string
+          description: Transport protocol for SIP messages
+          enum:
+          - TLS
+          - TCP
+          default: TLS
+        SIPTLSVerifyMode:
+          type: string
+          description: Whether to verify TLS certificates from the peer
+          enum:
+          - 'On'
+          - 'Off'
+        MediaEncryptionMode:
+          type: string
+          description: Media encryption enforcement mode
+          enum:
+          - Force encrypted
+          - Force unencrypted
+          - Best effort
+          - Auto
+          default: Auto
+        ICESupport:
+          type: string
+          description: ICE message handling mode
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        H46019DemultiplexingMode:
+          type: string
+          description: Determines media port sharing across multiple calls
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        UnifiedCommunicationsMode:
+          type: string
+          description: Whether Unified Communications services (MRA) are enabled
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        TLSVerifySubjectName:
+          type: string
+          description: Certificate subject name for mutual TLS authentication. Must be FQDN for clustered clients.
+        AuthenticationPolicy:
+          type: string
+          description: Authentication challenge behavior for incoming messages
+          enum:
+          - DoNotCheckCredentials
+          - TreatAsAuthenticated
+          - CheckCredentials
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
+    NeighborZoneInput:
+      type: object
+      description: Input for creating or updating a neighbor zone
+      allOf:
+      - $ref: '#/components/schemas/NeighborZone'
+      required:
+      - Name
+      - PeerAddresses
+  responses:
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: A resource with the same identifier already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Expressway administrator credentials. The API is only accessible via HTTPS.
+externalDocs:
+  description: Cisco Expressway REST API Summary Guide (X14.2)
+  url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html

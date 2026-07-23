@@ -1,0 +1,195 @@
+openapi: 3.1.0
+info:
+  title: Cisco Expressway Configuration Admin Account DNS API
+  description: RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.
+  version: 14.2.0
+  contact:
+    name: Cisco TAC
+    email: tac@cisco.com
+    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
+  license:
+    name: Cisco EULA
+    url: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
+  x-logo:
+    url: https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
+servers:
+- url: https://{host}/api
+  description: Cisco Expressway server
+  variables:
+    host:
+      default: expressway.example.com
+      description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
+security:
+- basicAuth: []
+tags:
+- name: DNS
+  description: DNS server configuration management
+paths:
+  /v1/provisioning/common/dns/dnsserver:
+    get:
+      operationId: listDnsServers
+      summary: Cisco Expressway List all configured DNS servers
+      description: Retrieves the list of all DNS servers configured on the Expressway. Supports filtering by name or address using query path segments such as /dnsserver/address/{address}.
+      tags:
+      - DNS
+      responses:
+        '200':
+          description: DNS server list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DnsServer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createDnsServer
+      summary: Cisco Expressway Add a new DNS server
+      description: Adds a new DNS server entry to the Expressway configuration. The Expressway supports up to five DNS server addresses.
+      tags:
+      - DNS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DnsServerInput'
+      responses:
+        '200':
+          description: DNS server created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DnsServer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    put:
+      operationId: updateDnsServer
+      summary: Cisco Expressway Modify a DNS server entry
+      description: Updates an existing DNS server configuration on the Expressway. The target server is identified by its current address or index.
+      tags:
+      - DNS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DnsServerInput'
+      responses:
+        '200':
+          description: DNS server updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DnsServer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteDnsServer
+      summary: Cisco Expressway Delete a DNS server entry
+      description: Removes a DNS server from the Expressway configuration. The target server is identified by its address or index in the configuration.
+      tags:
+      - DNS
+      responses:
+        '200':
+          description: DNS server deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    DnsServerInput:
+      type: object
+      description: Input for creating or updating a DNS server entry
+      properties:
+        Index:
+          type: integer
+          description: Index position for the DNS server (1-5)
+          minimum: 1
+          maximum: 5
+        Address:
+          type: string
+          description: IP address of the DNS server
+          examples:
+          - 8.8.8.8
+      required:
+      - Address
+    DnsServer:
+      type: object
+      description: DNS server configuration entry
+      properties:
+        Index:
+          type: integer
+          description: Index position of the DNS server (1-5)
+          minimum: 1
+          maximum: 5
+        Address:
+          type: string
+          description: IP address of the DNS server
+          examples:
+          - 8.8.8.8
+      required:
+      - Address
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
+  responses:
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: A resource with the same identifier already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Expressway administrator credentials. The API is only accessible via HTTPS.
+externalDocs:
+  description: Cisco Expressway REST API Summary Guide (X14.2)
+  url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html

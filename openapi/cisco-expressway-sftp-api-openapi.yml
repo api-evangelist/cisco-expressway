@@ -1,0 +1,156 @@
+openapi: 3.1.0
+info:
+  title: Cisco Expressway Configuration Admin Account SFTP API
+  description: RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.
+  version: 14.2.0
+  contact:
+    name: Cisco TAC
+    email: tac@cisco.com
+    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
+  license:
+    name: Cisco EULA
+    url: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
+  x-logo:
+    url: https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
+servers:
+- url: https://{host}/api
+  description: Cisco Expressway server
+  variables:
+    host:
+      default: expressway.example.com
+      description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
+security:
+- basicAuth: []
+tags:
+- name: SFTP
+  description: SFTP configuration for system upgrades
+paths:
+  /v1/provisioning/common/sftpconfig:
+    get:
+      operationId: getSftpConfig
+      summary: Cisco Expressway Retrieve SFTP configuration
+      description: Returns the current SFTP configuration used for system upgrades including the SFTP server address, port, path, and credentials.
+      tags:
+      - SFTP
+      responses:
+        '200':
+          description: SFTP configuration retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SftpConfig'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      operationId: updateSftpConfig
+      summary: Cisco Expressway Update SFTP configuration
+      description: Updates the SFTP configuration for system upgrades. Configure the server address, credentials, and file path to the upgrade image.
+      tags:
+      - SFTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SftpConfigInput'
+      responses:
+        '200':
+          description: SFTP configuration updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SftpConfig'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  responses:
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    SftpConfigInput:
+      type: object
+      description: Input for configuring SFTP upgrade settings
+      properties:
+        ServerAddress:
+          type: string
+          description: SFTP server address (hostname or IP)
+        Port:
+          type: integer
+          description: SFTP server port
+          default: 22
+        Username:
+          type: string
+          description: Username for SFTP authentication
+        Password:
+          type: string
+          format: password
+          description: Password for SFTP authentication
+        FilePath:
+          type: string
+          description: Path to the upgrade image file on the SFTP server
+      required:
+      - ServerAddress
+      - Username
+      - Password
+      - FilePath
+    SftpConfig:
+      type: object
+      description: SFTP configuration for system upgrades
+      properties:
+        ServerAddress:
+          type: string
+          description: SFTP server address (hostname or IP)
+          examples:
+          - sftp.example.com
+        Port:
+          type: integer
+          description: SFTP server port
+          default: 22
+        Username:
+          type: string
+          description: Username for SFTP authentication
+        FilePath:
+          type: string
+          description: Path to the upgrade image file on the SFTP server
+          examples:
+          - /upgrades/expressway-x14.2.tar.gz
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Expressway administrator credentials. The API is only accessible via HTTPS.
+externalDocs:
+  description: Cisco Expressway REST API Summary Guide (X14.2)
+  url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html

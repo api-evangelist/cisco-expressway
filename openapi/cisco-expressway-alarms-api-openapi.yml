@@ -1,0 +1,123 @@
+openapi: 3.1.0
+info:
+  title: Cisco Expressway Configuration Admin Account Alarms API
+  description: RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.
+  version: 14.2.0
+  contact:
+    name: Cisco TAC
+    email: tac@cisco.com
+    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
+  license:
+    name: Cisco EULA
+    url: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
+  x-logo:
+    url: https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
+servers:
+- url: https://{host}/api
+  description: Cisco Expressway server
+  variables:
+    host:
+      default: expressway.example.com
+      description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
+security:
+- basicAuth: []
+tags:
+- name: Alarms
+  description: Active system alarms and warnings
+paths:
+  /status/common/alarms:
+    get:
+      operationId: listAlarms
+      summary: Cisco Expressway List all active alarms
+      description: Retrieves the list of all alarms currently active on the Expressway. Alarms indicate events or configuration changes that require administrator intervention, or hardware and environmental issues such as faulty disks, fans, or high temperatures. Alarms are categorized by severity and ID prefix ranges.
+      tags:
+      - Alarms
+      responses:
+        '200':
+          description: Alarm list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Alarm'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  schemas:
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
+    Alarm:
+      type: object
+      description: System alarm indicating an event or condition requiring attention. Alarm IDs are grouped by prefix ranges indicating the category.
+      properties:
+        AlarmId:
+          type: string
+          description: 'Unique alarm identifier. Prefix ranges indicate category: 10nnn hardware, 15nnn software, 20nnn cluster, 25nnn network, 30nnn licensing, 35nnn external services, 40nnn security, 45nnn configuration, 55nnn B2BUA, 6xxxx hybrid services, 9xxxx operational events.'
+          examples:
+          - '30001'
+        Severity:
+          type: string
+          description: Severity level of the alarm
+          enum:
+          - Critical
+          - Warning
+          - Information
+        Title:
+          type: string
+          description: Short description of the alarm condition
+          examples:
+          - License capacity exceeded
+        Description:
+          type: string
+          description: Detailed explanation of the alarm and suggested action
+        TimeRaised:
+          type: string
+          format: date-time
+          description: Timestamp when the alarm was raised
+        Category:
+          type: string
+          description: Category of the alarm
+          enum:
+          - Hardware
+          - Software
+          - Cluster
+          - Network
+          - Licensing
+          - External Services
+          - Security
+          - Configuration
+          - B2BUA
+          - Hybrid Services
+          - Operational
+  responses:
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Expressway administrator credentials. The API is only accessible via HTTPS.
+externalDocs:
+  description: Cisco Expressway REST API Summary Guide (X14.2)
+  url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html

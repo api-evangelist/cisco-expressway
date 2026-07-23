@@ -1,0 +1,211 @@
+openapi: 3.1.0
+info:
+  title: Cisco Expressway Configuration Admin Account NTP API
+  description: RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.
+  version: 14.2.0
+  contact:
+    name: Cisco TAC
+    email: tac@cisco.com
+    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
+  license:
+    name: Cisco EULA
+    url: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
+  x-logo:
+    url: https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
+servers:
+- url: https://{host}/api
+  description: Cisco Expressway server
+  variables:
+    host:
+      default: expressway.example.com
+      description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
+security:
+- basicAuth: []
+tags:
+- name: NTP
+  description: NTP server configuration for time synchronization
+paths:
+  /v1/provisioning/common/time/ntpserver:
+    get:
+      operationId: listNtpServers
+      summary: Cisco Expressway List all configured NTP servers
+      description: Retrieves the list of all NTP servers configured on the Expressway for time synchronization. Supports filtering by name or address.
+      tags:
+      - NTP
+      responses:
+        '200':
+          description: NTP server list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NtpServer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createNtpServer
+      summary: Cisco Expressway Add a new NTP server
+      description: Adds a new NTP server entry to the Expressway configuration for time synchronization. Up to five NTP servers can be configured.
+      tags:
+      - NTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NtpServerInput'
+      responses:
+        '200':
+          description: NTP server created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NtpServer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    put:
+      operationId: updateNtpServer
+      summary: Cisco Expressway Modify an NTP server entry
+      description: Updates an existing NTP server configuration on the Expressway.
+      tags:
+      - NTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NtpServerInput'
+      responses:
+        '200':
+          description: NTP server updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NtpServer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteNtpServer
+      summary: Cisco Expressway Delete an NTP server entry
+      description: Removes an NTP server from the Expressway configuration.
+      tags:
+      - NTP
+      responses:
+        '200':
+          description: NTP server deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: A resource with the same identifier already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    NtpServerInput:
+      type: object
+      description: Input for creating or updating an NTP server entry
+      properties:
+        Index:
+          type: integer
+          description: Index position for the NTP server (1-5)
+          minimum: 1
+          maximum: 5
+        Address:
+          type: string
+          description: Hostname or IP address of the NTP server
+          examples:
+          - pool.ntp.org
+        AuthenticationMode:
+          type: string
+          description: Authentication mode for the NTP connection
+          enum:
+          - 'Off'
+          - Symmetric key
+        KeyNumber:
+          type: integer
+          description: Key number for symmetric key authentication
+        KeyHash:
+          type: string
+          description: Key hash value for symmetric key authentication
+      required:
+      - Address
+    NtpServer:
+      type: object
+      description: NTP server configuration entry
+      properties:
+        Index:
+          type: integer
+          description: Index position of the NTP server (1-5)
+          minimum: 1
+          maximum: 5
+        Address:
+          type: string
+          description: Hostname or IP address of the NTP server
+          examples:
+          - pool.ntp.org
+        AuthenticationMode:
+          type: string
+          description: Authentication mode for the NTP connection
+          enum:
+          - 'Off'
+          - Symmetric key
+      required:
+      - Address
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Expressway administrator credentials. The API is only accessible via HTTPS.
+externalDocs:
+  description: Cisco Expressway REST API Summary Guide (X14.2)
+  url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html

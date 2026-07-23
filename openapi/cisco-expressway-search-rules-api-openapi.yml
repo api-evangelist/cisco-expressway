@@ -1,0 +1,241 @@
+openapi: 3.1.0
+info:
+  title: Cisco Expressway Configuration Admin Account Search Rules API
+  description: RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.
+  version: 14.2.0
+  contact:
+    name: Cisco TAC
+    email: tac@cisco.com
+    url: https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html
+  license:
+    name: Cisco EULA
+    url: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
+  x-logo:
+    url: https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
+servers:
+- url: https://{host}/api
+  description: Cisco Expressway server
+  variables:
+    host:
+      default: expressway.example.com
+      description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
+security:
+- basicAuth: []
+tags:
+- name: Search Rules
+  description: Search rule configuration for call routing decisions
+paths:
+  /provisioning/common/searchrule:
+    get:
+      operationId: listSearchRules
+      summary: Cisco Expressway List all search rules
+      description: Retrieves all search rules configured on the Expressway. Search rules define how the Expressway routes incoming search requests to the appropriate target zones or policy services, with configurable alias pattern matching, priority, and protocol filtering.
+      tags:
+      - Search Rules
+      responses:
+        '200':
+          description: Search rule list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchRule'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createSearchRule
+      summary: Cisco Expressway Create a search rule
+      description: Creates a new search rule on the Expressway. Search rules determine how incoming calls are routed to target zones based on alias patterns, source zones, and protocol type. Each search rule has a configurable priority that determines its evaluation order.
+      tags:
+      - Search Rules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRuleInput'
+      responses:
+        '200':
+          description: Search rule created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchRule'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    put:
+      operationId: updateSearchRule
+      summary: Cisco Expressway Update a search rule
+      description: Modifies an existing search rule configuration on the Expressway including the alias pattern, target zone, priority, and protocol filter settings.
+      tags:
+      - Search Rules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRuleInput'
+      responses:
+        '200':
+          description: Search rule updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchRule'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteSearchRule
+      summary: Cisco Expressway Delete a search rule
+      description: Removes a search rule from the Expressway configuration.
+      tags:
+      - Search Rules
+      responses:
+        '200':
+          description: Search rule deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: A resource with the same identifier already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    SearchRule:
+      type: object
+      description: Search rule configuration. Defines how the Expressway routes incoming search requests to the appropriate target zones or policy services based on alias pattern matching.
+      properties:
+        Name:
+          type: string
+          description: Unique name for the search rule
+          examples:
+          - Route-to-CUCM
+        Priority:
+          type: integer
+          description: Priority of the search rule. Lower numbers are evaluated first.
+          minimum: 1
+          maximum: 65534
+          default: 100
+          examples:
+          - 50
+        AliasPatternType:
+          type: string
+          description: Type of pattern matching to apply to the alias
+          enum:
+          - Prefix
+          - Suffix
+          - Regex
+          - Exact
+        AliasPatternString:
+          type: string
+          description: The pattern to match against the destination alias
+          examples:
+          - .*@example\.com
+        TargetZone:
+          type: string
+          description: Name of the zone to which matching requests are forwarded
+          examples:
+          - CUCM-Neighbor
+        SourceZone:
+          type: string
+          description: Name of the source zone from which requests must originate for this rule to apply. Leave empty for any zone.
+        Mode:
+          type: string
+          description: Whether the search rule is enabled
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'On'
+        Protocol:
+          type: string
+          description: Protocol filter. Only requests using this protocol will match.
+          enum:
+          - Any
+          - H.323
+          - SIP
+          default: Any
+        OnSuccessfulMatch:
+          type: string
+          description: Action to take when a matching alias is found in the target zone
+          enum:
+          - Stop
+          - Continue
+          default: Stop
+        Description:
+          type: string
+          description: Optional description of the search rule's purpose
+        State:
+          type: string
+          description: Administrative state of the search rule
+          enum:
+          - Enabled
+          - Disabled
+          default: Enabled
+    SearchRuleInput:
+      type: object
+      description: Input for creating or updating a search rule
+      allOf:
+      - $ref: '#/components/schemas/SearchRule'
+      required:
+      - Name
+      - AliasPatternType
+      - AliasPatternString
+      - TargetZone
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Expressway administrator credentials. The API is only accessible via HTTPS.
+externalDocs:
+  description: Cisco Expressway REST API Summary Guide (X14.2)
+  url: https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
