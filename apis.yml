@@ -5,7 +5,20 @@ description: >-
   Communications that provides secure remote and mobile access for collaboration workloads including video, voice,
   content, and presence. Programmatic access spans a REST API for configuration (/api/provisioning), a REST API for
   status and observability (/api/status), an SNMP MIB for metrics, and a legacy XML API for systems still in transition.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/cisco-expressway.png
 type: Index
 access: 3rd-Party
 position: Consumer
@@ -22,141 +35,722 @@ tags:
   - Unified Communications
   - Video Conferencing
 apis:
-  - name: Cisco Expressway Configuration API
-    description: >-
-      RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS,
-      NTP, and system settings. Uses JSON Schema version 4 for request and response schemas.
-    image: >-
-      https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
-    humanURL: >-
-      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
-    baseURL: https://expressway.example.com/api/provisioning
-    tags:
-      - Configuration
-      - Management
-      - Provisioning
-      - REST
-      - Unified Communications
-    properties:
-      - type: Documentation
-        url: >-
-          https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
-      - type: Reference
-        url: >-
-          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
-      - type: Authentication
-        url: >-
-          https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
-      - type: GettingStarted
-        url: >-
-          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
-      - type: ChangeLog
-        url: >-
-          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
-      - type: OpenAPI
-        url: openapi/cisco-expressway-configuration-api-openapi.yml
-      - type: JSONSchema
-        url: json-schema/cisco-expressway-zone-schema.json
-      - type: JSONSchema
-        url: json-schema/cisco-expressway-search-rule-schema.json
-      - type: JSONSchema
-        url: json-schema/cisco-expressway-transform-schema.json
-      - type: JSONSchema
-        url: json-schema/cisco-expressway-system-status-schema.json
-      - type: JSONLD
-        url: json-ld/cisco-expressway-context.jsonld
-    contact:
-      - FN: Cisco TAC
-        email: tac@cisco.com
-        X-twitter: CiscoUC
-  - name: Cisco Expressway Status API
-    description: >-
-      RESTful API for retrieving status information, alarms, call history, licensing status, upgrade status, and system
-      health metrics from Cisco Expressway. Endpoints follow the pattern /api/status/common/ for items common between
-      Expressway-E and Expressway-C.
-    image: >-
-      https://www.cisco.com/c/dam/en/us/products/collateral/unified-communications/expressway-series/datasheet-c78-733751.jpg
-    humanURL: >-
-      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
-    baseURL: https://expressway.example.com/api/status
-    tags:
-      - Alarms
-      - Health Check
-      - Licensing
-      - Monitoring
-      - Status
-    properties:
-      - type: Documentation
-        url: >-
-          https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
-      - type: Reference
-        url: >-
-          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
-      - type: GettingStarted
-        url: >-
-          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
-      - type: ChangeLog
-        url: >-
-          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
-      - type: OpenAPI
-        url: openapi/cisco-expressway-status-api-openapi.yml
-      - type: JSONSchema
-        url: json-schema/cisco-expressway-alarm-schema.json
-      - type: JSONSchema
-        url: json-schema/cisco-expressway-call-schema.json
-      - type: JSONSchema
-        url: json-schema/cisco-expressway-registration-schema.json
-      - type: JSONSchema
-        url: json-schema/cisco-expressway-system-status-schema.json
-      - type: JSONLD
-        url: json-ld/cisco-expressway-context.jsonld
-    contact:
-      - FN: Cisco TAC
-        email: tac@cisco.com
-  - name: Cisco Expressway SNMP API
-    description: >-
-      SNMP-based monitoring and management interface for Cisco Expressway providing access to system metrics, alarms,
-      and configuration data. Supports SNMP versions v2c and v3 for secure network management integration.
-    humanURL: >-
+- name: Cisco Expressway SNMP API
+  description: >-
+    SNMP-based monitoring and management interface for Cisco Expressway providing access to system metrics,
+    alarms, and configuration data. Supports SNMP versions v2c and v3 for secure network management integration.
+  humanURL: >-
+    https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html
+  baseURL: snmp://expressway.example.com:161
+  tags:
+  - Metrics
+  - Monitoring
+  - Network Management
+  - SNMP
+  properties:
+  - type: Documentation
+    url: >-
       https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html
-    baseURL: snmp://expressway.example.com:161
-    tags:
-      - Metrics
-      - Monitoring
-      - Network Management
-      - SNMP
-    properties:
-      - type: Documentation
-        url: >-
-          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html
-      - type: Reference
-        url: >-
-          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html
-      - type: ChangeLog
-        url: >-
-          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
-  - name: Cisco Expressway XML API
-    description: >-
-      Legacy XML-based API for configuration and status retrieval on Cisco Expressway systems. Uses HTTP Basic
-      Authentication over HTTPS for secure access to system configuration and management functions.
-    humanURL: >-
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+- name: Cisco Expressway XML API
+  description: >-
+    Legacy XML-based API for configuration and status retrieval on Cisco Expressway systems. Uses HTTP
+    Basic Authentication over HTTPS for secure access to system configuration and management functions.
+  humanURL: >-
+    https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  baseURL: https://expressway.example.com/xmlapi
+  tags:
+  - Configuration
+  - Legacy
+  - Management
+  - XML
+  properties:
+  - type: Documentation
+    url: >-
       https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
-    baseURL: https://expressway.example.com/xmlapi
-    tags:
-      - Configuration
-      - Legacy
-      - Management
-      - XML
-    properties:
-      - type: Documentation
-        url: >-
-          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
-      - type: Authentication
-        url: >-
-          https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-0/exwy_b_cisco-expressway-administrator-guide/exwy_m_managing-security.html
-      - type: ChangeLog
-        url: >-
-          https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-0/exwy_b_cisco-expressway-administrator-guide/exwy_m_managing-security.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+- aid: cisco-expressway:cisco-expressway-admin-account-api
+  name: Cisco Expressway Admin Account API
+  description: Administrator account management
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - Admin Account
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-admin-account-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
+- aid: cisco-expressway:cisco-expressway-alarms-api
+  name: Cisco Expressway Alarms API
+  description: Active system alarms and warnings
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - Alarms
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-alarms-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
+- aid: cisco-expressway:cisco-expressway-calls-api
+  name: Cisco Expressway Calls API
+  description: Active and historical call information
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - Calls
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-calls-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
+- aid: cisco-expressway:cisco-expressway-dns-api
+  name: Cisco Expressway DNS API
+  description: DNS server configuration management
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - DNS
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-dns-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
+- aid: cisco-expressway:cisco-expressway-licensing-api
+  name: Cisco Expressway Licensing API
+  description: Smart licensing status and usage
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - Licensing
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-licensing-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
+- aid: cisco-expressway:cisco-expressway-ntp-api
+  name: Cisco Expressway NTP API
+  description: NTP server configuration for time synchronization
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - NTP
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-ntp-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
+- aid: cisco-expressway:cisco-expressway-registrations-api
+  name: Cisco Expressway Registrations API
+  description: Device registration status and details
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - Registrations
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-registrations-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
+- aid: cisco-expressway:cisco-expressway-resource-usage-api
+  name: Cisco Expressway Resource Usage API
+  description: System resource utilization metrics
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - Resource Usage
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-resource-usage-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
+- aid: cisco-expressway:cisco-expressway-search-rules-api
+  name: Cisco Expressway Search Rules API
+  description: Search rule configuration for call routing decisions
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - Search Rules
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-search-rules-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
+- aid: cisco-expressway:cisco-expressway-sftp-api
+  name: Cisco Expressway SFTP API
+  description: SFTP configuration for system upgrades
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - SFTP
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-sftp-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
+- aid: cisco-expressway:cisco-expressway-sip-api
+  name: Cisco Expressway SIP API
+  description: SIP protocol configuration
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - SIP
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-sip-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
+- aid: cisco-expressway:cisco-expressway-system-api
+  name: Cisco Expressway System API
+  description: System-level configuration and information
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - System
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-system-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
+- aid: cisco-expressway:cisco-expressway-system-status-api
+  name: Cisco Expressway System Status API
+  description: System overview and health information
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - System Status
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-system-status-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
+- aid: cisco-expressway:cisco-expressway-transforms-api
+  name: Cisco Expressway Transforms API
+  description: Pre-search transform configuration for alias modification
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - Transforms
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-transforms-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
+- aid: cisco-expressway:cisco-expressway-upgrade-api
+  name: Cisco Expressway Upgrade API
+  description: System upgrade operations
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - Upgrade
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-upgrade-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
+- aid: cisco-expressway:cisco-expressway-zones-api
+  name: Cisco Expressway Zones API
+  description: Zone configuration for call routing and firewall traversal
+  humanURL: >-
+    https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  baseURL: https://expressway.example.com/api/provisioning
+  tags:
+  - Zones
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-expressway-zones-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: Reference
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html
+  - type: Authentication
+    url: >-
+      https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html
+  - type: GettingStarted
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html
+  - type: ChangeLog
+    url: >-
+      https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-zone-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-search-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-transform-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-system-status-schema.json
+  - type: JSONLD
+    url: json-ld/cisco-expressway-context.jsonld
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-alarm-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-call-schema.json
+  - type: JSONSchema
+    url: json-schema/cisco-expressway-registration-schema.json
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
