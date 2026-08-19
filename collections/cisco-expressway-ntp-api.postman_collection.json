@@ -1,0 +1,1080 @@
+{
+  "item": [
+    {
+      "id": "44e5863d-c43b-4185-82ee-64dedd5c62d3",
+      "name": "NTP",
+      "description": {
+        "content": "NTP server configuration for time synchronization",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b661ae4f-0b3f-4cae-9dda-28c3b6695dcb",
+          "name": "Cisco Expressway List all configured NTP servers",
+          "request": {
+            "name": "Cisco Expressway List all configured NTP servers",
+            "description": {
+              "content": "Retrieves the list of all NTP servers configured on the Expressway for time synchronization. Supports filtering by name or address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "provisioning",
+                "common",
+                "time",
+                "ntpserver"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c5218096-6bd2-4c2e-8847-9143cf30fd04",
+              "name": "NTP server list retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "time",
+                    "ntpserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Address\": \"pool.ntp.org\",\n    \"Index\": 4,\n    \"AuthenticationMode\": \"Symmetric key\"\n  },\n  {\n    \"Address\": \"pool.ntp.org\",\n    \"Index\": 2,\n    \"AuthenticationMode\": \"Symmetric key\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e8bb59d-65af-4dd8-b1ee-7507f80e9dd7",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "time",
+                    "ntpserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "682c04ec-6730-4ed5-ac4b-2eac1b37a54a",
+              "name": "The authenticated user does not have sufficient permissions for this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "time",
+                    "ntpserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "40dd9f29-a5f3-4866-8edb-6d4fc105bf71",
+          "name": "Cisco Expressway Add a new NTP server",
+          "request": {
+            "name": "Cisco Expressway Add a new NTP server",
+            "description": {
+              "content": "Adds a new NTP server entry to the Expressway configuration for time synchronization. Up to five NTP servers can be configured.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "provisioning",
+                "common",
+                "time",
+                "ntpserver"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Address\": \"<string>\",\n  \"Index\": \"<integer>\",\n  \"AuthenticationMode\": \"<string>\",\n  \"KeyNumber\": \"<integer>\",\n  \"KeyHash\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "75e59206-c3b9-4a11-a2bf-1100efefc321",
+              "name": "NTP server created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "time",
+                    "ntpserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Address\": \"pool.ntp.org\",\n  \"Index\": \"<integer>\",\n  \"AuthenticationMode\": \"<string>\",\n  \"KeyNumber\": \"<integer>\",\n  \"KeyHash\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Address\": \"pool.ntp.org\",\n  \"Index\": 3,\n  \"AuthenticationMode\": \"Symmetric key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89a9793f-bfde-47c5-9ac4-f44f003b361c",
+              "name": "The request body contains invalid data or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "time",
+                    "ntpserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Address\": \"pool.ntp.org\",\n  \"Index\": \"<integer>\",\n  \"AuthenticationMode\": \"<string>\",\n  \"KeyNumber\": \"<integer>\",\n  \"KeyHash\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33222980-c609-4fb1-b500-d6a00c06094b",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "time",
+                    "ntpserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Address\": \"pool.ntp.org\",\n  \"Index\": \"<integer>\",\n  \"AuthenticationMode\": \"<string>\",\n  \"KeyNumber\": \"<integer>\",\n  \"KeyHash\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "134f7944-7e7c-4b35-96c4-d69656b07544",
+              "name": "A resource with the same identifier already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "time",
+                    "ntpserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Address\": \"pool.ntp.org\",\n  \"Index\": \"<integer>\",\n  \"AuthenticationMode\": \"<string>\",\n  \"KeyNumber\": \"<integer>\",\n  \"KeyHash\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da72eacf-c5b9-4d21-8d83-a54de9066a0f",
+          "name": "Cisco Expressway Modify an NTP server entry",
+          "request": {
+            "name": "Cisco Expressway Modify an NTP server entry",
+            "description": {
+              "content": "Updates an existing NTP server configuration on the Expressway.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "provisioning",
+                "common",
+                "time",
+                "ntpserver"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Address\": \"<string>\",\n  \"Index\": \"<integer>\",\n  \"AuthenticationMode\": \"<string>\",\n  \"KeyNumber\": \"<integer>\",\n  \"KeyHash\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f8937a15-b800-4968-aa78-278f7ffb928b",
+              "name": "NTP server updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "time",
+                    "ntpserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Address\": \"pool.ntp.org\",\n  \"Index\": \"<integer>\",\n  \"AuthenticationMode\": \"<string>\",\n  \"KeyNumber\": \"<integer>\",\n  \"KeyHash\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Address\": \"pool.ntp.org\",\n  \"Index\": 3,\n  \"AuthenticationMode\": \"Symmetric key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "799ce44f-5e69-43b1-917b-a5bef9723d1c",
+              "name": "The request body contains invalid data or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "time",
+                    "ntpserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Address\": \"pool.ntp.org\",\n  \"Index\": \"<integer>\",\n  \"AuthenticationMode\": \"<string>\",\n  \"KeyNumber\": \"<integer>\",\n  \"KeyHash\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b83702d-61c4-44fe-b5d2-8b6d049acc1a",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "time",
+                    "ntpserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Address\": \"pool.ntp.org\",\n  \"Index\": \"<integer>\",\n  \"AuthenticationMode\": \"<string>\",\n  \"KeyNumber\": \"<integer>\",\n  \"KeyHash\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8eee8344-0d3d-4f57-901f-c2f0640134a7",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "time",
+                    "ntpserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Address\": \"pool.ntp.org\",\n  \"Index\": \"<integer>\",\n  \"AuthenticationMode\": \"<string>\",\n  \"KeyNumber\": \"<integer>\",\n  \"KeyHash\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b8d7f814-3637-445e-8df9-0850b00c258c",
+          "name": "Cisco Expressway Delete an NTP server entry",
+          "request": {
+            "name": "Cisco Expressway Delete an NTP server entry",
+            "description": {
+              "content": "Removes an NTP server from the Expressway configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "provisioning",
+                "common",
+                "time",
+                "ntpserver"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "731433be-26ad-42e3-b086-e07a3aab51cf",
+              "name": "NTP server deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "time",
+                    "ntpserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d4fba54f-5997-4a76-a8d5-6ffd1b571c86",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "time",
+                    "ntpserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3cfb669-dc81-4c1d-8ec4-d3fc5ef60dcb",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "time",
+                    "ntpserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "expressway.example.com",
+      "key": "host"
+    },
+    {
+      "type": "string",
+      "value": "https://{{host}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0e7ac539-08f9-435a-b1d6-5c9775fd0fde",
+    "name": "Cisco Expressway Configuration Admin Account NTP API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.\n\nContact Support:\n Name: Cisco TAC\n Email: tac@cisco.com",
+      "type": "text/plain"
+    }
+  }
+}

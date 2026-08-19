@@ -1,0 +1,254 @@
+{
+  "item": [
+    {
+      "id": "9df60bba-739b-4cff-ae92-16c60854d68c",
+      "name": "Alarms",
+      "description": {
+        "content": "Active system alarms and warnings",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7770b15e-9365-4278-8925-dd40fcb9d474",
+          "name": "Cisco Expressway List all active alarms",
+          "request": {
+            "name": "Cisco Expressway List all active alarms",
+            "description": {
+              "content": "Retrieves the list of all alarms currently active on the Expressway. Alarms indicate events or configuration changes that require administrator intervention, or hardware and environmental issues such as faulty disks, fans, or high temperatures. Alarms are categorized by severity and ID prefix ranges.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "status",
+                "common",
+                "alarms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb32d3cd-b8a6-45f3-9420-7e8d7f5dc2b1",
+              "name": "Alarm list retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "common",
+                    "alarms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"AlarmId\": \"30001\",\n    \"Severity\": \"Critical\",\n    \"Title\": \"License capacity exceeded\",\n    \"Description\": \"string\",\n    \"TimeRaised\": \"1974-09-17T23:18:16.474Z\",\n    \"Category\": \"B2BUA\"\n  },\n  {\n    \"AlarmId\": \"30001\",\n    \"Severity\": \"Information\",\n    \"Title\": \"License capacity exceeded\",\n    \"Description\": \"string\",\n    \"TimeRaised\": \"2005-11-10T15:47:19.678Z\",\n    \"Category\": \"Security\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a93add14-936d-4566-a8ee-209a23fb87e2",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "common",
+                    "alarms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bffd7351-fc07-4148-a50d-f0779c396c39",
+              "name": "The authenticated user does not have sufficient permissions for this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "common",
+                    "alarms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "expressway.example.com",
+      "key": "host"
+    },
+    {
+      "type": "string",
+      "value": "https://{{host}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5c4f05ef-3a1f-4b2f-9fb7-33e20bf64bb4",
+    "name": "Cisco Expressway Configuration Admin Account Alarms API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.\n\nContact Support:\n Name: Cisco TAC\n Email: tac@cisco.com",
+      "type": "text/plain"
+    }
+  }
+}

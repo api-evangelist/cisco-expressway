@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cisco Expressway Configuration Admin Account SIP API",
+    "version": "14.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SIP",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway Retrieve SIP configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/provisioning/common/sip/configuration"
+          },
+          "docs": "Returns the current SIP protocol configuration for the Expressway including SIP mode, listening ports, transport protocols, registration settings, and session timer parameters."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Update SIP configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}/api/provisioning/common/sip/configuration",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modifies the SIP protocol configuration on the Expressway including SIP mode, transport settings, registration proxy behavior, and session timer parameters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

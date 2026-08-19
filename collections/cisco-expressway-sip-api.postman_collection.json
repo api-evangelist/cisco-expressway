@@ -1,0 +1,560 @@
+{
+  "item": [
+    {
+      "id": "49d25c56-840f-447f-ba75-3e119a04b021",
+      "name": "SIP",
+      "description": {
+        "content": "SIP protocol configuration",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "28597b97-54d9-4e6e-aff6-f6bac52bc8da",
+          "name": "Cisco Expressway Retrieve SIP configuration",
+          "request": {
+            "name": "Cisco Expressway Retrieve SIP configuration",
+            "description": {
+              "content": "Returns the current SIP protocol configuration for the Expressway including SIP mode, listening ports, transport protocols, registration settings, and session timer parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "common",
+                "sip",
+                "configuration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "defff8bb-cc73-4f74-8dd0-b8f1de3f3aba",
+              "name": "SIP configuration retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "sip",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SIPMode\": \"On\",\n  \"TCPMode\": \"Off\",\n  \"TCPPort\": 5060,\n  \"TLSPort\": 5061,\n  \"UDPMode\": \"Off\",\n  \"UDPPort\": 5060,\n  \"SessionRefreshInterval\": 1800,\n  \"SessionRefreshMethod\": \"INVITE\",\n  \"RegistrationProxyMode\": \"On\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd598e9b-3299-4de0-8f11-bdfdcfa12e4f",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "sip",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38573a07-37af-4be0-bdad-e7fe014e86e1",
+              "name": "The authenticated user does not have sufficient permissions for this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "sip",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa7dc6b1-4c51-4a70-aca2-3256979b2325",
+          "name": "Cisco Expressway Update SIP configuration",
+          "request": {
+            "name": "Cisco Expressway Update SIP configuration",
+            "description": {
+              "content": "Modifies the SIP protocol configuration on the Expressway including SIP mode, transport settings, registration proxy behavior, and session timer parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "common",
+                "sip",
+                "configuration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2015afc2-8a47-4f14-8e84-0e6218a8564f",
+              "name": "SIP configuration updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "sip",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SIPMode\": \"On\",\n  \"TCPMode\": \"On\",\n  \"TCPPort\": 5060,\n  \"TLSPort\": 5061,\n  \"UDPMode\": \"On\",\n  \"UDPPort\": 5060,\n  \"SessionRefreshInterval\": 1800,\n  \"SessionRefreshMethod\": \"UPDATE\",\n  \"RegistrationProxyMode\": \"On\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SIPMode\": \"On\",\n  \"TCPMode\": \"Off\",\n  \"TCPPort\": 5060,\n  \"TLSPort\": 5061,\n  \"UDPMode\": \"Off\",\n  \"UDPPort\": 5060,\n  \"SessionRefreshInterval\": 1800,\n  \"SessionRefreshMethod\": \"INVITE\",\n  \"RegistrationProxyMode\": \"On\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "543b9620-b0c9-41ba-90e5-75ad03caec53",
+              "name": "The request body contains invalid data or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "sip",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SIPMode\": \"On\",\n  \"TCPMode\": \"On\",\n  \"TCPPort\": 5060,\n  \"TLSPort\": 5061,\n  \"UDPMode\": \"On\",\n  \"UDPPort\": 5060,\n  \"SessionRefreshInterval\": 1800,\n  \"SessionRefreshMethod\": \"UPDATE\",\n  \"RegistrationProxyMode\": \"On\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6fdca092-3e64-496f-a43f-5f5a9f3f45c1",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "sip",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SIPMode\": \"On\",\n  \"TCPMode\": \"On\",\n  \"TCPPort\": 5060,\n  \"TLSPort\": 5061,\n  \"UDPMode\": \"On\",\n  \"UDPPort\": 5060,\n  \"SessionRefreshInterval\": 1800,\n  \"SessionRefreshMethod\": \"UPDATE\",\n  \"RegistrationProxyMode\": \"On\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4cc6dd41-c305-46be-ad9a-432d2f5420d4",
+              "name": "The authenticated user does not have sufficient permissions for this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "sip",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SIPMode\": \"On\",\n  \"TCPMode\": \"On\",\n  \"TCPPort\": 5060,\n  \"TLSPort\": 5061,\n  \"UDPMode\": \"On\",\n  \"UDPPort\": 5060,\n  \"SessionRefreshInterval\": 1800,\n  \"SessionRefreshMethod\": \"UPDATE\",\n  \"RegistrationProxyMode\": \"On\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "expressway.example.com",
+      "key": "host"
+    },
+    {
+      "type": "string",
+      "value": "https://{{host}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "25cf956b-9711-4f94-b9bc-ccaba70feaf2",
+    "name": "Cisco Expressway Configuration Admin Account SIP API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.\n\nContact Support:\n Name: Cisco TAC\n Email: tac@cisco.com",
+      "type": "text/plain"
+    }
+  }
+}

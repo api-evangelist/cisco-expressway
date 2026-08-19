@@ -1,0 +1,1044 @@
+{
+  "item": [
+    {
+      "id": "bf0ef699-023f-4ac6-9911-880c82d84880",
+      "name": "Search Rules",
+      "description": {
+        "content": "Search rule configuration for call routing decisions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e027b5f8-3edc-4014-9ce2-6f3cd567f572",
+          "name": "Cisco Expressway List all search rules",
+          "request": {
+            "name": "Cisco Expressway List all search rules",
+            "description": {
+              "content": "Retrieves all search rules configured on the Expressway. Search rules define how the Expressway routes incoming search requests to the appropriate target zones or policy services, with configurable alias pattern matching, priority, and protocol filtering.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "common",
+                "searchrule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ae6d3a4b-75a7-471a-bfe1-b9a68d96e87a",
+              "name": "Search rule list retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "searchrule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Name\": \"Route-to-CUCM\",\n    \"Priority\": 50,\n    \"AliasPatternType\": \"Exact\",\n    \"AliasPatternString\": \".*@example\\\\.com\",\n    \"TargetZone\": \"CUCM-Neighbor\",\n    \"SourceZone\": \"string\",\n    \"Mode\": \"On\",\n    \"Protocol\": \"Any\",\n    \"OnSuccessfulMatch\": \"Stop\",\n    \"Description\": \"string\",\n    \"State\": \"Enabled\"\n  },\n  {\n    \"Name\": \"Route-to-CUCM\",\n    \"Priority\": 50,\n    \"AliasPatternType\": \"Regex\",\n    \"AliasPatternString\": \".*@example\\\\.com\",\n    \"TargetZone\": \"CUCM-Neighbor\",\n    \"SourceZone\": \"string\",\n    \"Mode\": \"On\",\n    \"Protocol\": \"Any\",\n    \"OnSuccessfulMatch\": \"Stop\",\n    \"Description\": \"string\",\n    \"State\": \"Enabled\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77752f99-2305-4e36-b488-d064eba186bf",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "searchrule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6826cceb-0e7c-426b-9e26-1ba2d1f7f4df",
+              "name": "The authenticated user does not have sufficient permissions for this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "searchrule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3c1ad60-762d-40d8-bd02-70d9da6981fe",
+          "name": "Cisco Expressway Create a search rule",
+          "request": {
+            "name": "Cisco Expressway Create a search rule",
+            "description": {
+              "content": "Creates a new search rule on the Expressway. Search rules determine how incoming calls are routed to target zones based on alias patterns, source zones, and protocol type. Each search rule has a configurable priority that determines its evaluation order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "common",
+                "searchrule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2b4b177f-0af7-49bd-b438-a0c70aa69e4f",
+              "name": "Search rule created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "searchrule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"Route-to-CUCM\",\n  \"AliasPatternType\": \"Exact\",\n  \"AliasPatternString\": \".*@example\\\\.com\",\n  \"TargetZone\": \"CUCM-Neighbor\",\n  \"Priority\": 50,\n  \"SourceZone\": \"string\",\n  \"Mode\": \"On\",\n  \"Protocol\": \"Any\",\n  \"OnSuccessfulMatch\": \"Stop\",\n  \"Description\": \"string\",\n  \"State\": \"Enabled\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Name\": \"Route-to-CUCM\",\n  \"Priority\": 50,\n  \"AliasPatternType\": \"Exact\",\n  \"AliasPatternString\": \".*@example\\\\.com\",\n  \"TargetZone\": \"CUCM-Neighbor\",\n  \"SourceZone\": \"string\",\n  \"Mode\": \"On\",\n  \"Protocol\": \"Any\",\n  \"OnSuccessfulMatch\": \"Stop\",\n  \"Description\": \"string\",\n  \"State\": \"Enabled\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83d58ef0-7561-4f6a-bb8e-5d1e5720e1d5",
+              "name": "The request body contains invalid data or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "searchrule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"Route-to-CUCM\",\n  \"AliasPatternType\": \"Exact\",\n  \"AliasPatternString\": \".*@example\\\\.com\",\n  \"TargetZone\": \"CUCM-Neighbor\",\n  \"Priority\": 50,\n  \"SourceZone\": \"string\",\n  \"Mode\": \"On\",\n  \"Protocol\": \"Any\",\n  \"OnSuccessfulMatch\": \"Stop\",\n  \"Description\": \"string\",\n  \"State\": \"Enabled\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5b29e32-a8b9-4234-b137-00a723d1d91e",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "searchrule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"Route-to-CUCM\",\n  \"AliasPatternType\": \"Exact\",\n  \"AliasPatternString\": \".*@example\\\\.com\",\n  \"TargetZone\": \"CUCM-Neighbor\",\n  \"Priority\": 50,\n  \"SourceZone\": \"string\",\n  \"Mode\": \"On\",\n  \"Protocol\": \"Any\",\n  \"OnSuccessfulMatch\": \"Stop\",\n  \"Description\": \"string\",\n  \"State\": \"Enabled\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d42da20-60e0-4586-8ba4-c1eb6e007d8a",
+              "name": "A resource with the same identifier already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "searchrule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"Route-to-CUCM\",\n  \"AliasPatternType\": \"Exact\",\n  \"AliasPatternString\": \".*@example\\\\.com\",\n  \"TargetZone\": \"CUCM-Neighbor\",\n  \"Priority\": 50,\n  \"SourceZone\": \"string\",\n  \"Mode\": \"On\",\n  \"Protocol\": \"Any\",\n  \"OnSuccessfulMatch\": \"Stop\",\n  \"Description\": \"string\",\n  \"State\": \"Enabled\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f5bfbea-836e-4b75-80ca-9c949b1687dc",
+          "name": "Cisco Expressway Update a search rule",
+          "request": {
+            "name": "Cisco Expressway Update a search rule",
+            "description": {
+              "content": "Modifies an existing search rule configuration on the Expressway including the alias pattern, target zone, priority, and protocol filter settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "common",
+                "searchrule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "52341a72-5db1-4908-8cff-f2b48761b209",
+              "name": "Search rule updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "searchrule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"Route-to-CUCM\",\n  \"AliasPatternType\": \"Exact\",\n  \"AliasPatternString\": \".*@example\\\\.com\",\n  \"TargetZone\": \"CUCM-Neighbor\",\n  \"Priority\": 50,\n  \"SourceZone\": \"string\",\n  \"Mode\": \"On\",\n  \"Protocol\": \"Any\",\n  \"OnSuccessfulMatch\": \"Stop\",\n  \"Description\": \"string\",\n  \"State\": \"Enabled\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Name\": \"Route-to-CUCM\",\n  \"Priority\": 50,\n  \"AliasPatternType\": \"Exact\",\n  \"AliasPatternString\": \".*@example\\\\.com\",\n  \"TargetZone\": \"CUCM-Neighbor\",\n  \"SourceZone\": \"string\",\n  \"Mode\": \"On\",\n  \"Protocol\": \"Any\",\n  \"OnSuccessfulMatch\": \"Stop\",\n  \"Description\": \"string\",\n  \"State\": \"Enabled\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "957ecab2-3694-484f-8f2c-a65bee13b1bc",
+              "name": "The request body contains invalid data or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "searchrule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"Route-to-CUCM\",\n  \"AliasPatternType\": \"Exact\",\n  \"AliasPatternString\": \".*@example\\\\.com\",\n  \"TargetZone\": \"CUCM-Neighbor\",\n  \"Priority\": 50,\n  \"SourceZone\": \"string\",\n  \"Mode\": \"On\",\n  \"Protocol\": \"Any\",\n  \"OnSuccessfulMatch\": \"Stop\",\n  \"Description\": \"string\",\n  \"State\": \"Enabled\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0840f98-cef1-4c25-b2c7-92b540b41a70",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "searchrule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"Route-to-CUCM\",\n  \"AliasPatternType\": \"Exact\",\n  \"AliasPatternString\": \".*@example\\\\.com\",\n  \"TargetZone\": \"CUCM-Neighbor\",\n  \"Priority\": 50,\n  \"SourceZone\": \"string\",\n  \"Mode\": \"On\",\n  \"Protocol\": \"Any\",\n  \"OnSuccessfulMatch\": \"Stop\",\n  \"Description\": \"string\",\n  \"State\": \"Enabled\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0af4ec6a-cd88-45d5-980a-32858500fcf0",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "searchrule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"Route-to-CUCM\",\n  \"AliasPatternType\": \"Exact\",\n  \"AliasPatternString\": \".*@example\\\\.com\",\n  \"TargetZone\": \"CUCM-Neighbor\",\n  \"Priority\": 50,\n  \"SourceZone\": \"string\",\n  \"Mode\": \"On\",\n  \"Protocol\": \"Any\",\n  \"OnSuccessfulMatch\": \"Stop\",\n  \"Description\": \"string\",\n  \"State\": \"Enabled\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3690aaa7-17d3-4713-a0b3-a5b0efd8c6b6",
+          "name": "Cisco Expressway Delete a search rule",
+          "request": {
+            "name": "Cisco Expressway Delete a search rule",
+            "description": {
+              "content": "Removes a search rule from the Expressway configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "common",
+                "searchrule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "986d3089-4724-474c-a8cc-52a0b5ea1744",
+              "name": "Search rule deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "searchrule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ffc7f6c9-a3d5-4c30-b29c-8667444acd07",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "searchrule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92208a87-a0e4-490a-b549-c397b0aee9e7",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "searchrule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "expressway.example.com",
+      "key": "host"
+    },
+    {
+      "type": "string",
+      "value": "https://{{host}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1f01d71c-9806-4c69-ac53-f50dc0362957",
+    "name": "Cisco Expressway Configuration Admin Account Search Rules API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.\n\nContact Support:\n Name: Cisco TAC\n Email: tac@cisco.com",
+      "type": "text/plain"
+    }
+  }
+}

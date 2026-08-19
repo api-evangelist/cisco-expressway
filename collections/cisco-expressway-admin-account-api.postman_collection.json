@@ -1,0 +1,357 @@
+{
+  "item": [
+    {
+      "id": "d13f5c5d-13b6-4e3d-805a-4099cef3a4f9",
+      "name": "Admin Account",
+      "description": {
+        "content": "Administrator account management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "de868752-145e-4cd7-abd9-6c7c435e41b3",
+          "name": "Cisco Expressway Change administrator password",
+          "request": {
+            "name": "Cisco Expressway Change administrator password",
+            "description": {
+              "content": "Changes the password for an administrator account on the Expressway. Requires the current password and the new password.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "provisioning",
+                "common",
+                "adminaccount",
+                "changepassword"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Username\": \"<string>\",\n  \"CurrentPassword\": \"<password>\",\n  \"NewPassword\": \"<password>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "32c5143c-824b-45c0-8e94-b06878de748c",
+              "name": "Password changed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "adminaccount",
+                    "changepassword"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Username\": \"admin\",\n  \"CurrentPassword\": \"<password>\",\n  \"NewPassword\": \"<password>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0524cb57-f1ed-400a-901b-bfbc5486256a",
+              "name": "The request body contains invalid data or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "adminaccount",
+                    "changepassword"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Username\": \"admin\",\n  \"CurrentPassword\": \"<password>\",\n  \"NewPassword\": \"<password>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a41fd076-98a5-4123-b031-719fe6311d07",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "adminaccount",
+                    "changepassword"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Username\": \"admin\",\n  \"CurrentPassword\": \"<password>\",\n  \"NewPassword\": \"<password>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e13230e-3aa0-486a-b3ce-8f91f5d6e457",
+              "name": "The authenticated user does not have sufficient permissions for this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "provisioning",
+                    "common",
+                    "adminaccount",
+                    "changepassword"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Username\": \"admin\",\n  \"CurrentPassword\": \"<password>\",\n  \"NewPassword\": \"<password>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "expressway.example.com",
+      "key": "host"
+    },
+    {
+      "type": "string",
+      "value": "https://{{host}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b7084b05-c455-4289-890c-d856da7caa74",
+    "name": "Cisco Expressway Configuration Admin Account API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.\n\nContact Support:\n Name: Cisco TAC\n Email: tac@cisco.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cisco Expressway Configuration Admin Account Transforms API",
+    "version": "14.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transforms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway List all pre-search transforms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/provisioning/common/transform"
+          },
+          "docs": "Retrieves all pre-search transforms configured on the Expressway. Pre-search transforms modify the destination alias in an incoming search request before any searches are sent to external zones, enabling alias normalization and rewriting."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Create a pre-search transform",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/api/provisioning/common/transform",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new pre-search transform on the Expressway. Transforms are applied to incoming search requests to modify the destination alias before routing decisions are made, using pattern matching and replacement strings."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Update a pre-search transform",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}/api/provisioning/common/transform",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modifies an existing pre-search transform configuration on the Expressway including the alias pattern, replacement string, and priority."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Delete a pre-search transform",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{host}/api/provisioning/common/transform"
+          },
+          "docs": "Removes a pre-search transform from the Expressway configuration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cisco Expressway Configuration Admin Account Upgrade API",
+    "version": "14.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Upgrade",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway Trigger a system upgrade",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/api/v1/provisioning/common/upgrade",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a system software upgrade on the Expressway. The SFTP configuration must be set before triggering the upgrade. The upgrade process downloads the image via SFTP and optionally reboots the system automatically."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Retrieve upgrade progress status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/v1/status/common/upgradestatus"
+          },
+          "docs": "Returns the current status of any in-progress or recent system upgrade on the Expressway, including the download progress percentage, upgrade phase, and any error messages. This endpoint is documented in the Cisco Expressway REST API Summary Guide as a primary status retrieval endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

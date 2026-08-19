@@ -1,0 +1,218 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cisco Expressway Configuration Admin Account Zones API",
+    "version": "14.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Zones",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway List Expressway-E traversal server zones",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/provisioning/edge/zone/traversalserver"
+          },
+          "docs": "Retrieves all traversal server zones configured on the Expressway-E. Traversal server zones enable the Expressway-E to provide firewall traversal services to traversal clients (Expressway-C). Supports filtering by name using the path pattern /zone/traversalserver/name/{zoneName}."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Create a traversal server zone on Expressway-E",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/api/provisioning/edge/zone/traversalserver",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new traversal server zone on the Expressway-E to provide firewall traversal services. The zone defines connection credentials, H.323 and SIP protocol settings, and media encryption mode."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Update a traversal server zone on Expressway-E",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}/api/provisioning/edge/zone/traversalserver",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modifies an existing traversal server zone configuration on the Expressway-E including connection credentials, protocol settings, and media encryption parameters."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Delete a traversal server zone from Expressway-E",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{host}/api/provisioning/edge/zone/traversalserver"
+          },
+          "docs": "Removes a traversal server zone from the Expressway-E configuration. The zone is identified by its name."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway List Expressway-C traversal client zones",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/provisioning/controller/zone/traversalclient"
+          },
+          "docs": "Retrieves all traversal client zones configured on the Expressway-C. Traversal client zones define connections from the Expressway-C to a traversal server (Expressway-E) across a firewall. Supports filtering by name using the path pattern /zone/traversalclient/name/{zoneName}."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Create a traversal client zone on Expressway-C",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/api/provisioning/controller/zone/traversalclient",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new traversal client zone on the Expressway-C to connect to a traversal server (Expressway-E) across a firewall. The zone defines connection credentials, retry intervals, and protocol settings."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Update a traversal client zone on Expressway-C",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}/api/provisioning/controller/zone/traversalclient",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modifies an existing traversal client zone configuration on the Expressway-C including connection credentials, retry intervals, and protocol settings."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Delete a traversal client zone from Expressway-C",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{host}/api/provisioning/controller/zone/traversalclient"
+          },
+          "docs": "Removes a traversal client zone from the Expressway-C configuration."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway List all neighbor zones",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/provisioning/common/zone/neighbor"
+          },
+          "docs": "Retrieves all neighbor zones configured on the Expressway. Neighbor zones connect the local Expressway to another system such as another Expressway, Unified CM, or a gatekeeper. Supports filtering by name."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Create a neighbor zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/api/provisioning/common/zone/neighbor",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new neighbor zone on the Expressway. Neighbor zones define connections to peer systems such as other Expressway nodes, Unified CM clusters, or gatekeepers with configurable H.323 and SIP protocol settings."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Update a neighbor zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}/api/provisioning/common/zone/neighbor",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modifies an existing neighbor zone configuration on the Expressway including peer addresses, protocol settings, zone profile, and authentication options."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Delete a neighbor zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{host}/api/provisioning/common/zone/neighbor"
+          },
+          "docs": "Removes a neighbor zone from the Expressway configuration."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway List all DNS zones",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/provisioning/common/zone/dns"
+          },
+          "docs": "Retrieves all DNS zones configured on the Expressway. DNS zones enable endpoint location through DNS lookups for SIP and H.323 calls."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Create a DNS zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/api/provisioning/common/zone/dns",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new DNS zone on the Expressway for endpoint discovery via DNS lookups. Configurable for H.323 and SIP protocols with fallback transport and TLS mapping options."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway List zone connectivity status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/status/common/zones"
+          },
+          "docs": "Retrieves the connectivity status for all configured zones on the Expressway including the zone name, type, connection state, and any active calls traversing each zone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

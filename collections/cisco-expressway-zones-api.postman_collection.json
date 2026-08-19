@@ -1,0 +1,3784 @@
+{
+  "item": [
+    {
+      "id": "f2060efe-55e7-45e0-bcf5-ec91103db7c6",
+      "name": "Zones",
+      "description": {
+        "content": "Zone configuration for call routing and firewall traversal",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b340ed09-7cc2-43d7-935b-d76461e8d90d",
+          "name": "Cisco Expressway List Expressway-E traversal server zones",
+          "request": {
+            "name": "Cisco Expressway List Expressway-E traversal server zones",
+            "description": {
+              "content": "Retrieves all traversal server zones configured on the Expressway-E. Traversal server zones enable the Expressway-E to provide firewall traversal services to traversal clients (Expressway-C). Supports filtering by name using the path pattern /zone/traversalserver/name/{zoneName}.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "edge",
+                "zone",
+                "traversalserver"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ed402591-3900-4dbe-ac02-2113f127cae7",
+              "name": "Traversal server zone list retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "edge",
+                    "zone",
+                    "traversalserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Name\": \"CEtoEXPE-Traversal\",\n    \"Type\": \"string\",\n    \"ConnectionCredentialsUsername\": \"string\",\n    \"HopCount\": 15,\n    \"H323Mode\": \"Off\",\n    \"H323Port\": 6001,\n    \"H323Protocol\": \"Assent\",\n    \"SIPMode\": \"Off\",\n    \"SIPPort\": 7001,\n    \"SIPTransport\": \"TLS\",\n    \"SIPTLSVerifyMode\": \"On\",\n    \"MediaEncryptionMode\": \"Auto\",\n    \"ICESupport\": \"Off\",\n    \"H46019DemultiplexingMode\": \"Off\",\n    \"UnifiedCommunicationsMode\": \"Off\",\n    \"TLSVerifySubjectName\": \"string\",\n    \"AuthenticationPolicy\": \"CheckCredentials\"\n  },\n  {\n    \"Name\": \"CEtoEXPE-Traversal\",\n    \"Type\": \"string\",\n    \"ConnectionCredentialsUsername\": \"string\",\n    \"HopCount\": 15,\n    \"H323Mode\": \"Off\",\n    \"H323Port\": 6001,\n    \"H323Protocol\": \"Assent\",\n    \"SIPMode\": \"On\",\n    \"SIPPort\": 7001,\n    \"SIPTransport\": \"TLS\",\n    \"SIPTLSVerifyMode\": \"Off\",\n    \"MediaEncryptionMode\": \"Auto\",\n    \"ICESupport\": \"Off\",\n    \"H46019DemultiplexingMode\": \"Off\",\n    \"UnifiedCommunicationsMode\": \"Off\",\n    \"TLSVerifySubjectName\": \"string\",\n    \"AuthenticationPolicy\": \"CheckCredentials\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0143fd6e-d7c8-4e84-ba10-e5e3052267cc",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "edge",
+                    "zone",
+                    "traversalserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cbf4220-e325-424c-bed7-e222e8050c6a",
+              "name": "The authenticated user does not have sufficient permissions for this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "edge",
+                    "zone",
+                    "traversalserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b4080843-0e2c-4a4a-a9d3-83142b410714",
+          "name": "Cisco Expressway Create a traversal server zone on Expressway-E",
+          "request": {
+            "name": "Cisco Expressway Create a traversal server zone on Expressway-E",
+            "description": {
+              "content": "Creates a new traversal server zone on the Expressway-E to provide firewall traversal services. The zone defines connection credentials, H.323 and SIP protocol settings, and media encryption mode.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "edge",
+                "zone",
+                "traversalserver"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5add9609-f956-44ea-a87a-38528a5e9298",
+              "name": "Traversal server zone created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "edge",
+                    "zone",
+                    "traversalserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CEtoEXPE-Traversal\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"On\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"ICESupport\": \"Off\",\n  \"H46019DemultiplexingMode\": \"Off\",\n  \"UnifiedCommunicationsMode\": \"Off\",\n  \"TLSVerifySubjectName\": \"string\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Name\": \"CEtoEXPE-Traversal\",\n  \"Type\": \"string\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"On\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"Off\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"Off\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"ICESupport\": \"Off\",\n  \"H46019DemultiplexingMode\": \"Off\",\n  \"UnifiedCommunicationsMode\": \"Off\",\n  \"TLSVerifySubjectName\": \"string\",\n  \"AuthenticationPolicy\": \"CheckCredentials\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae43d421-20cb-4c34-9756-ab38c470f115",
+              "name": "The request body contains invalid data or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "edge",
+                    "zone",
+                    "traversalserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CEtoEXPE-Traversal\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"On\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"ICESupport\": \"Off\",\n  \"H46019DemultiplexingMode\": \"Off\",\n  \"UnifiedCommunicationsMode\": \"Off\",\n  \"TLSVerifySubjectName\": \"string\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85c84ca3-6803-4edc-becc-fa9594ea7c87",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "edge",
+                    "zone",
+                    "traversalserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CEtoEXPE-Traversal\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"On\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"ICESupport\": \"Off\",\n  \"H46019DemultiplexingMode\": \"Off\",\n  \"UnifiedCommunicationsMode\": \"Off\",\n  \"TLSVerifySubjectName\": \"string\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "291f680c-628b-48b9-b7fa-4d38b0fe4227",
+              "name": "A resource with the same identifier already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "edge",
+                    "zone",
+                    "traversalserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CEtoEXPE-Traversal\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"On\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"ICESupport\": \"Off\",\n  \"H46019DemultiplexingMode\": \"Off\",\n  \"UnifiedCommunicationsMode\": \"Off\",\n  \"TLSVerifySubjectName\": \"string\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2023e822-083a-4702-9a96-8faae649f1d0",
+          "name": "Cisco Expressway Update a traversal server zone on Expressway-E",
+          "request": {
+            "name": "Cisco Expressway Update a traversal server zone on Expressway-E",
+            "description": {
+              "content": "Modifies an existing traversal server zone configuration on the Expressway-E including connection credentials, protocol settings, and media encryption parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "edge",
+                "zone",
+                "traversalserver"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "500c87aa-ce59-4317-b380-4e1399a58306",
+              "name": "Traversal server zone updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "edge",
+                    "zone",
+                    "traversalserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CEtoEXPE-Traversal\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"On\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"ICESupport\": \"Off\",\n  \"H46019DemultiplexingMode\": \"Off\",\n  \"UnifiedCommunicationsMode\": \"Off\",\n  \"TLSVerifySubjectName\": \"string\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Name\": \"CEtoEXPE-Traversal\",\n  \"Type\": \"string\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"On\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"Off\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"Off\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"ICESupport\": \"Off\",\n  \"H46019DemultiplexingMode\": \"Off\",\n  \"UnifiedCommunicationsMode\": \"Off\",\n  \"TLSVerifySubjectName\": \"string\",\n  \"AuthenticationPolicy\": \"CheckCredentials\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca2b369e-659d-4de9-b651-9717af74e047",
+              "name": "The request body contains invalid data or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "edge",
+                    "zone",
+                    "traversalserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CEtoEXPE-Traversal\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"On\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"ICESupport\": \"Off\",\n  \"H46019DemultiplexingMode\": \"Off\",\n  \"UnifiedCommunicationsMode\": \"Off\",\n  \"TLSVerifySubjectName\": \"string\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13ccb432-2be8-4c0e-ada6-2d1bba915fca",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "edge",
+                    "zone",
+                    "traversalserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CEtoEXPE-Traversal\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"On\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"ICESupport\": \"Off\",\n  \"H46019DemultiplexingMode\": \"Off\",\n  \"UnifiedCommunicationsMode\": \"Off\",\n  \"TLSVerifySubjectName\": \"string\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cc404ea-6c76-435c-8b1c-fd1880c5daed",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "edge",
+                    "zone",
+                    "traversalserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CEtoEXPE-Traversal\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"On\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"ICESupport\": \"Off\",\n  \"H46019DemultiplexingMode\": \"Off\",\n  \"UnifiedCommunicationsMode\": \"Off\",\n  \"TLSVerifySubjectName\": \"string\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6e4b09b-0ba5-4518-b32d-b2748da3d9bd",
+          "name": "Cisco Expressway Delete a traversal server zone from Expressway-E",
+          "request": {
+            "name": "Cisco Expressway Delete a traversal server zone from Expressway-E",
+            "description": {
+              "content": "Removes a traversal server zone from the Expressway-E configuration. The zone is identified by its name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "edge",
+                "zone",
+                "traversalserver"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a33a25ef-e483-444d-b90c-f1ca46e177c0",
+              "name": "Traversal server zone deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "edge",
+                    "zone",
+                    "traversalserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c3f53de7-6f81-44cb-a86d-7a0d2d336364",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "edge",
+                    "zone",
+                    "traversalserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02ae5264-a730-4081-86ff-a5716be73e08",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "edge",
+                    "zone",
+                    "traversalserver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b881a4e0-1919-4d0f-83f9-2f09788f3337",
+          "name": "Cisco Expressway List Expressway-C traversal client zones",
+          "request": {
+            "name": "Cisco Expressway List Expressway-C traversal client zones",
+            "description": {
+              "content": "Retrieves all traversal client zones configured on the Expressway-C. Traversal client zones define connections from the Expressway-C to a traversal server (Expressway-E) across a firewall. Supports filtering by name using the path pattern /zone/traversalclient/name/{zoneName}.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "controller",
+                "zone",
+                "traversalclient"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "015a68b9-25a6-4ffa-bda4-3b09c1718515",
+              "name": "Traversal client zone list retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "controller",
+                    "zone",
+                    "traversalclient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Name\": \"CtoEXPE-Traversal\",\n    \"Type\": \"string\",\n    \"PeerAddress\": \"expressway-e.example.com\",\n    \"ConnectionCredentialsUsername\": \"string\",\n    \"ConnectionCredentialsPassword\": \"string\",\n    \"HopCount\": 15,\n    \"H323Mode\": \"On\",\n    \"H323Port\": 6001,\n    \"H323Protocol\": \"Assent\",\n    \"SIPMode\": \"On\",\n    \"SIPPort\": 7001,\n    \"SIPTransport\": \"TLS\",\n    \"SIPTLSVerifyMode\": \"On\",\n    \"SIPPoisonMode\": \"Off\",\n    \"MediaEncryptionMode\": \"Auto\",\n    \"RetryInterval\": 120,\n    \"DisconnectOnFailInterval\": 120,\n    \"AuthenticationPolicy\": \"TreatAsAuthenticated\"\n  },\n  {\n    \"Name\": \"CtoEXPE-Traversal\",\n    \"Type\": \"string\",\n    \"PeerAddress\": \"expressway-e.example.com\",\n    \"ConnectionCredentialsUsername\": \"string\",\n    \"ConnectionCredentialsPassword\": \"string\",\n    \"HopCount\": 15,\n    \"H323Mode\": \"On\",\n    \"H323Port\": 6001,\n    \"H323Protocol\": \"Assent\",\n    \"SIPMode\": \"Off\",\n    \"SIPPort\": 7001,\n    \"SIPTransport\": \"TLS\",\n    \"SIPTLSVerifyMode\": \"Off\",\n    \"SIPPoisonMode\": \"Off\",\n    \"MediaEncryptionMode\": \"Auto\",\n    \"RetryInterval\": 120,\n    \"DisconnectOnFailInterval\": 120,\n    \"AuthenticationPolicy\": \"TreatAsAuthenticated\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d0fc74c-f44c-471e-a607-8f0bc4f2bdf8",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "controller",
+                    "zone",
+                    "traversalclient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef3ac16e-0893-404f-b540-4d659c3a4bdf",
+              "name": "The authenticated user does not have sufficient permissions for this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "controller",
+                    "zone",
+                    "traversalclient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "78421b31-7222-4d9a-a924-e84f48122de1",
+          "name": "Cisco Expressway Create a traversal client zone on Expressway-C",
+          "request": {
+            "name": "Cisco Expressway Create a traversal client zone on Expressway-C",
+            "description": {
+              "content": "Creates a new traversal client zone on the Expressway-C to connect to a traversal server (Expressway-E) across a firewall. The zone defines connection credentials, retry intervals, and protocol settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "controller",
+                "zone",
+                "traversalclient"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "92d60038-5fd3-4650-9cf8-c2ec39afef29",
+              "name": "Traversal client zone created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "controller",
+                    "zone",
+                    "traversalclient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CtoEXPE-Traversal\",\n  \"PeerAddress\": \"expressway-e.example.com\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"ConnectionCredentialsPassword\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"Off\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"Off\",\n  \"SIPPoisonMode\": \"Off\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"RetryInterval\": 120,\n  \"DisconnectOnFailInterval\": 120,\n  \"AuthenticationPolicy\": \"CheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Name\": \"CtoEXPE-Traversal\",\n  \"Type\": \"string\",\n  \"PeerAddress\": \"expressway-e.example.com\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"ConnectionCredentialsPassword\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"On\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"Off\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"SIPPoisonMode\": \"Off\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"RetryInterval\": 120,\n  \"DisconnectOnFailInterval\": 120,\n  \"AuthenticationPolicy\": \"TreatAsAuthenticated\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4dc779aa-b31a-41cc-bf6f-ec14fbb1ad48",
+              "name": "The request body contains invalid data or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "controller",
+                    "zone",
+                    "traversalclient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CtoEXPE-Traversal\",\n  \"PeerAddress\": \"expressway-e.example.com\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"ConnectionCredentialsPassword\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"Off\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"Off\",\n  \"SIPPoisonMode\": \"Off\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"RetryInterval\": 120,\n  \"DisconnectOnFailInterval\": 120,\n  \"AuthenticationPolicy\": \"CheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3639fbea-8754-4e5f-a8b2-74d7cf3af9ba",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "controller",
+                    "zone",
+                    "traversalclient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CtoEXPE-Traversal\",\n  \"PeerAddress\": \"expressway-e.example.com\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"ConnectionCredentialsPassword\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"Off\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"Off\",\n  \"SIPPoisonMode\": \"Off\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"RetryInterval\": 120,\n  \"DisconnectOnFailInterval\": 120,\n  \"AuthenticationPolicy\": \"CheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bc69a01-3dee-41f5-877b-63ca08e38e25",
+              "name": "A resource with the same identifier already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "controller",
+                    "zone",
+                    "traversalclient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CtoEXPE-Traversal\",\n  \"PeerAddress\": \"expressway-e.example.com\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"ConnectionCredentialsPassword\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"Off\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"Off\",\n  \"SIPPoisonMode\": \"Off\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"RetryInterval\": 120,\n  \"DisconnectOnFailInterval\": 120,\n  \"AuthenticationPolicy\": \"CheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb5fd44c-273f-4c42-8e0e-8bba045fc82c",
+          "name": "Cisco Expressway Update a traversal client zone on Expressway-C",
+          "request": {
+            "name": "Cisco Expressway Update a traversal client zone on Expressway-C",
+            "description": {
+              "content": "Modifies an existing traversal client zone configuration on the Expressway-C including connection credentials, retry intervals, and protocol settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "controller",
+                "zone",
+                "traversalclient"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9cc889e3-ea26-4a2e-8c70-1f8b5af1e96a",
+              "name": "Traversal client zone updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "controller",
+                    "zone",
+                    "traversalclient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CtoEXPE-Traversal\",\n  \"PeerAddress\": \"expressway-e.example.com\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"ConnectionCredentialsPassword\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"Off\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"Off\",\n  \"SIPPoisonMode\": \"Off\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"RetryInterval\": 120,\n  \"DisconnectOnFailInterval\": 120,\n  \"AuthenticationPolicy\": \"CheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Name\": \"CtoEXPE-Traversal\",\n  \"Type\": \"string\",\n  \"PeerAddress\": \"expressway-e.example.com\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"ConnectionCredentialsPassword\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"On\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"Off\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"SIPPoisonMode\": \"Off\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"RetryInterval\": 120,\n  \"DisconnectOnFailInterval\": 120,\n  \"AuthenticationPolicy\": \"TreatAsAuthenticated\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "494643ed-a859-441b-9e06-d27fcc27d3bc",
+              "name": "The request body contains invalid data or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "controller",
+                    "zone",
+                    "traversalclient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CtoEXPE-Traversal\",\n  \"PeerAddress\": \"expressway-e.example.com\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"ConnectionCredentialsPassword\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"Off\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"Off\",\n  \"SIPPoisonMode\": \"Off\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"RetryInterval\": 120,\n  \"DisconnectOnFailInterval\": 120,\n  \"AuthenticationPolicy\": \"CheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd079510-45cf-455e-b969-015679f3e447",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "controller",
+                    "zone",
+                    "traversalclient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CtoEXPE-Traversal\",\n  \"PeerAddress\": \"expressway-e.example.com\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"ConnectionCredentialsPassword\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"Off\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"Off\",\n  \"SIPPoisonMode\": \"Off\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"RetryInterval\": 120,\n  \"DisconnectOnFailInterval\": 120,\n  \"AuthenticationPolicy\": \"CheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4783b80c-98bb-4c9c-8c9f-738c4fe96ea3",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "controller",
+                    "zone",
+                    "traversalclient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CtoEXPE-Traversal\",\n  \"PeerAddress\": \"expressway-e.example.com\",\n  \"ConnectionCredentialsUsername\": \"string\",\n  \"ConnectionCredentialsPassword\": \"string\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 6001,\n  \"H323Protocol\": \"Assent\",\n  \"SIPMode\": \"Off\",\n  \"SIPPort\": 7001,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"Off\",\n  \"SIPPoisonMode\": \"Off\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"RetryInterval\": 120,\n  \"DisconnectOnFailInterval\": 120,\n  \"AuthenticationPolicy\": \"CheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a459cbe3-6414-4aa0-a760-231738521297",
+          "name": "Cisco Expressway Delete a traversal client zone from Expressway-C",
+          "request": {
+            "name": "Cisco Expressway Delete a traversal client zone from Expressway-C",
+            "description": {
+              "content": "Removes a traversal client zone from the Expressway-C configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "controller",
+                "zone",
+                "traversalclient"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b5ef76cc-3ba8-448f-a22a-9a65dc626a8b",
+              "name": "Traversal client zone deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "controller",
+                    "zone",
+                    "traversalclient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ac9bbf60-bb7c-4c94-91fe-6dcdc9b96934",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "controller",
+                    "zone",
+                    "traversalclient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69c6f6b6-3c33-4ae5-9b17-8038a9aaefb0",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "controller",
+                    "zone",
+                    "traversalclient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e332d32c-e091-4ce5-bec7-e78d13ad02ef",
+          "name": "Cisco Expressway List all neighbor zones",
+          "request": {
+            "name": "Cisco Expressway List all neighbor zones",
+            "description": {
+              "content": "Retrieves all neighbor zones configured on the Expressway. Neighbor zones connect the local Expressway to another system such as another Expressway, Unified CM, or a gatekeeper. Supports filtering by name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "common",
+                "zone",
+                "neighbor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5c84cdfe-1ea0-40c3-bea7-14fe91a95006",
+              "name": "Neighbor zone list retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "neighbor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Name\": \"CUCM-Neighbor\",\n    \"Type\": \"string\",\n    \"PeerAddresses\": [\n      \"cucm-pub.example.com\",\n      \"cucm-sub1.example.com\"\n    ],\n    \"LookUpPeersBy\": \"Address\",\n    \"HopCount\": 15,\n    \"ZoneProfile\": \"Default\",\n    \"H323Mode\": \"Off\",\n    \"H323Port\": 1719,\n    \"SIPMode\": \"On\",\n    \"SIPPort\": 5061,\n    \"SIPTransport\": \"TLS\",\n    \"SIPTLSVerifyMode\": \"On\",\n    \"MediaEncryptionMode\": \"Auto\",\n    \"MultistreamMode\": \"Off\",\n    \"PreloadedSipRoutesSupport\": \"Off\",\n    \"SIPAuthenticationTrustMode\": \"Off\",\n    \"MonitorPeerStatus\": \"On\",\n    \"AuthenticationPolicy\": \"CheckCredentials\"\n  },\n  {\n    \"Name\": \"CUCM-Neighbor\",\n    \"Type\": \"string\",\n    \"PeerAddresses\": [\n      \"cucm-pub.example.com\",\n      \"cucm-sub1.example.com\"\n    ],\n    \"LookUpPeersBy\": \"Service record\",\n    \"HopCount\": 15,\n    \"ZoneProfile\": \"Default\",\n    \"H323Mode\": \"Off\",\n    \"H323Port\": 1719,\n    \"SIPMode\": \"Off\",\n    \"SIPPort\": 5061,\n    \"SIPTransport\": \"TLS\",\n    \"SIPTLSVerifyMode\": \"Off\",\n    \"MediaEncryptionMode\": \"Auto\",\n    \"MultistreamMode\": \"Off\",\n    \"PreloadedSipRoutesSupport\": \"Off\",\n    \"SIPAuthenticationTrustMode\": \"Off\",\n    \"MonitorPeerStatus\": \"On\",\n    \"AuthenticationPolicy\": \"CheckCredentials\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd47134a-62ae-4b52-8df8-4a3e6334cb2d",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "neighbor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b06bf516-42b8-4cc5-bdc3-9b5216c4e9eb",
+              "name": "The authenticated user does not have sufficient permissions for this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "neighbor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "50752c25-dd38-48e4-8581-3ac6b7c4fb00",
+          "name": "Cisco Expressway Create a neighbor zone",
+          "request": {
+            "name": "Cisco Expressway Create a neighbor zone",
+            "description": {
+              "content": "Creates a new neighbor zone on the Expressway. Neighbor zones define connections to peer systems such as other Expressway nodes, Unified CM clusters, or gatekeepers with configurable H.323 and SIP protocol settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "common",
+                "zone",
+                "neighbor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3b0934f2-61bf-4773-ae17-4e7869f85bad",
+              "name": "Neighbor zone created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "neighbor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CUCM-Neighbor\",\n  \"PeerAddresses\": [\n    \"cucm-pub.example.com\",\n    \"cucm-sub1.example.com\"\n  ],\n  \"Type\": \"string\",\n  \"LookUpPeersBy\": \"Service record\",\n  \"HopCount\": 15,\n  \"ZoneProfile\": \"Default\",\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 1719,\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 5061,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"MultistreamMode\": \"Off\",\n  \"PreloadedSipRoutesSupport\": \"Off\",\n  \"SIPAuthenticationTrustMode\": \"Off\",\n  \"MonitorPeerStatus\": \"On\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Name\": \"CUCM-Neighbor\",\n  \"Type\": \"string\",\n  \"PeerAddresses\": [\n    \"cucm-pub.example.com\",\n    \"cucm-sub1.example.com\"\n  ],\n  \"LookUpPeersBy\": \"Address\",\n  \"HopCount\": 15,\n  \"ZoneProfile\": \"Default\",\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 1719,\n  \"SIPMode\": \"Off\",\n  \"SIPPort\": 5061,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"MultistreamMode\": \"Off\",\n  \"PreloadedSipRoutesSupport\": \"Off\",\n  \"SIPAuthenticationTrustMode\": \"Off\",\n  \"MonitorPeerStatus\": \"On\",\n  \"AuthenticationPolicy\": \"CheckCredentials\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1aa25c2-0fe9-4a3f-a797-cd9f1324701e",
+              "name": "The request body contains invalid data or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "neighbor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CUCM-Neighbor\",\n  \"PeerAddresses\": [\n    \"cucm-pub.example.com\",\n    \"cucm-sub1.example.com\"\n  ],\n  \"Type\": \"string\",\n  \"LookUpPeersBy\": \"Service record\",\n  \"HopCount\": 15,\n  \"ZoneProfile\": \"Default\",\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 1719,\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 5061,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"MultistreamMode\": \"Off\",\n  \"PreloadedSipRoutesSupport\": \"Off\",\n  \"SIPAuthenticationTrustMode\": \"Off\",\n  \"MonitorPeerStatus\": \"On\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b5d46af-8098-4fac-ae45-bc16dc995cd4",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "neighbor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CUCM-Neighbor\",\n  \"PeerAddresses\": [\n    \"cucm-pub.example.com\",\n    \"cucm-sub1.example.com\"\n  ],\n  \"Type\": \"string\",\n  \"LookUpPeersBy\": \"Service record\",\n  \"HopCount\": 15,\n  \"ZoneProfile\": \"Default\",\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 1719,\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 5061,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"MultistreamMode\": \"Off\",\n  \"PreloadedSipRoutesSupport\": \"Off\",\n  \"SIPAuthenticationTrustMode\": \"Off\",\n  \"MonitorPeerStatus\": \"On\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d58bd44-aefd-4c6e-8e7c-eb415dbd0a2d",
+              "name": "A resource with the same identifier already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "neighbor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CUCM-Neighbor\",\n  \"PeerAddresses\": [\n    \"cucm-pub.example.com\",\n    \"cucm-sub1.example.com\"\n  ],\n  \"Type\": \"string\",\n  \"LookUpPeersBy\": \"Service record\",\n  \"HopCount\": 15,\n  \"ZoneProfile\": \"Default\",\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 1719,\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 5061,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"MultistreamMode\": \"Off\",\n  \"PreloadedSipRoutesSupport\": \"Off\",\n  \"SIPAuthenticationTrustMode\": \"Off\",\n  \"MonitorPeerStatus\": \"On\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bcc644aa-5911-45d1-8cba-f8a67d498e5e",
+          "name": "Cisco Expressway Update a neighbor zone",
+          "request": {
+            "name": "Cisco Expressway Update a neighbor zone",
+            "description": {
+              "content": "Modifies an existing neighbor zone configuration on the Expressway including peer addresses, protocol settings, zone profile, and authentication options.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "common",
+                "zone",
+                "neighbor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5418599d-81e1-4b3f-b7fa-8bae41dc4f15",
+              "name": "Neighbor zone updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "neighbor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CUCM-Neighbor\",\n  \"PeerAddresses\": [\n    \"cucm-pub.example.com\",\n    \"cucm-sub1.example.com\"\n  ],\n  \"Type\": \"string\",\n  \"LookUpPeersBy\": \"Service record\",\n  \"HopCount\": 15,\n  \"ZoneProfile\": \"Default\",\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 1719,\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 5061,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"MultistreamMode\": \"Off\",\n  \"PreloadedSipRoutesSupport\": \"Off\",\n  \"SIPAuthenticationTrustMode\": \"Off\",\n  \"MonitorPeerStatus\": \"On\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Name\": \"CUCM-Neighbor\",\n  \"Type\": \"string\",\n  \"PeerAddresses\": [\n    \"cucm-pub.example.com\",\n    \"cucm-sub1.example.com\"\n  ],\n  \"LookUpPeersBy\": \"Address\",\n  \"HopCount\": 15,\n  \"ZoneProfile\": \"Default\",\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 1719,\n  \"SIPMode\": \"Off\",\n  \"SIPPort\": 5061,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"MultistreamMode\": \"Off\",\n  \"PreloadedSipRoutesSupport\": \"Off\",\n  \"SIPAuthenticationTrustMode\": \"Off\",\n  \"MonitorPeerStatus\": \"On\",\n  \"AuthenticationPolicy\": \"CheckCredentials\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fba99cc1-6809-4994-b70f-878816662061",
+              "name": "The request body contains invalid data or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "neighbor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CUCM-Neighbor\",\n  \"PeerAddresses\": [\n    \"cucm-pub.example.com\",\n    \"cucm-sub1.example.com\"\n  ],\n  \"Type\": \"string\",\n  \"LookUpPeersBy\": \"Service record\",\n  \"HopCount\": 15,\n  \"ZoneProfile\": \"Default\",\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 1719,\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 5061,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"MultistreamMode\": \"Off\",\n  \"PreloadedSipRoutesSupport\": \"Off\",\n  \"SIPAuthenticationTrustMode\": \"Off\",\n  \"MonitorPeerStatus\": \"On\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80446e2f-c777-40f2-a675-eebb28b88b4f",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "neighbor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CUCM-Neighbor\",\n  \"PeerAddresses\": [\n    \"cucm-pub.example.com\",\n    \"cucm-sub1.example.com\"\n  ],\n  \"Type\": \"string\",\n  \"LookUpPeersBy\": \"Service record\",\n  \"HopCount\": 15,\n  \"ZoneProfile\": \"Default\",\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 1719,\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 5061,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"MultistreamMode\": \"Off\",\n  \"PreloadedSipRoutesSupport\": \"Off\",\n  \"SIPAuthenticationTrustMode\": \"Off\",\n  \"MonitorPeerStatus\": \"On\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5ee5e98-18ef-42d3-89a5-bc9d666d8bfe",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "neighbor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"CUCM-Neighbor\",\n  \"PeerAddresses\": [\n    \"cucm-pub.example.com\",\n    \"cucm-sub1.example.com\"\n  ],\n  \"Type\": \"string\",\n  \"LookUpPeersBy\": \"Service record\",\n  \"HopCount\": 15,\n  \"ZoneProfile\": \"Default\",\n  \"H323Mode\": \"Off\",\n  \"H323Port\": 1719,\n  \"SIPMode\": \"On\",\n  \"SIPPort\": 5061,\n  \"SIPTransport\": \"TLS\",\n  \"SIPTLSVerifyMode\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\",\n  \"MultistreamMode\": \"Off\",\n  \"PreloadedSipRoutesSupport\": \"Off\",\n  \"SIPAuthenticationTrustMode\": \"Off\",\n  \"MonitorPeerStatus\": \"On\",\n  \"AuthenticationPolicy\": \"DoNotCheckCredentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10801362-8f23-49a0-a9ba-a24506b04f72",
+          "name": "Cisco Expressway Delete a neighbor zone",
+          "request": {
+            "name": "Cisco Expressway Delete a neighbor zone",
+            "description": {
+              "content": "Removes a neighbor zone from the Expressway configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "common",
+                "zone",
+                "neighbor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "60d2d1df-3cca-43cd-a43f-7716aebfcaaf",
+              "name": "Neighbor zone deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "neighbor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9f364b93-7ae4-4f49-b2e8-84916d74e95e",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "neighbor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b888b497-0098-41a3-922c-4f09db5822bb",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "neighbor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6855085-3833-4105-ad27-278f646ddd24",
+          "name": "Cisco Expressway List all DNS zones",
+          "request": {
+            "name": "Cisco Expressway List all DNS zones",
+            "description": {
+              "content": "Retrieves all DNS zones configured on the Expressway. DNS zones enable endpoint location through DNS lookups for SIP and H.323 calls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "common",
+                "zone",
+                "dns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d0bc8e0-3e3f-4c44-bf25-7ba5a8d55b97",
+              "name": "DNS zone list retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "dns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Name\": \"DefaultDNSZone\",\n    \"Type\": \"string\",\n    \"HopCount\": 15,\n    \"H323Mode\": \"Off\",\n    \"SIPMode\": \"Off\",\n    \"FallbackTransportProtocol\": \"TLS\",\n    \"ModifyDnsRequest\": \"Off\",\n    \"IncludeAddressRecord\": \"On\",\n    \"MediaEncryptionMode\": \"Auto\"\n  },\n  {\n    \"Name\": \"DefaultDNSZone\",\n    \"Type\": \"string\",\n    \"HopCount\": 15,\n    \"H323Mode\": \"On\",\n    \"SIPMode\": \"Off\",\n    \"FallbackTransportProtocol\": \"TLS\",\n    \"ModifyDnsRequest\": \"Off\",\n    \"IncludeAddressRecord\": \"On\",\n    \"MediaEncryptionMode\": \"Auto\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f48f9b3c-e9a4-425a-a0fc-196a3c341a3e",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "dns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "182bafa7-d4fb-4e51-9fd7-7a61ea909ae8",
+              "name": "The authenticated user does not have sufficient permissions for this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "dns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f85b8405-66a1-432e-a40e-53784a422686",
+          "name": "Cisco Expressway Create a DNS zone",
+          "request": {
+            "name": "Cisco Expressway Create a DNS zone",
+            "description": {
+              "content": "Creates a new DNS zone on the Expressway for endpoint discovery via DNS lookups. Configurable for H.323 and SIP protocols with fallback transport and TLS mapping options.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provisioning",
+                "common",
+                "zone",
+                "dns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f6e62d3c-a2bb-409d-bac3-ff29eeacdb65",
+              "name": "DNS zone created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "dns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"DefaultDNSZone\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"Off\",\n  \"SIPMode\": \"Off\",\n  \"FallbackTransportProtocol\": \"TLS\",\n  \"ModifyDnsRequest\": \"Off\",\n  \"IncludeAddressRecord\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Name\": \"DefaultDNSZone\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"On\",\n  \"SIPMode\": \"On\",\n  \"FallbackTransportProtocol\": \"TLS\",\n  \"ModifyDnsRequest\": \"Off\",\n  \"IncludeAddressRecord\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e447a2a-7636-4e4b-810e-b312e765bfd1",
+              "name": "The request body contains invalid data or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "dns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"DefaultDNSZone\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"Off\",\n  \"SIPMode\": \"Off\",\n  \"FallbackTransportProtocol\": \"TLS\",\n  \"ModifyDnsRequest\": \"Off\",\n  \"IncludeAddressRecord\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a92afb3b-7b31-4d86-9ba9-cfa23b5be93f",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "dns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"DefaultDNSZone\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"Off\",\n  \"SIPMode\": \"Off\",\n  \"FallbackTransportProtocol\": \"TLS\",\n  \"ModifyDnsRequest\": \"Off\",\n  \"IncludeAddressRecord\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d29b4f71-a040-4c16-ad5f-4c2e51599261",
+              "name": "A resource with the same identifier already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provisioning",
+                    "common",
+                    "zone",
+                    "dns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"DefaultDNSZone\",\n  \"Type\": \"string\",\n  \"HopCount\": 15,\n  \"H323Mode\": \"Off\",\n  \"SIPMode\": \"Off\",\n  \"FallbackTransportProtocol\": \"TLS\",\n  \"ModifyDnsRequest\": \"Off\",\n  \"IncludeAddressRecord\": \"On\",\n  \"MediaEncryptionMode\": \"Auto\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2af6eb6c-df80-4905-b138-8f52e4ec224a",
+          "name": "Cisco Expressway List zone connectivity status",
+          "request": {
+            "name": "Cisco Expressway List zone connectivity status",
+            "description": {
+              "content": "Retrieves the connectivity status for all configured zones on the Expressway including the zone name, type, connection state, and any active calls traversing each zone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "status",
+                "common",
+                "zones"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "72fea2e3-7fae-4e35-9298-5026778e1687",
+              "name": "Zone status list retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "common",
+                    "zones"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"ZoneName\": \"CEtoEXPE-Traversal\",\n    \"ZoneType\": \"Neighbor\",\n    \"ConnectionState\": \"Searching\",\n    \"ActiveCalls\": 992,\n    \"BandwidthUsed\": 4832,\n    \"BandwidthLimit\": 2942,\n    \"PeerAddress\": \"string\"\n  },\n  {\n    \"ZoneName\": \"CEtoEXPE-Traversal\",\n    \"ZoneType\": \"TraversalServer\",\n    \"ConnectionState\": \"Inactive\",\n    \"ActiveCalls\": 538,\n    \"BandwidthUsed\": 5804,\n    \"BandwidthLimit\": 1543,\n    \"PeerAddress\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3367e950-04d4-4352-abb7-a15f46f11e4e",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "common",
+                    "zones"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4af8bcdb-4136-4ded-9b6a-4c8a45eeb383",
+              "name": "The authenticated user does not have sufficient permissions for this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "common",
+                    "zones"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "expressway.example.com",
+      "key": "host"
+    },
+    {
+      "type": "string",
+      "value": "https://{{host}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c4d92ee0-5799-4d82-bc8b-bc4a5451fd4c",
+    "name": "Cisco Expressway Configuration Admin Account Zones API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.\n\nContact Support:\n Name: Cisco TAC\n Email: tac@cisco.com",
+      "type": "text/plain"
+    }
+  }
+}

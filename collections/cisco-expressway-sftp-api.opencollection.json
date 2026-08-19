@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cisco Expressway Configuration Admin Account SFTP API",
+    "version": "14.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SFTP",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway Retrieve SFTP configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/v1/provisioning/common/sftpconfig"
+          },
+          "docs": "Returns the current SFTP configuration used for system upgrades including the SFTP server address, port, path, and credentials."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Update SFTP configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}/api/v1/provisioning/common/sftpconfig",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the SFTP configuration for system upgrades. Configure the server address, credentials, and file path to the upgrade image."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

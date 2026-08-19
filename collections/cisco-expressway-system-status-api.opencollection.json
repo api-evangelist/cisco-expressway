@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cisco Expressway Configuration Admin Account System Status API",
+    "version": "14.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "System Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway Retrieve system status overview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/status/common/systeminfo"
+          },
+          "docs": "Returns a comprehensive system status overview for the Expressway node including the system name, software version, hardware version, serial number, uptime, IPv4 and IPv6 addresses, virtual machine size, current registration and call counts, and option key status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

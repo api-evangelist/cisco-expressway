@@ -1,0 +1,512 @@
+{
+  "item": [
+    {
+      "id": "0c6f3436-0557-4bd3-8e7d-5efd19178976",
+      "name": "Calls",
+      "description": {
+        "content": "Active and historical call information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f4e70336-5fb9-4f72-b239-99e4d46bb540",
+          "name": "Cisco Expressway List all active calls",
+          "request": {
+            "name": "Cisco Expressway List all active calls",
+            "description": {
+              "content": "Retrieves the list of all currently active calls on the Expressway including source and destination endpoints, call type, protocol, duration, and bandwidth usage. Active calls are displayed with component-level details for interworked calls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "status",
+                "common",
+                "calls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3661f547-3770-440d-b3c8-cdeeec9d86ac",
+              "name": "Active call list retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "common",
+                    "calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"CallId\": \"string\",\n    \"StartTime\": \"2025-11-15T22:02:47.434Z\",\n    \"Duration\": 7756,\n    \"SourceAlias\": \"user1@example.com\",\n    \"DestinationAlias\": \"user2@example.com\",\n    \"CallType\": \"Interworked\",\n    \"SIPVariant\": \"Microsoft SIP IM&P\",\n    \"Protocol\": \"SIP\",\n    \"Bandwidth\": 8606,\n    \"SourceZone\": \"string\",\n    \"DestinationZone\": \"string\",\n    \"Encrypted\": true,\n    \"ClusterPeer\": \"string\"\n  },\n  {\n    \"CallId\": \"string\",\n    \"StartTime\": \"2022-02-04T19:55:59.246Z\",\n    \"Duration\": 1726,\n    \"SourceAlias\": \"user1@example.com\",\n    \"DestinationAlias\": \"user2@example.com\",\n    \"CallType\": \"Interworked\",\n    \"SIPVariant\": \"Microsoft SIP IM&P\",\n    \"Protocol\": \"SIP\",\n    \"Bandwidth\": 105,\n    \"SourceZone\": \"string\",\n    \"DestinationZone\": \"string\",\n    \"Encrypted\": false,\n    \"ClusterPeer\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aee286fc-f489-41f3-973b-06f6468fa29c",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "common",
+                    "calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7339caa3-fd0a-45cc-9c45-b710375c5d02",
+              "name": "The authenticated user does not have sufficient permissions for this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "common",
+                    "calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "591589f9-7f0c-40a1-9a14-a29698e14add",
+          "name": "Cisco Expressway Retrieve call history",
+          "request": {
+            "name": "Cisco Expressway Retrieve call history",
+            "description": {
+              "content": "Returns the call history for the Expressway limited to the most recent 500 calls or fewer if calls used multiple components. Each record includes start and end times, duration, source and destination aliases, call type, protocol, and status. Supports filtering by time interval and custom field filters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "status",
+                "common",
+                "callhistory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter type for call history records. Supported values include get_all_records, get_records_for_interval, get_records_for_filter, and get_all_csv_records."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_time",
+                  "value": "<dateTime>",
+                  "description": "Start time for interval-based filtering in ISO 8601 format. Used with get_records_for_interval."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_time",
+                  "value": "<dateTime>",
+                  "description": "End time for interval-based filtering in ISO 8601 format. Used with get_records_for_interval."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fdef6699-5852-4e33-9c97-2038cb9dd710",
+              "name": "Call history retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "common",
+                    "callhistory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end_time",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"CallId\": \"string\",\n    \"StartTime\": \"2020-12-22T04:30:38.203Z\",\n    \"EndTime\": \"1982-05-24T05:17:10.298Z\",\n    \"Duration\": 3728,\n    \"SourceAlias\": \"string\",\n    \"DestinationAlias\": \"string\",\n    \"CallType\": \"Interworked\",\n    \"Protocol\": \"string\",\n    \"Status\": \"Completed\",\n    \"DisconnectReason\": \"string\",\n    \"ClusterPeer\": \"string\"\n  },\n  {\n    \"CallId\": \"string\",\n    \"StartTime\": \"1956-01-05T00:43:21.096Z\",\n    \"EndTime\": \"2020-08-23T00:20:32.963Z\",\n    \"Duration\": 2317,\n    \"SourceAlias\": \"string\",\n    \"DestinationAlias\": \"string\",\n    \"CallType\": \"H.323\",\n    \"Protocol\": \"string\",\n    \"Status\": \"Completed\",\n    \"DisconnectReason\": \"string\",\n    \"ClusterPeer\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8dca933f-4cfb-4989-8864-567cbb54b628",
+              "name": "Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "common",
+                    "callhistory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end_time",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a41dd241-82a1-4df7-b68f-81414e78402e",
+              "name": "The authenticated user does not have sufficient permissions for this operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "common",
+                    "callhistory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end_time",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "expressway.example.com",
+      "key": "host"
+    },
+    {
+      "type": "string",
+      "value": "https://{{host}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c055b4eb-8ce6-44d2-addf-1b3ce31a9a5c",
+    "name": "Cisco Expressway Configuration Admin Account Calls API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.\n\nContact Support:\n Name: Cisco TAC\n Email: tac@cisco.com",
+      "type": "text/plain"
+    }
+  }
+}

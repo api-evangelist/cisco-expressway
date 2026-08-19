@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cisco Expressway Configuration Admin Account Registrations API",
+    "version": "14.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Registrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway List all current registrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/status/common/registrations"
+          },
+          "docs": "Retrieves the list of all devices and endpoints currently registered with the Expressway, organized by device alias. Includes registration type (SIP or H.323), contact address, and registration timestamp."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

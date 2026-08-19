@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cisco Expressway Configuration Admin Account NTP API",
+    "version": "14.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "NTP",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway List all configured NTP servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/v1/provisioning/common/time/ntpserver"
+          },
+          "docs": "Retrieves the list of all NTP servers configured on the Expressway for time synchronization. Supports filtering by name or address."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Add a new NTP server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/api/v1/provisioning/common/time/ntpserver",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new NTP server entry to the Expressway configuration for time synchronization. Up to five NTP servers can be configured."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Modify an NTP server entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}/api/v1/provisioning/common/time/ntpserver",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing NTP server configuration on the Expressway."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Delete an NTP server entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{host}/api/v1/provisioning/common/time/ntpserver"
+          },
+          "docs": "Removes an NTP server from the Expressway configuration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

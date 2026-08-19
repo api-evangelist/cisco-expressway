@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cisco Expressway Configuration Admin Account Search Rules API",
+    "version": "14.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search Rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway List all search rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/provisioning/common/searchrule"
+          },
+          "docs": "Retrieves all search rules configured on the Expressway. Search rules define how the Expressway routes incoming search requests to the appropriate target zones or policy services, with configurable alias pattern matching, priority, and protocol filtering."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Create a search rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/api/provisioning/common/searchrule",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new search rule on the Expressway. Search rules determine how incoming calls are routed to target zones based on alias patterns, source zones, and protocol type. Each search rule has a configurable priority that determines its evaluation order."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Update a search rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}/api/provisioning/common/searchrule",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modifies an existing search rule configuration on the Expressway including the alias pattern, target zone, priority, and protocol filter settings."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway Delete a search rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{host}/api/provisioning/common/searchrule"
+          },
+          "docs": "Removes a search rule from the Expressway configuration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

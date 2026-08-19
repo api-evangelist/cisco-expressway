@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cisco Expressway Configuration Admin Account API",
+    "version": "14.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Admin Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway Change administrator password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/api/v1/provisioning/common/adminaccount/changepassword",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Changes the password for an administrator account on the Expressway. Requires the current password and the new password."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

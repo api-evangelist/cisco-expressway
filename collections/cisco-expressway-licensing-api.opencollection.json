@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cisco Expressway Configuration Admin Account Licensing API",
+    "version": "14.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Licensing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway Retrieve smart licensing status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/v1/status/common/smartlicensing/licensing"
+          },
+          "docs": "Returns the current smart licensing status for the Expressway including the license registration status, authorization status, license entitlements, usage counts, and compliance state. This endpoint is documented in the Cisco Expressway REST API Summary Guide as a primary status retrieval endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

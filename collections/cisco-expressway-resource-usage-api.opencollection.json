@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cisco Expressway Configuration Admin Account Resource Usage API",
+    "version": "14.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Resource Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cisco Expressway Retrieve system resource usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/status/common/resourceusage"
+          },
+          "docs": "Returns current system resource utilization metrics including rich media session counts (current and peak), registration counts by type, license consumption percentage, system capacity utilization, and MRA device registration tracking."
+        },
+        {
+          "info": {
+            "name": "Cisco Expressway List active TURN relay allocations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/api/status/common/turnrelays"
+          },
+          "docs": "Retrieves the list of all active TURN relay allocations on the Expressway including client IP addresses, media destination addresses, connection protocol, active relay count per client, and permission, channel, and request counters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
