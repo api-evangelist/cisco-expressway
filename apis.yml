@@ -24,7 +24,7 @@ access: 3rd-Party
 position: Consumer
 created: '2024-01-01'
 modified: '2026-05-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 url: https://raw.githubusercontent.com/api-evangelist/cisco-expressway/refs/heads/main/apis.yml
 tags:
   - Collaboration
