@@ -2,13 +2,17 @@
   "repo": "cisco-expressway",
   "feeds": [
     {
-      "source": "https://blogs.cisco.com/collaboration",
+      "source": "https://blogs.cisco.com/collaboration/feed/",
       "feed_url": "https://blogs.cisco.com/collaboration/feed/",
-      "title": "Cisco Blogs - Collaboration",
+      "title": "",
       "saved": 0,
       "method": "feed"
+    },
+    {
+      "source": "https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html",
+      "error": "HTTPError"
     }
   ],
   "post_count": 18,
-  "fetched": "2026-08-15T12:11:08Z"
+  "fetched": "2026-08-22T20:20:02Z"
 }
