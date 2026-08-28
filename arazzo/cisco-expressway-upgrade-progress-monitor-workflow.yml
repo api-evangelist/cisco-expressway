@@ -12,8 +12,11 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: statusApi
-  url: ../openapi/cisco-expressway-status-api-openapi.yml
+- name: systemStatusApi
+  url: ../openapi/cisco-expressway-system-status-api-openapi.yml
+  type: openapi
+- name: upgradeApi
+  url: ../openapi/cisco-expressway-upgrade-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: upgrade-progress-monitor

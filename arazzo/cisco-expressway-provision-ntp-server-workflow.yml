@@ -10,8 +10,11 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: configurationApi
-  url: ../openapi/cisco-expressway-configuration-api-openapi.yml
+- name: ntpApi
+  url: ../openapi/cisco-expressway-ntp-api-openapi.yml
+  type: openapi
+- name: systemApi
+  url: ../openapi/cisco-expressway-system-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: provision-ntp-server

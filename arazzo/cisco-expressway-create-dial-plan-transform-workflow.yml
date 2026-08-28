@@ -10,8 +10,11 @@ info:
     be read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: configurationApi
-  url: ../openapi/cisco-expressway-configuration-api-openapi.yml
+- name: searchRulesApi
+  url: ../openapi/cisco-expressway-search-rules-api-openapi.yml
+  type: openapi
+- name: transformsApi
+  url: ../openapi/cisco-expressway-transforms-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: create-dial-plan-transform

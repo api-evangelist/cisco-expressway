@@ -10,8 +10,14 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: statusApi
-  url: ../openapi/cisco-expressway-status-api-openapi.yml
+- name: callsApi
+  url: ../openapi/cisco-expressway-calls-api-openapi.yml
+  type: openapi
+- name: registrationsApi
+  url: ../openapi/cisco-expressway-registrations-api-openapi.yml
+  type: openapi
+- name: resourceUsageApi
+  url: ../openapi/cisco-expressway-resource-usage-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: capacity-registrations-audit

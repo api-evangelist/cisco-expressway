@@ -11,8 +11,11 @@ info:
     the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: statusApi
-  url: ../openapi/cisco-expressway-status-api-openapi.yml
+- name: licensingApi
+  url: ../openapi/cisco-expressway-licensing-api-openapi.yml
+  type: openapi
+- name: resourceUsageApi
+  url: ../openapi/cisco-expressway-resource-usage-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: licensing-compliance-check

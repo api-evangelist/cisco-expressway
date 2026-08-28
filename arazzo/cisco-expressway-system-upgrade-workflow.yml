@@ -12,11 +12,11 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: configurationApi
-  url: ../openapi/cisco-expressway-configuration-api-openapi.yml
+- name: sftpApi
+  url: ../openapi/cisco-expressway-sftp-api-openapi.yml
   type: openapi
-- name: statusApi
-  url: ../openapi/cisco-expressway-status-api-openapi.yml
+- name: upgradeApi
+  url: ../openapi/cisco-expressway-upgrade-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: system-upgrade

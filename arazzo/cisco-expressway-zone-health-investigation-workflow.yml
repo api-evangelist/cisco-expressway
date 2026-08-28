@@ -10,8 +10,11 @@ info:
     and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: statusApi
-  url: ../openapi/cisco-expressway-status-api-openapi.yml
+- name: callsApi
+  url: ../openapi/cisco-expressway-calls-api-openapi.yml
+  type: openapi
+- name: zonesApi
+  url: ../openapi/cisco-expressway-zones-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: zone-health-investigation

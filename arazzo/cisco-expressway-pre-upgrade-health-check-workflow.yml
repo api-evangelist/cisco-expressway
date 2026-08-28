@@ -11,8 +11,14 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: statusApi
-  url: ../openapi/cisco-expressway-status-api-openapi.yml
+- name: alarmsApi
+  url: ../openapi/cisco-expressway-alarms-api-openapi.yml
+  type: openapi
+- name: resourceUsageApi
+  url: ../openapi/cisco-expressway-resource-usage-api-openapi.yml
+  type: openapi
+- name: systemStatusApi
+  url: ../openapi/cisco-expressway-system-status-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: pre-upgrade-health-check
