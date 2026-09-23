@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Cisco Expressway Configuration Admin Account Resource Usage API
-  description: RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.
+  title: Cisco Expressway Status Resource Usage API
+  description: RESTful API for retrieving status information, alarms, call history, licensing status, upgrade progress, registration details, and system health metrics from Cisco Expressway. Status endpoints follow the pattern /api/status/common/ for items common between Expressway-E and Expressway-C. The API uses JSON Schema version 4 for response schemas and requires HTTPS with HTTP Basic Authentication using Expressway administrator credentials.
   version: 14.2.0
   contact:
     name: Cisco TAC
@@ -65,6 +65,46 @@ paths:
           $ref: '#/components/responses/Forbidden'
 components:
   schemas:
+    TurnRelay:
+      type: object
+      description: An active TURN relay allocation on the Expressway
+      properties:
+        ClientAddress:
+          type: string
+          description: IP address of the TURN client
+          examples:
+          - 192.168.1.100
+        MediaDestination:
+          type: string
+          description: Media destination address
+        ConnectionProtocol:
+          type: string
+          description: Connection protocol used
+          enum:
+          - TCP
+          - UDP
+        ActiveRelays:
+          type: integer
+          description: Number of active relays for this client
+        Permissions:
+          type: integer
+          description: Number of permissions created
+        Channels:
+          type: integer
+          description: Number of channels bound
+        Requests:
+          type: integer
+          description: Total number of requests processed
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
     ResourceUsage:
       type: object
       description: System resource utilization metrics for the Expressway
@@ -108,55 +148,15 @@ components:
         TURNRelaysActive:
           type: integer
           description: Number of active TURN relay allocations
-    TurnRelay:
-      type: object
-      description: An active TURN relay allocation on the Expressway
-      properties:
-        ClientAddress:
-          type: string
-          description: IP address of the TURN client
-          examples:
-          - 192.168.1.100
-        MediaDestination:
-          type: string
-          description: Media destination address
-        ConnectionProtocol:
-          type: string
-          description: Connection protocol used
-          enum:
-          - TCP
-          - UDP
-        ActiveRelays:
-          type: integer
-          description: Number of active relays for this client
-        Permissions:
-          type: integer
-          description: Number of permissions created
-        Channels:
-          type: integer
-          description: Number of channels bound
-        Requests:
-          type: integer
-          description: Total number of requests processed
-    Error:
-      type: object
-      description: Standard error response from the Expressway API
-      properties:
-        error:
-          type: string
-          description: Error code or type
-        message:
-          type: string
-          description: Human-readable error description
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
       content:
         application/json:
           schema:

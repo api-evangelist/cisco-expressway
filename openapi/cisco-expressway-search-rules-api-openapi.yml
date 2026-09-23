@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Cisco Expressway Configuration Admin Account Search Rules API
+  title: Cisco Expressway Configuration Search Rules API
   description: RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS servers, NTP servers, SFTP configuration, system upgrades, and admin account management. The API uses JSON Schema version 4 for request and response schemas and is self-documented via RAML definitions available at /api/raml on the Expressway system. All endpoints require HTTPS and HTTP Basic Authentication using Expressway administrator credentials.
   version: 14.2.0
   contact:
@@ -116,18 +116,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Conflict:
-      description: A resource with the same identifier already exists.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
@@ -140,7 +128,29 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: A resource with the same identifier already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    SearchRuleInput:
+      type: object
+      description: Input for creating or updating a search rule
+      allOf:
+      - $ref: '#/components/schemas/SearchRule'
+      required:
+      - Name
+      - AliasPatternType
+      - AliasPatternString
+      - TargetZone
     SearchRule:
       type: object
       description: Search rule configuration. Defines how the Expressway routes incoming search requests to the appropriate target zones or policy services based on alias pattern matching.
@@ -211,16 +221,6 @@ components:
           - Enabled
           - Disabled
           default: Enabled
-    SearchRuleInput:
-      type: object
-      description: Input for creating or updating a search rule
-      allOf:
-      - $ref: '#/components/schemas/SearchRule'
-      required:
-      - Name
-      - AliasPatternType
-      - AliasPatternString
-      - TargetZone
     Error:
       type: object
       description: Standard error response from the Expressway API
