@@ -375,179 +375,46 @@ paths:
           default: expressway.example.com
           description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
 components:
+  responses:
+    Conflict:
+      description: A resource with the same identifier already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    TraversalServerZone:
+    TraversalServerZoneInput:
       type: object
-      description: Traversal server zone configuration on Expressway-E. Enables firewall traversal services for traversal clients.
-      properties:
-        Name:
-          type: string
-          description: Unique name for the traversal server zone
-          examples:
-          - CEtoEXPE-Traversal
-        Type:
-          type: string
-          description: Zone type
-          const: TraversalServer
-        ConnectionCredentialsUsername:
-          type: string
-          description: Username for client authentication; must match client configuration
-        HopCount:
-          type: integer
-          description: Maximum number of times a request can be forwarded
-          minimum: 0
-          maximum: 255
-          default: 15
-        H323Mode:
-          type: string
-          description: Whether H.323 calls are enabled for this zone
-          enum:
-          - 'On'
-          - 'Off'
-        H323Port:
-          type: integer
-          description: UDP port for H.323 search requests
-          default: 6001
-        H323Protocol:
-          type: string
-          description: Firewall traversal protocol for H.323
-          enum:
-          - Assent
-          - H.460.18
-          default: Assent
-        SIPMode:
-          type: string
-          description: Whether SIP calls are enabled for this zone
-          enum:
-          - 'On'
-          - 'Off'
-        SIPPort:
-          type: integer
-          description: Port for SIP signaling
-          default: 7001
-        SIPTransport:
-          type: string
-          description: Transport protocol for SIP messages
-          enum:
-          - TLS
-          - TCP
-          default: TLS
-        SIPTLSVerifyMode:
-          type: string
-          description: Whether to verify TLS certificates from the peer
-          enum:
-          - 'On'
-          - 'Off'
-        MediaEncryptionMode:
-          type: string
-          description: Media encryption enforcement mode
-          enum:
-          - Force encrypted
-          - Force unencrypted
-          - Best effort
-          - Auto
-          default: Auto
-        ICESupport:
-          type: string
-          description: ICE message handling mode
-          enum:
-          - 'On'
-          - 'Off'
-          default: 'Off'
-        H46019DemultiplexingMode:
-          type: string
-          description: Determines media port sharing across multiple calls
-          enum:
-          - 'On'
-          - 'Off'
-          default: 'Off'
-        UnifiedCommunicationsMode:
-          type: string
-          description: Whether Unified Communications services (MRA) are enabled
-          enum:
-          - 'On'
-          - 'Off'
-          default: 'Off'
-        TLSVerifySubjectName:
-          type: string
-          description: Certificate subject name for mutual TLS authentication. Must be FQDN for clustered clients.
-        AuthenticationPolicy:
-          type: string
-          description: Authentication challenge behavior for incoming messages
-          enum:
-          - DoNotCheckCredentials
-          - TreatAsAuthenticated
-          - CheckCredentials
-    DnsZone:
-      type: object
-      description: DNS zone configuration. Enables endpoint discovery through DNS lookups for SIP and H.323 calls.
-      properties:
-        Name:
-          type: string
-          description: Unique name for the DNS zone
-          examples:
-          - DefaultDNSZone
-        Type:
-          type: string
-          description: Zone type
-          const: DNS
-        HopCount:
-          type: integer
-          description: Maximum number of times a request can be forwarded
-          minimum: 0
-          maximum: 255
-          default: 15
-        H323Mode:
-          type: string
-          description: Whether H.323 calls via DNS-located systems are enabled
-          enum:
-          - 'On'
-          - 'Off'
-        SIPMode:
-          type: string
-          description: Whether SIP calls via DNS-located systems are enabled
-          enum:
-          - 'On'
-          - 'Off'
-        FallbackTransportProtocol:
-          type: string
-          description: Default transport when DNS records do not specify preference
-          enum:
-          - TLS
-          - TCP
-          - UDP
-          default: TLS
-        ModifyDnsRequest:
-          type: string
-          description: Whether to route calls to a manually specified SIP domain instead of the dialed destination
-          enum:
-          - 'On'
-          - 'Off'
-          default: 'Off'
-        IncludeAddressRecord:
-          type: string
-          description: Whether to query A/AAAA records if SRV/NAPTR lookups fail
-          enum:
-          - 'On'
-          - 'Off'
-          default: 'On'
-        MediaEncryptionMode:
-          type: string
-          description: Media encryption enforcement mode
-          enum:
-          - Force encrypted
-          - Force unencrypted
-          - Best effort
-          - Auto
-          default: Auto
-    NeighborZoneInput:
-      type: object
-      description: Input for creating or updating a neighbor zone
+      description: Input for creating or updating a traversal server zone
       allOf:
-      - $ref: '#/components/schemas/NeighborZone'
+      - $ref: '#/components/schemas/TraversalServerZone'
       required:
       - Name
-      - PeerAddresses
+      - ConnectionCredentialsUsername
     TraversalClientZone:
       type: object
       description: Traversal client zone configuration on Expressway-C. Connects to a traversal server (Expressway-E) across a firewall.
@@ -650,6 +517,136 @@ components:
           - DoNotCheckCredentials
           - TreatAsAuthenticated
           - CheckCredentials
+    TraversalClientZoneInput:
+      type: object
+      description: Input for creating or updating a traversal client zone
+      allOf:
+      - $ref: '#/components/schemas/TraversalClientZone'
+      required:
+      - Name
+      - PeerAddress
+      - ConnectionCredentialsUsername
+      - ConnectionCredentialsPassword
+    TraversalServerZone:
+      type: object
+      description: Traversal server zone configuration on Expressway-E. Enables firewall traversal services for traversal clients.
+      properties:
+        Name:
+          type: string
+          description: Unique name for the traversal server zone
+          examples:
+          - CEtoEXPE-Traversal
+        Type:
+          type: string
+          description: Zone type
+          const: TraversalServer
+        ConnectionCredentialsUsername:
+          type: string
+          description: Username for client authentication; must match client configuration
+        HopCount:
+          type: integer
+          description: Maximum number of times a request can be forwarded
+          minimum: 0
+          maximum: 255
+          default: 15
+        H323Mode:
+          type: string
+          description: Whether H.323 calls are enabled for this zone
+          enum:
+          - 'On'
+          - 'Off'
+        H323Port:
+          type: integer
+          description: UDP port for H.323 search requests
+          default: 6001
+        H323Protocol:
+          type: string
+          description: Firewall traversal protocol for H.323
+          enum:
+          - Assent
+          - H.460.18
+          default: Assent
+        SIPMode:
+          type: string
+          description: Whether SIP calls are enabled for this zone
+          enum:
+          - 'On'
+          - 'Off'
+        SIPPort:
+          type: integer
+          description: Port for SIP signaling
+          default: 7001
+        SIPTransport:
+          type: string
+          description: Transport protocol for SIP messages
+          enum:
+          - TLS
+          - TCP
+          default: TLS
+        SIPTLSVerifyMode:
+          type: string
+          description: Whether to verify TLS certificates from the peer
+          enum:
+          - 'On'
+          - 'Off'
+        MediaEncryptionMode:
+          type: string
+          description: Media encryption enforcement mode
+          enum:
+          - Force encrypted
+          - Force unencrypted
+          - Best effort
+          - Auto
+          default: Auto
+        ICESupport:
+          type: string
+          description: ICE message handling mode
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        H46019DemultiplexingMode:
+          type: string
+          description: Determines media port sharing across multiple calls
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        UnifiedCommunicationsMode:
+          type: string
+          description: Whether Unified Communications services (MRA) are enabled
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        TLSVerifySubjectName:
+          type: string
+          description: Certificate subject name for mutual TLS authentication. Must be FQDN for clustered clients.
+        AuthenticationPolicy:
+          type: string
+          description: Authentication challenge behavior for incoming messages
+          enum:
+          - DoNotCheckCredentials
+          - TreatAsAuthenticated
+          - CheckCredentials
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
+    NeighborZoneInput:
+      type: object
+      description: Input for creating or updating a neighbor zone
+      allOf:
+      - $ref: '#/components/schemas/NeighborZone'
+      required:
+      - Name
+      - PeerAddresses
     NeighborZone:
       type: object
       description: Neighbor zone configuration. Connects the local Expressway to another system such as another Expressway, Unified CM, or gatekeeper.
@@ -772,14 +769,6 @@ components:
           - DoNotCheckCredentials
           - TreatAsAuthenticated
           - CheckCredentials
-    TraversalServerZoneInput:
-      type: object
-      description: Input for creating or updating a traversal server zone
-      allOf:
-      - $ref: '#/components/schemas/TraversalServerZone'
-      required:
-      - Name
-      - ConnectionCredentialsUsername
     DnsZoneInput:
       type: object
       description: Input for creating or updating a DNS zone
@@ -787,26 +776,68 @@ components:
       - $ref: '#/components/schemas/DnsZone'
       required:
       - Name
-    Error:
+    DnsZone:
       type: object
-      description: Standard error response from the Expressway API
+      description: DNS zone configuration. Enables endpoint discovery through DNS lookups for SIP and H.323 calls.
       properties:
-        error:
+        Name:
           type: string
-          description: Error code or type
-        message:
+          description: Unique name for the DNS zone
+          examples:
+          - DefaultDNSZone
+        Type:
           type: string
-          description: Human-readable error description
-    TraversalClientZoneInput:
-      type: object
-      description: Input for creating or updating a traversal client zone
-      allOf:
-      - $ref: '#/components/schemas/TraversalClientZone'
-      required:
-      - Name
-      - PeerAddress
-      - ConnectionCredentialsUsername
-      - ConnectionCredentialsPassword
+          description: Zone type
+          const: DNS
+        HopCount:
+          type: integer
+          description: Maximum number of times a request can be forwarded
+          minimum: 0
+          maximum: 255
+          default: 15
+        H323Mode:
+          type: string
+          description: Whether H.323 calls via DNS-located systems are enabled
+          enum:
+          - 'On'
+          - 'Off'
+        SIPMode:
+          type: string
+          description: Whether SIP calls via DNS-located systems are enabled
+          enum:
+          - 'On'
+          - 'Off'
+        FallbackTransportProtocol:
+          type: string
+          description: Default transport when DNS records do not specify preference
+          enum:
+          - TLS
+          - TCP
+          - UDP
+          default: TLS
+        ModifyDnsRequest:
+          type: string
+          description: Whether to route calls to a manually specified SIP domain instead of the dialed destination
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        IncludeAddressRecord:
+          type: string
+          description: Whether to query A/AAAA records if SRV/NAPTR lookups fail
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'On'
+        MediaEncryptionMode:
+          type: string
+          description: Media encryption enforcement mode
+          enum:
+          - Force encrypted
+          - Force unencrypted
+          - Best effort
+          - Auto
+          default: Auto
     ZoneStatus:
       type: object
       description: Connectivity status for a configured zone on the Expressway
@@ -846,37 +877,6 @@ components:
         PeerAddress:
           type: string
           description: Address of the connected peer system
-  responses:
-    BadRequest:
-      description: The request body contains invalid data or missing required fields.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Conflict:
-      description: A resource with the same identifier already exists.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

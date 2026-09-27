@@ -70,8 +70,8 @@ paths:
           $ref: '#/components/responses/Forbidden'
 components:
   responses:
-    BadRequest:
-      description: The request body contains invalid data or missing required fields.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
       content:
         application/json:
           schema:
@@ -82,13 +82,28 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    SipConfigurationInput:
+      type: object
+      description: Input for updating SIP configuration
+      allOf:
+      - $ref: '#/components/schemas/SipConfiguration'
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
     SipConfiguration:
       type: object
       description: SIP protocol configuration for the Expressway
@@ -139,21 +154,6 @@ components:
           enum:
           - 'On'
           - 'Off'
-    SipConfigurationInput:
-      type: object
-      description: Input for updating SIP configuration
-      allOf:
-      - $ref: '#/components/schemas/SipConfiguration'
-    Error:
-      type: object
-      description: Standard error response from the Expressway API
-      properties:
-        error:
-          type: string
-          description: Error code or type
-        message:
-          type: string
-          description: Human-readable error description
   securitySchemes:
     basicAuth:
       type: http
