@@ -49,14 +49,14 @@ paths:
           $ref: '#/components/responses/Forbidden'
 components:
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
       content:
         application/json:
           schema:
@@ -68,16 +68,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Standard error response from the Expressway API
-      properties:
-        error:
-          type: string
-          description: Error code or type
-        message:
-          type: string
-          description: Human-readable error description
     ChangePasswordRequest:
       type: object
       description: Request body for changing an administrator password
@@ -99,6 +89,16 @@ components:
       - Username
       - CurrentPassword
       - NewPassword
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
   securitySchemes:
     basicAuth:
       type: http

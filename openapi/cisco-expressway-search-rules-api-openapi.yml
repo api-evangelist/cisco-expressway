@@ -116,6 +116,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
@@ -128,12 +134,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: The request body contains invalid data or missing required fields.
       content:
@@ -141,16 +141,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Standard error response from the Expressway API
-      properties:
-        error:
-          type: string
-          description: Error code or type
-        message:
-          type: string
-          description: Human-readable error description
     SearchRuleInput:
       type: object
       description: Input for creating or updating a search rule
@@ -231,6 +221,16 @@ components:
           - Enabled
           - Disabled
           default: Enabled
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
   securitySchemes:
     basicAuth:
       type: http

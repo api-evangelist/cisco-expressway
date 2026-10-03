@@ -118,6 +118,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
@@ -132,12 +138,6 @@ components:
             $ref: '#/components/schemas/Error'
     BadRequest:
       description: The request body contains invalid data or missing required fields.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
       content:
         application/json:
           schema:
@@ -159,16 +159,6 @@ components:
           - 8.8.8.8
       required:
       - Address
-    Error:
-      type: object
-      description: Standard error response from the Expressway API
-      properties:
-        error:
-          type: string
-          description: Error code or type
-        message:
-          type: string
-          description: Human-readable error description
     DnsServer:
       type: object
       description: DNS server configuration entry
@@ -185,6 +175,16 @@ components:
           - 8.8.8.8
       required:
       - Address
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
   securitySchemes:
     basicAuth:
       type: http

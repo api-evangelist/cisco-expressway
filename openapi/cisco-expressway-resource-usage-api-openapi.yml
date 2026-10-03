@@ -65,59 +65,19 @@ paths:
           $ref: '#/components/responses/Forbidden'
 components:
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Forbidden:
       description: The authenticated user does not have sufficient permissions for this operation.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Standard error response from the Expressway API
-      properties:
-        error:
-          type: string
-          description: Error code or type
-        message:
-          type: string
-          description: Human-readable error description
-    TurnRelay:
-      type: object
-      description: An active TURN relay allocation on the Expressway
-      properties:
-        ClientAddress:
-          type: string
-          description: IP address of the TURN client
-          examples:
-          - 192.168.1.100
-        MediaDestination:
-          type: string
-          description: Media destination address
-        ConnectionProtocol:
-          type: string
-          description: Connection protocol used
-          enum:
-          - TCP
-          - UDP
-        ActiveRelays:
-          type: integer
-          description: Number of active relays for this client
-        Permissions:
-          type: integer
-          description: Number of permissions created
-        Channels:
-          type: integer
-          description: Number of channels bound
-        Requests:
-          type: integer
-          description: Total number of requests processed
     ResourceUsage:
       type: object
       description: System resource utilization metrics for the Expressway
@@ -161,6 +121,46 @@ components:
         TURNRelaysActive:
           type: integer
           description: Number of active TURN relay allocations
+    TurnRelay:
+      type: object
+      description: An active TURN relay allocation on the Expressway
+      properties:
+        ClientAddress:
+          type: string
+          description: IP address of the TURN client
+          examples:
+          - 192.168.1.100
+        MediaDestination:
+          type: string
+          description: Media destination address
+        ConnectionProtocol:
+          type: string
+          description: Connection protocol used
+          enum:
+          - TCP
+          - UDP
+        ActiveRelays:
+          type: integer
+          description: Number of active relays for this client
+        Permissions:
+          type: integer
+          description: Number of permissions created
+        Channels:
+          type: integer
+          description: Number of channels bound
+        Requests:
+          type: integer
+          description: Total number of requests processed
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
   securitySchemes:
     basicAuth:
       type: http

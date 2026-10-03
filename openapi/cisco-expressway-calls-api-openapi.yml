@@ -213,14 +213,14 @@ components:
           type: string
           description: Human-readable error description
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
       content:
         application/json:
           schema:

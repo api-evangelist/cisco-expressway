@@ -84,23 +84,26 @@ paths:
           default: expressway.example.com
           description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
 components:
+  responses:
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    UpgradeResponse:
-      type: object
-      description: Response from a system upgrade request
-      properties:
-        Status:
-          type: string
-          description: Current status of the upgrade operation
-          enum:
-          - Downloading
-          - Downloaded
-          - Upgrading
-          - Complete
-          - Failed
-        Message:
-          type: string
-          description: Human-readable status message
     UpgradeRequest:
       type: object
       description: Request body for triggering a system upgrade
@@ -121,6 +124,22 @@ components:
           default: false
       required:
       - UpgradeFileName
+    UpgradeResponse:
+      type: object
+      description: Response from a system upgrade request
+      properties:
+        Status:
+          type: string
+          description: Current status of the upgrade operation
+          enum:
+          - Downloading
+          - Downloaded
+          - Upgrading
+          - Complete
+          - Failed
+        Message:
+          type: string
+          description: Human-readable status message
     Error:
       type: object
       description: Standard error response from the Expressway API
@@ -167,25 +186,6 @@ components:
           type: string
           format: date-time
           description: Timestamp of the last completed upgrade
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body contains invalid data or missing required fields.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http
