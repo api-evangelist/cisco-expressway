@@ -1,0 +1,83 @@
+slug: cisco-expressway
+provider: Cisco Expressway
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 7
+edges:
+- tag: DNS
+  spec_file: cisco-expressway-dns-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: POST /v1/provisioning/common/dns/dnsserver  createDnsServer  Cisco Expressway Add a new DNS
+    server
+  reason: CRUD over DNS server entries on a network appliance is core network/infrastructure configuration,
+    mapping to IT Infrastructure Management.
+- tag: NTP
+  spec_file: cisco-expressway-ntp-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: GET /v1/provisioning/common/time/ntpserver  listNtpServers ... createNtpServer  Cisco Expressway
+    Add a new NTP server
+  reason: Configuration of NTP time servers on a network appliance is infrastructure configuration management.
+- tag: Zones
+  spec_file: cisco-expressway-zones-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: Create a traversal server zone on Expressway-E; List all neighbor zones — configuring network
+    traversal/firewall zones on a session border controller
+  reason: Zones here are network routing/traversal configuration objects on Expressway infrastructure,
+    i.e. IT infrastructure (network) management, not a business-domain 'zone'.
+- tag: sip
+  spec_file: cisco-expressway-sip-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: GET /provisioning/common/sip/configuration  Retrieve SIP configuration
+  reason: Configuration of SIP signalling on communications infrastructure appliance — IT infrastructure
+    (network/UC) management.
+- tag: Admin Account
+  spec_file: cisco-expressway-admin-account-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: 'POST /v1/provisioning/common/adminaccount/changepassword  changeAdminPassword  Cisco Expressway
+    Change administrator password; schemas: ChangePasswordRequest'
+  reason: Administrator credential (password) management for a network appliance — privileged account/credential
+    administration under Identity & Access Management. Single operation, so moderate confidence.
+- tag: Alarms
+  spec_file: cisco-expressway-alarms-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: GET /status/common/alarms  listAlarms  Cisco Expressway List all active alarms; RESTful API
+    for retrieving status information, alarms, ... and system health metrics
+  reason: Device health alarms and system status from a UC border controller — infrastructure monitoring
+    within IT operations, not business alerting.
+- tag: Resource Usage
+  spec_file: cisco-expressway-resource-usage-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: GET /status/common/resourceusage  getResourceUsage  Cisco Expressway Retrieve system resource
+    usage; List active TURN relay allocations
+  reason: System resource consumption and TURN relay allocation metrics are operational monitoring/capacity
+    telemetry of the appliance.

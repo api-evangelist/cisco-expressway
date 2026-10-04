@@ -663,6 +663,9 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 common:
+- type: CapabilityMap
+  url: capabilities/cisco-expressway-capability-edges.yml
+  name: Cisco Expressway Business Capability Map
 - type: ParentCompany
   url: https://apis.io/providers/webex/
   name: Webex
