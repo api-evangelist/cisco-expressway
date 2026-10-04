@@ -376,13 +376,76 @@ paths:
           description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
 components:
   schemas:
-    DnsZoneInput:
+    DnsZone:
       type: object
-      description: Input for creating or updating a DNS zone
+      description: DNS zone configuration. Enables endpoint discovery through DNS lookups for SIP and H.323 calls.
+      properties:
+        Name:
+          type: string
+          description: Unique name for the DNS zone
+          examples:
+          - DefaultDNSZone
+        Type:
+          type: string
+          description: Zone type
+          const: DNS
+        HopCount:
+          type: integer
+          description: Maximum number of times a request can be forwarded
+          minimum: 0
+          maximum: 255
+          default: 15
+        H323Mode:
+          type: string
+          description: Whether H.323 calls via DNS-located systems are enabled
+          enum:
+          - 'On'
+          - 'Off'
+        SIPMode:
+          type: string
+          description: Whether SIP calls via DNS-located systems are enabled
+          enum:
+          - 'On'
+          - 'Off'
+        FallbackTransportProtocol:
+          type: string
+          description: Default transport when DNS records do not specify preference
+          enum:
+          - TLS
+          - TCP
+          - UDP
+          default: TLS
+        ModifyDnsRequest:
+          type: string
+          description: Whether to route calls to a manually specified SIP domain instead of the dialed destination
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        IncludeAddressRecord:
+          type: string
+          description: Whether to query A/AAAA records if SRV/NAPTR lookups fail
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'On'
+        MediaEncryptionMode:
+          type: string
+          description: Media encryption enforcement mode
+          enum:
+          - Force encrypted
+          - Force unencrypted
+          - Best effort
+          - Auto
+          default: Auto
+    TraversalServerZoneInput:
+      type: object
+      description: Input for creating or updating a traversal server zone
       allOf:
-      - $ref: '#/components/schemas/DnsZone'
+      - $ref: '#/components/schemas/TraversalServerZone'
       required:
       - Name
+      - ConnectionCredentialsUsername
     TraversalClientZone:
       type: object
       description: Traversal client zone configuration on Expressway-C. Connects to a traversal server (Expressway-E) across a firewall.
@@ -495,76 +558,6 @@ components:
         message:
           type: string
           description: Human-readable error description
-    NeighborZoneInput:
-      type: object
-      description: Input for creating or updating a neighbor zone
-      allOf:
-      - $ref: '#/components/schemas/NeighborZone'
-      required:
-      - Name
-      - PeerAddresses
-    DnsZone:
-      type: object
-      description: DNS zone configuration. Enables endpoint discovery through DNS lookups for SIP and H.323 calls.
-      properties:
-        Name:
-          type: string
-          description: Unique name for the DNS zone
-          examples:
-          - DefaultDNSZone
-        Type:
-          type: string
-          description: Zone type
-          const: DNS
-        HopCount:
-          type: integer
-          description: Maximum number of times a request can be forwarded
-          minimum: 0
-          maximum: 255
-          default: 15
-        H323Mode:
-          type: string
-          description: Whether H.323 calls via DNS-located systems are enabled
-          enum:
-          - 'On'
-          - 'Off'
-        SIPMode:
-          type: string
-          description: Whether SIP calls via DNS-located systems are enabled
-          enum:
-          - 'On'
-          - 'Off'
-        FallbackTransportProtocol:
-          type: string
-          description: Default transport when DNS records do not specify preference
-          enum:
-          - TLS
-          - TCP
-          - UDP
-          default: TLS
-        ModifyDnsRequest:
-          type: string
-          description: Whether to route calls to a manually specified SIP domain instead of the dialed destination
-          enum:
-          - 'On'
-          - 'Off'
-          default: 'Off'
-        IncludeAddressRecord:
-          type: string
-          description: Whether to query A/AAAA records if SRV/NAPTR lookups fail
-          enum:
-          - 'On'
-          - 'Off'
-          default: 'On'
-        MediaEncryptionMode:
-          type: string
-          description: Media encryption enforcement mode
-          enum:
-          - Force encrypted
-          - Force unencrypted
-          - Best effort
-          - Auto
-          default: Auto
     NeighborZone:
       type: object
       description: Neighbor zone configuration. Connects the local Expressway to another system such as another Expressway, Unified CM, or gatekeeper.
@@ -687,6 +680,21 @@ components:
           - DoNotCheckCredentials
           - TreatAsAuthenticated
           - CheckCredentials
+    DnsZoneInput:
+      type: object
+      description: Input for creating or updating a DNS zone
+      allOf:
+      - $ref: '#/components/schemas/DnsZone'
+      required:
+      - Name
+    NeighborZoneInput:
+      type: object
+      description: Input for creating or updating a neighbor zone
+      allOf:
+      - $ref: '#/components/schemas/NeighborZone'
+      required:
+      - Name
+      - PeerAddresses
     TraversalClientZoneInput:
       type: object
       description: Input for creating or updating a traversal client zone
@@ -799,14 +807,6 @@ components:
           - DoNotCheckCredentials
           - TreatAsAuthenticated
           - CheckCredentials
-    TraversalServerZoneInput:
-      type: object
-      description: Input for creating or updating a traversal server zone
-      allOf:
-      - $ref: '#/components/schemas/TraversalServerZone'
-      required:
-      - Name
-      - ConnectionCredentialsUsername
     ZoneStatus:
       type: object
       description: Connectivity status for a configured zone on the Expressway
@@ -847,6 +847,12 @@ components:
           type: string
           description: Address of the connected peer system
   responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Conflict:
       description: A resource with the same identifier already exists.
       content:
@@ -859,20 +865,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body contains invalid data or missing required fields.
       content:
         application/json:
           schema:

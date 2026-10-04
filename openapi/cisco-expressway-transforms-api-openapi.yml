@@ -110,6 +110,12 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Conflict:
       description: A resource with the same identifier already exists.
       content:
@@ -122,8 +128,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
       content:
         application/json:
           schema:
@@ -134,22 +140,17 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body contains invalid data or missing required fields.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    TransformInput:
+    Error:
       type: object
-      description: Input for creating or updating a pre-search transform
-      allOf:
-      - $ref: '#/components/schemas/Transform'
-      required:
-      - Name
-      - PatternType
-      - PatternString
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
     Transform:
       type: object
       description: Pre-search transform configuration. Modifies the destination alias in an incoming search request before any searches are performed, enabling alias normalization and number rewriting.
@@ -202,16 +203,15 @@ components:
         Description:
           type: string
           description: Optional description of the transform's purpose
-    Error:
+    TransformInput:
       type: object
-      description: Standard error response from the Expressway API
-      properties:
-        error:
-          type: string
-          description: Error code or type
-        message:
-          type: string
-          description: Human-readable error description
+      description: Input for creating or updating a pre-search transform
+      allOf:
+      - $ref: '#/components/schemas/Transform'
+      required:
+      - Name
+      - PatternType
+      - PatternString
   securitySchemes:
     basicAuth:
       type: http

@@ -84,25 +84,6 @@ paths:
           default: expressway.example.com
           description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
 components:
-  responses:
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body contains invalid data or missing required fields.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     UpgradeRequest:
       type: object
@@ -124,6 +105,16 @@ components:
           default: false
       required:
       - UpgradeFileName
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
     UpgradeResponse:
       type: object
       description: Response from a system upgrade request
@@ -140,16 +131,6 @@ components:
         Message:
           type: string
           description: Human-readable status message
-    Error:
-      type: object
-      description: Standard error response from the Expressway API
-      properties:
-        error:
-          type: string
-          description: Error code or type
-        message:
-          type: string
-          description: Human-readable error description
     UpgradeStatus:
       type: object
       description: Status of an in-progress or recent system upgrade operation
@@ -186,6 +167,25 @@ components:
           type: string
           format: date-time
           description: Timestamp of the last completed upgrade
+  responses:
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

@@ -69,52 +69,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  responses:
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body contains invalid data or missing required fields.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    SftpConfigInput:
-      type: object
-      description: Input for configuring SFTP upgrade settings
-      properties:
-        ServerAddress:
-          type: string
-          description: SFTP server address (hostname or IP)
-        Port:
-          type: integer
-          description: SFTP server port
-          default: 22
-        Username:
-          type: string
-          description: Username for SFTP authentication
-        Password:
-          type: string
-          format: password
-          description: Password for SFTP authentication
-        FilePath:
-          type: string
-          description: Path to the upgrade image file on the SFTP server
-      required:
-      - ServerAddress
-      - Username
-      - Password
-      - FilePath
     SftpConfig:
       type: object
       description: SFTP configuration for system upgrades
@@ -146,6 +101,51 @@ components:
         message:
           type: string
           description: Human-readable error description
+    SftpConfigInput:
+      type: object
+      description: Input for configuring SFTP upgrade settings
+      properties:
+        ServerAddress:
+          type: string
+          description: SFTP server address (hostname or IP)
+        Port:
+          type: integer
+          description: SFTP server port
+          default: 22
+        Username:
+          type: string
+          description: Username for SFTP authentication
+        Password:
+          type: string
+          format: password
+          description: Password for SFTP authentication
+        FilePath:
+          type: string
+          description: Path to the upgrade image file on the SFTP server
+      required:
+      - ServerAddress
+      - Username
+      - Password
+      - FilePath
+  responses:
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

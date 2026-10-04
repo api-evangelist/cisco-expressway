@@ -109,48 +109,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Conflict:
-      description: A resource with the same identifier already exists.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body contains invalid data or missing required fields.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    SearchRuleInput:
-      type: object
-      description: Input for creating or updating a search rule
-      allOf:
-      - $ref: '#/components/schemas/SearchRule'
-      required:
-      - Name
-      - AliasPatternType
-      - AliasPatternString
-      - TargetZone
     SearchRule:
       type: object
       description: Search rule configuration. Defines how the Expressway routes incoming search requests to the appropriate target zones or policy services based on alias pattern matching.
@@ -231,6 +190,47 @@ components:
         message:
           type: string
           description: Human-readable error description
+    SearchRuleInput:
+      type: object
+      description: Input for creating or updating a search rule
+      allOf:
+      - $ref: '#/components/schemas/SearchRule'
+      required:
+      - Name
+      - AliasPatternType
+      - AliasPatternString
+      - TargetZone
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: A resource with the same identifier already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

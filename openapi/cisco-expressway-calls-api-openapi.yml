@@ -155,6 +155,16 @@ components:
         ClusterPeer:
           type: string
           description: Cluster node handling this call
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
     CallHistoryRecord:
       type: object
       description: A completed call record from the call history. The history is limited to the most recent 500 calls or fewer if calls used multiple components.
@@ -202,16 +212,6 @@ components:
         ClusterPeer:
           type: string
           description: Cluster node that handled this call
-    Error:
-      type: object
-      description: Standard error response from the Expressway API
-      properties:
-        error:
-          type: string
-          description: Error code or type
-        message:
-          type: string
-          description: Human-readable error description
   responses:
     Forbidden:
       description: The authenticated user does not have sufficient permissions for this operation.

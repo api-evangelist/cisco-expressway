@@ -109,60 +109,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Conflict:
-      description: A resource with the same identifier already exists.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body contains invalid data or missing required fields.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    NtpServer:
-      type: object
-      description: NTP server configuration entry
-      properties:
-        Index:
-          type: integer
-          description: Index position of the NTP server (1-5)
-          minimum: 1
-          maximum: 5
-        Address:
-          type: string
-          description: Hostname or IP address of the NTP server
-          examples:
-          - pool.ntp.org
-        AuthenticationMode:
-          type: string
-          description: Authentication mode for the NTP connection
-          enum:
-          - 'Off'
-          - Symmetric key
-      required:
-      - Address
     NtpServerInput:
       type: object
       description: Input for creating or updating an NTP server entry
@@ -191,6 +138,28 @@ components:
           description: Key hash value for symmetric key authentication
       required:
       - Address
+    NtpServer:
+      type: object
+      description: NTP server configuration entry
+      properties:
+        Index:
+          type: integer
+          description: Index position of the NTP server (1-5)
+          minimum: 1
+          maximum: 5
+        Address:
+          type: string
+          description: Hostname or IP address of the NTP server
+          examples:
+          - pool.ntp.org
+        AuthenticationMode:
+          type: string
+          description: Authentication mode for the NTP connection
+          enum:
+          - 'Off'
+          - Symmetric key
+      required:
+      - Address
     Error:
       type: object
       description: Standard error response from the Expressway API
@@ -201,6 +170,37 @@ components:
         message:
           type: string
           description: Human-readable error description
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: A resource with the same identifier already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http
