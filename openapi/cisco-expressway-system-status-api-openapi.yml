@@ -44,6 +44,19 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
+  responses:
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -132,19 +145,6 @@ components:
           - Primary
           - Peer
           - Standalone
-  responses:
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

@@ -118,20 +118,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Conflict:
-      description: A resource with the same identifier already exists.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: A resource with the same identifier already exists.
       content:
         application/json:
           schema:
@@ -142,14 +136,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    DnsServerInput:
+    DnsServer:
       type: object
-      description: Input for creating or updating a DNS server entry
+      description: DNS server configuration entry
       properties:
         Index:
           type: integer
-          description: Index position for the DNS server (1-5)
+          description: Index position of the DNS server (1-5)
           minimum: 1
           maximum: 5
         Address:
@@ -169,13 +169,13 @@ components:
         message:
           type: string
           description: Human-readable error description
-    DnsServer:
+    DnsServerInput:
       type: object
-      description: DNS server configuration entry
+      description: Input for creating or updating a DNS server entry
       properties:
         Index:
           type: integer
-          description: Index position of the DNS server (1-5)
+          description: Index position for the DNS server (1-5)
           minimum: 1
           maximum: 5
         Address:

@@ -69,12 +69,26 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
+  responses:
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    SipConfigurationInput:
-      type: object
-      description: Input for updating SIP configuration
-      allOf:
-      - $ref: '#/components/schemas/SipConfiguration'
     Error:
       type: object
       description: Standard error response from the Expressway API
@@ -85,6 +99,11 @@ components:
         message:
           type: string
           description: Human-readable error description
+    SipConfigurationInput:
+      type: object
+      description: Input for updating SIP configuration
+      allOf:
+      - $ref: '#/components/schemas/SipConfiguration'
     SipConfiguration:
       type: object
       description: SIP protocol configuration for the Expressway
@@ -135,25 +154,6 @@ components:
           enum:
           - 'On'
           - 'Off'
-  responses:
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body contains invalid data or missing required fields.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

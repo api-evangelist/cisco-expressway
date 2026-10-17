@@ -110,34 +110,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    NtpServerInput:
-      type: object
-      description: Input for creating or updating an NTP server entry
-      properties:
-        Index:
-          type: integer
-          description: Index position for the NTP server (1-5)
-          minimum: 1
-          maximum: 5
-        Address:
-          type: string
-          description: Hostname or IP address of the NTP server
-          examples:
-          - pool.ntp.org
-        AuthenticationMode:
-          type: string
-          description: Authentication mode for the NTP connection
-          enum:
-          - 'Off'
-          - Symmetric key
-        KeyNumber:
-          type: integer
-          description: Key number for symmetric key authentication
-        KeyHash:
-          type: string
-          description: Key hash value for symmetric key authentication
-      required:
-      - Address
     NtpServer:
       type: object
       description: NTP server configuration entry
@@ -170,21 +142,37 @@ components:
         message:
           type: string
           description: Human-readable error description
+    NtpServerInput:
+      type: object
+      description: Input for creating or updating an NTP server entry
+      properties:
+        Index:
+          type: integer
+          description: Index position for the NTP server (1-5)
+          minimum: 1
+          maximum: 5
+        Address:
+          type: string
+          description: Hostname or IP address of the NTP server
+          examples:
+          - pool.ntp.org
+        AuthenticationMode:
+          type: string
+          description: Authentication mode for the NTP connection
+          enum:
+          - 'Off'
+          - Symmetric key
+        KeyNumber:
+          type: integer
+          description: Key number for symmetric key authentication
+        KeyHash:
+          type: string
+          description: Key hash value for symmetric key authentication
+      required:
+      - Address
   responses:
     NotFound:
       description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Conflict:
-      description: A resource with the same identifier already exists.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
       content:
         application/json:
           schema:
@@ -195,8 +183,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Conflict:
+      description: A resource with the same identifier already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
       content:
         application/json:
           schema:

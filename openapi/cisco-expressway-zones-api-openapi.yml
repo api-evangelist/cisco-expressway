@@ -376,101 +376,22 @@ paths:
           description: The FQDN or IP address of the Cisco Expressway node. The API is only accessible via HTTPS.
 components:
   schemas:
-    DnsZone:
+    TraversalServerZone:
       type: object
-      description: DNS zone configuration. Enables endpoint discovery through DNS lookups for SIP and H.323 calls.
+      description: Traversal server zone configuration on Expressway-E. Enables firewall traversal services for traversal clients.
       properties:
         Name:
           type: string
-          description: Unique name for the DNS zone
+          description: Unique name for the traversal server zone
           examples:
-          - DefaultDNSZone
+          - CEtoEXPE-Traversal
         Type:
           type: string
           description: Zone type
-          const: DNS
-        HopCount:
-          type: integer
-          description: Maximum number of times a request can be forwarded
-          minimum: 0
-          maximum: 255
-          default: 15
-        H323Mode:
-          type: string
-          description: Whether H.323 calls via DNS-located systems are enabled
-          enum:
-          - 'On'
-          - 'Off'
-        SIPMode:
-          type: string
-          description: Whether SIP calls via DNS-located systems are enabled
-          enum:
-          - 'On'
-          - 'Off'
-        FallbackTransportProtocol:
-          type: string
-          description: Default transport when DNS records do not specify preference
-          enum:
-          - TLS
-          - TCP
-          - UDP
-          default: TLS
-        ModifyDnsRequest:
-          type: string
-          description: Whether to route calls to a manually specified SIP domain instead of the dialed destination
-          enum:
-          - 'On'
-          - 'Off'
-          default: 'Off'
-        IncludeAddressRecord:
-          type: string
-          description: Whether to query A/AAAA records if SRV/NAPTR lookups fail
-          enum:
-          - 'On'
-          - 'Off'
-          default: 'On'
-        MediaEncryptionMode:
-          type: string
-          description: Media encryption enforcement mode
-          enum:
-          - Force encrypted
-          - Force unencrypted
-          - Best effort
-          - Auto
-          default: Auto
-    TraversalServerZoneInput:
-      type: object
-      description: Input for creating or updating a traversal server zone
-      allOf:
-      - $ref: '#/components/schemas/TraversalServerZone'
-      required:
-      - Name
-      - ConnectionCredentialsUsername
-    TraversalClientZone:
-      type: object
-      description: Traversal client zone configuration on Expressway-C. Connects to a traversal server (Expressway-E) across a firewall.
-      properties:
-        Name:
-          type: string
-          description: Unique name for the traversal client zone
-          examples:
-          - CtoEXPE-Traversal
-        Type:
-          type: string
-          description: Zone type
-          const: TraversalClient
-        PeerAddress:
-          type: string
-          description: IP address or FQDN of the traversal server (Expressway-E)
-          examples:
-          - expressway-e.example.com
+          const: TraversalServer
         ConnectionCredentialsUsername:
           type: string
-          description: Username for server authentication; must match server configuration
-        ConnectionCredentialsPassword:
-          type: string
-          format: password
-          description: Password for server authentication
+          description: Username for client authentication; must match client configuration
         HopCount:
           type: integer
           description: Maximum number of times a request can be forwarded
@@ -517,13 +438,6 @@ components:
           enum:
           - 'On'
           - 'Off'
-        SIPPoisonMode:
-          type: string
-          description: Whether to mark outbound requests to prevent reprocessing if returned to this Expressway
-          enum:
-          - 'On'
-          - 'Off'
-          default: 'Off'
         MediaEncryptionMode:
           type: string
           description: Media encryption enforcement mode
@@ -533,14 +447,30 @@ components:
           - Best effort
           - Auto
           default: Auto
-        RetryInterval:
-          type: integer
-          description: Frequency in seconds of retry attempts for failed connections
-          default: 120
-        DisconnectOnFailInterval:
-          type: integer
-          description: Frequency in seconds of SIP OPTIONS ping disconnection during failures
-          default: 120
+        ICESupport:
+          type: string
+          description: ICE message handling mode
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        H46019DemultiplexingMode:
+          type: string
+          description: Determines media port sharing across multiple calls
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        UnifiedCommunicationsMode:
+          type: string
+          description: Whether Unified Communications services (MRA) are enabled
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        TLSVerifySubjectName:
+          type: string
+          description: Certificate subject name for mutual TLS authentication. Must be FQDN for clustered clients.
         AuthenticationPolicy:
           type: string
           description: Authentication challenge behavior for incoming messages
@@ -548,16 +478,16 @@ components:
           - DoNotCheckCredentials
           - TreatAsAuthenticated
           - CheckCredentials
-    Error:
+    TraversalClientZoneInput:
       type: object
-      description: Standard error response from the Expressway API
-      properties:
-        error:
-          type: string
-          description: Error code or type
-        message:
-          type: string
-          description: Human-readable error description
+      description: Input for creating or updating a traversal client zone
+      allOf:
+      - $ref: '#/components/schemas/TraversalClientZone'
+      required:
+      - Name
+      - PeerAddress
+      - ConnectionCredentialsUsername
+      - ConnectionCredentialsPassword
     NeighborZone:
       type: object
       description: Neighbor zone configuration. Connects the local Expressway to another system such as another Expressway, Unified CM, or gatekeeper.
@@ -680,47 +610,111 @@ components:
           - DoNotCheckCredentials
           - TreatAsAuthenticated
           - CheckCredentials
-    DnsZoneInput:
+    DnsZone:
       type: object
-      description: Input for creating or updating a DNS zone
-      allOf:
-      - $ref: '#/components/schemas/DnsZone'
-      required:
-      - Name
-    NeighborZoneInput:
-      type: object
-      description: Input for creating or updating a neighbor zone
-      allOf:
-      - $ref: '#/components/schemas/NeighborZone'
-      required:
-      - Name
-      - PeerAddresses
-    TraversalClientZoneInput:
-      type: object
-      description: Input for creating or updating a traversal client zone
-      allOf:
-      - $ref: '#/components/schemas/TraversalClientZone'
-      required:
-      - Name
-      - PeerAddress
-      - ConnectionCredentialsUsername
-      - ConnectionCredentialsPassword
-    TraversalServerZone:
-      type: object
-      description: Traversal server zone configuration on Expressway-E. Enables firewall traversal services for traversal clients.
+      description: DNS zone configuration. Enables endpoint discovery through DNS lookups for SIP and H.323 calls.
       properties:
         Name:
           type: string
-          description: Unique name for the traversal server zone
+          description: Unique name for the DNS zone
           examples:
-          - CEtoEXPE-Traversal
+          - DefaultDNSZone
         Type:
           type: string
           description: Zone type
-          const: TraversalServer
+          const: DNS
+        HopCount:
+          type: integer
+          description: Maximum number of times a request can be forwarded
+          minimum: 0
+          maximum: 255
+          default: 15
+        H323Mode:
+          type: string
+          description: Whether H.323 calls via DNS-located systems are enabled
+          enum:
+          - 'On'
+          - 'Off'
+        SIPMode:
+          type: string
+          description: Whether SIP calls via DNS-located systems are enabled
+          enum:
+          - 'On'
+          - 'Off'
+        FallbackTransportProtocol:
+          type: string
+          description: Default transport when DNS records do not specify preference
+          enum:
+          - TLS
+          - TCP
+          - UDP
+          default: TLS
+        ModifyDnsRequest:
+          type: string
+          description: Whether to route calls to a manually specified SIP domain instead of the dialed destination
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
+        IncludeAddressRecord:
+          type: string
+          description: Whether to query A/AAAA records if SRV/NAPTR lookups fail
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'On'
+        MediaEncryptionMode:
+          type: string
+          description: Media encryption enforcement mode
+          enum:
+          - Force encrypted
+          - Force unencrypted
+          - Best effort
+          - Auto
+          default: Auto
+    TraversalServerZoneInput:
+      type: object
+      description: Input for creating or updating a traversal server zone
+      allOf:
+      - $ref: '#/components/schemas/TraversalServerZone'
+      required:
+      - Name
+      - ConnectionCredentialsUsername
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
+    TraversalClientZone:
+      type: object
+      description: Traversal client zone configuration on Expressway-C. Connects to a traversal server (Expressway-E) across a firewall.
+      properties:
+        Name:
+          type: string
+          description: Unique name for the traversal client zone
+          examples:
+          - CtoEXPE-Traversal
+        Type:
+          type: string
+          description: Zone type
+          const: TraversalClient
+        PeerAddress:
+          type: string
+          description: IP address or FQDN of the traversal server (Expressway-E)
+          examples:
+          - expressway-e.example.com
         ConnectionCredentialsUsername:
           type: string
-          description: Username for client authentication; must match client configuration
+          description: Username for server authentication; must match server configuration
+        ConnectionCredentialsPassword:
+          type: string
+          format: password
+          description: Password for server authentication
         HopCount:
           type: integer
           description: Maximum number of times a request can be forwarded
@@ -767,6 +761,13 @@ components:
           enum:
           - 'On'
           - 'Off'
+        SIPPoisonMode:
+          type: string
+          description: Whether to mark outbound requests to prevent reprocessing if returned to this Expressway
+          enum:
+          - 'On'
+          - 'Off'
+          default: 'Off'
         MediaEncryptionMode:
           type: string
           description: Media encryption enforcement mode
@@ -776,30 +777,14 @@ components:
           - Best effort
           - Auto
           default: Auto
-        ICESupport:
-          type: string
-          description: ICE message handling mode
-          enum:
-          - 'On'
-          - 'Off'
-          default: 'Off'
-        H46019DemultiplexingMode:
-          type: string
-          description: Determines media port sharing across multiple calls
-          enum:
-          - 'On'
-          - 'Off'
-          default: 'Off'
-        UnifiedCommunicationsMode:
-          type: string
-          description: Whether Unified Communications services (MRA) are enabled
-          enum:
-          - 'On'
-          - 'Off'
-          default: 'Off'
-        TLSVerifySubjectName:
-          type: string
-          description: Certificate subject name for mutual TLS authentication. Must be FQDN for clustered clients.
+        RetryInterval:
+          type: integer
+          description: Frequency in seconds of retry attempts for failed connections
+          default: 120
+        DisconnectOnFailInterval:
+          type: integer
+          description: Frequency in seconds of SIP OPTIONS ping disconnection during failures
+          default: 120
         AuthenticationPolicy:
           type: string
           description: Authentication challenge behavior for incoming messages
@@ -807,6 +792,21 @@ components:
           - DoNotCheckCredentials
           - TreatAsAuthenticated
           - CheckCredentials
+    NeighborZoneInput:
+      type: object
+      description: Input for creating or updating a neighbor zone
+      allOf:
+      - $ref: '#/components/schemas/NeighborZone'
+      required:
+      - Name
+      - PeerAddresses
+    DnsZoneInput:
+      type: object
+      description: Input for creating or updating a DNS zone
+      allOf:
+      - $ref: '#/components/schemas/DnsZone'
+      required:
+      - Name
     ZoneStatus:
       type: object
       description: Connectivity status for a configured zone on the Expressway
@@ -847,6 +847,12 @@ components:
           type: string
           description: Address of the connected peer system
   responses:
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
@@ -859,20 +865,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body contains invalid data or missing required fields.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
       content:
         application/json:
           schema:

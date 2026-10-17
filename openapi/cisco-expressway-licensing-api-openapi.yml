@@ -44,17 +44,20 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
+  responses:
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Standard error response from the Expressway API
-      properties:
-        error:
-          type: string
-          description: Error code or type
-        message:
-          type: string
-          description: Human-readable error description
     SmartLicensingStatus:
       type: object
       description: Smart licensing status for the Expressway including registration and authorization state, entitlements, and compliance information.
@@ -115,19 +118,16 @@ components:
                 enum:
                 - In Compliance
                 - Out of Compliance
-  responses:
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
   securitySchemes:
     basicAuth:
       type: http

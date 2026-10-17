@@ -47,16 +47,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
 components:
   schemas:
-    Error:
-      type: object
-      description: Standard error response from the Expressway API
-      properties:
-        error:
-          type: string
-          description: Error code or type
-        message:
-          type: string
-          description: Human-readable error description
     Alarm:
       type: object
       description: System alarm indicating an event or condition requiring attention. Alarm IDs are grouped by prefix ranges indicating the category.
@@ -100,6 +90,16 @@ components:
           - B2BUA
           - Hybrid Services
           - Operational
+    Error:
+      type: object
+      description: Standard error response from the Expressway API
+      properties:
+        error:
+          type: string
+          description: Error code or type
+        message:
+          type: string
+          description: Human-readable error description
   responses:
     Forbidden:
       description: The authenticated user does not have sufficient permissions for this operation.

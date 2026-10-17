@@ -69,28 +69,26 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
+  responses:
+    BadRequest:
+      description: The request body contains invalid data or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have sufficient permissions for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    SftpConfig:
-      type: object
-      description: SFTP configuration for system upgrades
-      properties:
-        ServerAddress:
-          type: string
-          description: SFTP server address (hostname or IP)
-          examples:
-          - sftp.example.com
-        Port:
-          type: integer
-          description: SFTP server port
-          default: 22
-        Username:
-          type: string
-          description: Username for SFTP authentication
-        FilePath:
-          type: string
-          description: Path to the upgrade image file on the SFTP server
-          examples:
-          - /upgrades/expressway-x14.2.tar.gz
     Error:
       type: object
       description: Standard error response from the Expressway API
@@ -127,25 +125,27 @@ components:
       - Username
       - Password
       - FilePath
-  responses:
-    Forbidden:
-      description: The authenticated user does not have sufficient permissions for this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body contains invalid data or missing required fields.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid. The API requires HTTP Basic Authentication with administrator credentials over HTTPS.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    SftpConfig:
+      type: object
+      description: SFTP configuration for system upgrades
+      properties:
+        ServerAddress:
+          type: string
+          description: SFTP server address (hostname or IP)
+          examples:
+          - sftp.example.com
+        Port:
+          type: integer
+          description: SFTP server port
+          default: 22
+        Username:
+          type: string
+          description: Username for SFTP authentication
+        FilePath:
+          type: string
+          description: Path to the upgrade image file on the SFTP server
+          examples:
+          - /upgrades/expressway-x14.2.tar.gz
   securitySchemes:
     basicAuth:
       type: http
