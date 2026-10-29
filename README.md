@@ -1,4 +1,4 @@
-# Cisco Expressway (cisco-expressway)
+# Cisco Expressway
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,163 +66,205 @@
 
 API definitions for Cisco Expressway, a session border controller and firewall traversal solution for Unified Communications that provides secure remote and mobile access for collaboration workloads including video, voice, content, and presence. Programmatic access spans a REST API for configuration (/api/provisioning), a REST API for status and observability (/api/status), an SNMP MIB for metrics, and a legacy XML API for systems still in transition.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/cisco-expressway/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/cisco-expressway/refs/heads/main/apis.yml)
+**Areas:** Collaboration · Firewall Traversal · H.323 · Session Border Controller · SIP · Unified Communications · Video Conferencing
 
-## Scope
+## Cisco Expressway on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Cisco Expressway is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/cisco-expressway/](https://apis.io/providers/cisco-expressway/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (18)
 
-- Collaboration
-- Firewall Traversal
-- H.323
-- Session Border Controller
-- SIP
-- Unified Communications
-- Video Conferencing
+- [Cisco Expressway SNMP API](https://apis.io/apis/cisco-expressway/cisco-expressway-snmp-api/) — SNMP-based monitoring and management interface for Cisco Expressway providing access to system metrics, alarms, and configuration data. Supports SNMP…
+- [Cisco Expressway XML API](https://apis.io/apis/cisco-expressway/cisco-expressway-xml-api/) — Legacy XML-based API for configuration and status retrieval on Cisco Expressway systems. Uses HTTP Basic Authentication over HTTPS for secure access to…
+- [Cisco Expressway Admin Account API](https://apis.io/apis/cisco-expressway/cisco-expressway-admin-account-api/) — Administrator account management
+- [Cisco Expressway Alarms API](https://apis.io/apis/cisco-expressway/cisco-expressway-alarms-api/) — Active system alarms and warnings
+- [Cisco Expressway Calls API](https://apis.io/apis/cisco-expressway/cisco-expressway-calls-api/) — Active and historical call information
+- [Cisco Expressway DNS API](https://apis.io/apis/cisco-expressway/cisco-expressway-dns-api/) — DNS server configuration management
+- [Cisco Expressway Licensing API](https://apis.io/apis/cisco-expressway/cisco-expressway-licensing-api/) — Smart licensing status and usage
+- [Cisco Expressway NTP API](https://apis.io/apis/cisco-expressway/cisco-expressway-ntp-api/) — NTP server configuration for time synchronization
+- [Cisco Expressway Registrations API](https://apis.io/apis/cisco-expressway/cisco-expressway-registrations-api/) — Device registration status and details
+- [Cisco Expressway Resource Usage API](https://apis.io/apis/cisco-expressway/cisco-expressway-resource-usage-api/) — System resource utilization metrics
+- [Cisco Expressway Search Rules API](https://apis.io/apis/cisco-expressway/cisco-expressway-search-rules-api/) — Search rule configuration for call routing decisions
+- [Cisco Expressway SFTP API](https://apis.io/apis/cisco-expressway/cisco-expressway-sftp-api/) — SFTP configuration for system upgrades
+- [Cisco Expressway SIP API](https://apis.io/apis/cisco-expressway/cisco-expressway-sip-api/) — SIP protocol configuration
+- [Cisco Expressway System API](https://apis.io/apis/cisco-expressway/cisco-expressway-system-api/) — System-level configuration and information
+- [Cisco Expressway System Status API](https://apis.io/apis/cisco-expressway/cisco-expressway-system-status-api/) — System overview and health information
+- [Cisco Expressway Transforms API](https://apis.io/apis/cisco-expressway/cisco-expressway-transforms-api/) — Pre-search transform configuration for alias modification
+- [Cisco Expressway Upgrade API](https://apis.io/apis/cisco-expressway/cisco-expressway-upgrade-api/) — System upgrade operations
+- [Cisco Expressway Zones API](https://apis.io/apis/cisco-expressway/cisco-expressway-zones-api/) — Zone configuration for call routing and firewall traversal
 
-## Timestamps
+### Published properties
 
-- **Created:** 2024-01-01
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Arazzo workflows (15)
 
-### Cisco Expressway Configuration API
+Multi-step workflows that chain operations into a business task.
 
-RESTful API for configuring and managing Cisco Expressway systems including zones, search rules, transforms, DNS, NTP, and system settings. Uses JSON Schema version 4 for request and response schemas.
+- [Cisco Expressway Active Call Troubleshooting](https://apis.io/arazzos/cisco-expressway/cisco-expressway-active-call-troubleshooting-workflow/)
+- [Cisco Expressway Capacity and Registrations Audit](https://apis.io/arazzos/cisco-expressway/cisco-expressway-capacity-registrations-audit-workflow/)
+- [Cisco Expressway Create Dial Plan Transform](https://apis.io/arazzos/cisco-expressway/cisco-expressway-create-dial-plan-transform-workflow/)
+- [Cisco Expressway Create DNS Zone Routing](https://apis.io/arazzos/cisco-expressway/cisco-expressway-create-dns-zone-routing-workflow/)
+- [Cisco Expressway Licensing Compliance Check](https://apis.io/arazzos/cisco-expressway/cisco-expressway-licensing-compliance-check-workflow/)
+- [Cisco Expressway Onboard Neighbor Zone Routing](https://apis.io/arazzos/cisco-expressway/cisco-expressway-onboard-neighbor-zone-routing-workflow/)
+- [Cisco Expressway Pre-Upgrade Health Check](https://apis.io/arazzos/cisco-expressway/cisco-expressway-pre-upgrade-health-check-workflow/)
+- [Cisco Expressway Provision DNS Server](https://apis.io/arazzos/cisco-expressway/cisco-expressway-provision-dns-server-workflow/)
+- [Cisco Expressway Provision NTP Server](https://apis.io/arazzos/cisco-expressway/cisco-expressway-provision-ntp-server-workflow/)
+- [Cisco Expressway Rotate Admin Password](https://apis.io/arazzos/cisco-expressway/cisco-expressway-rotate-admin-password-workflow/)
+- [Cisco Expressway Set Up Firewall Traversal Pair](https://apis.io/arazzos/cisco-expressway/cisco-expressway-setup-traversal-pair-workflow/)
+- [Cisco Expressway System Upgrade](https://apis.io/arazzos/cisco-expressway/cisco-expressway-system-upgrade-workflow/)
+- [Cisco Expressway Update SIP Configuration](https://apis.io/arazzos/cisco-expressway/cisco-expressway-update-sip-configuration-workflow/)
+- [Cisco Expressway Upgrade Progress Monitor](https://apis.io/arazzos/cisco-expressway/cisco-expressway-upgrade-progress-monitor-workflow/)
+- [Cisco Expressway Zone Health Investigation](https://apis.io/arazzos/cisco-expressway/cisco-expressway-zone-health-investigation-workflow/)
 
-- **Human URL:** [https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html](https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html)
-- **Base URL:** `https://expressway.example.com/api/provisioning`
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Configuration
-- Management
-- Provisioning
-- REST
-- Unified Communications
+- [Cisco Expressway Agentic Access](https://apis.io/agentic-access/cisco-expressway/cisco-expressway-agentic-access/)
 
-#### Properties
+#### JSON Schema (7)
 
-- [Documentation](https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html)
-- [Reference](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html)
-- [Authentication](https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html)
-- [Getting Started](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html)
-- [Changelog](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html)
-- [OpenAPI](openapi/cisco-expressway-configuration-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/cisco-expressway-configuration-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/cisco-expressway-configuration-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/cisco-expressway-zone-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/cisco-expressway-search-rule-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/cisco-expressway-transform-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/cisco-expressway-system-status-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/cisco-expressway-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+The data models the API reads and writes.
 
-### Cisco Expressway Status API
+- [Cisco Expressway Alarm](https://apis.io/schemas/cisco-expressway/cisco-expressway-alarm/)
+- [Cisco Expressway Call](https://apis.io/schemas/cisco-expressway/cisco-expressway-call/)
+- [Cisco Expressway Registration](https://apis.io/schemas/cisco-expressway/cisco-expressway-registration/)
+- [Cisco Expressway Search Rule](https://apis.io/schemas/cisco-expressway/cisco-expressway-search-rule/)
+- [Cisco Expressway System Status](https://apis.io/schemas/cisco-expressway/cisco-expressway-system-status/)
+- [Cisco Expressway Pre-Search Transform](https://apis.io/schemas/cisco-expressway/cisco-expressway-transform/)
+- [Cisco Expressway Zone](https://apis.io/schemas/cisco-expressway/cisco-expressway-zone/)
 
-RESTful API for retrieving status information, alarms, call history, licensing status, upgrade status, and system health metrics from Cisco Expressway. Endpoints follow the pattern /api/status/common/ for items common between Expressway-E and Expressway-C.
+#### JSON-LD (1)
 
-- **Human URL:** [https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html](https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html)
-- **Base URL:** `https://expressway.example.com/api/status`
+Linked-data contexts for the provider's vocabulary.
 
-#### Tags
+- [Cisco Expressway Context](https://apis.io/jsonld/cisco-expressway/cisco-expressway-context/)
 
-- Alarms
-- Health Check
-- Licensing
-- Monitoring
-- Status
+#### Collections (20)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html)
-- [Reference](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html)
-- [Getting Started](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html)
-- [Changelog](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html)
-- [OpenAPI](openapi/cisco-expressway-status-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/cisco-expressway-status-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/cisco-expressway-status-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/cisco-expressway-alarm-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/cisco-expressway-call-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/cisco-expressway-registration-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/cisco-expressway-system-status-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/cisco-expressway-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Cisco Expressway Configuration Admin Account API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-admin-account-api/)
+- [Cisco Expressway Configuration Admin Account Alarms API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-alarms-api/)
+- [Cisco Expressway Configuration Admin Account Calls API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-calls-api/)
+- [Cisco Expressway Configuration API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-configuration-api/)
+- [Cisco Expressway Configuration Admin Account DNS API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-dns-api/)
+- [Cisco Expressway Configuration Admin Account Licensing API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-licensing-api/)
+- [Cisco Expressway Configuration Admin Account NTP API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-ntp-api/)
+- [Cisco Expressway Configuration Admin Account Registrations API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-registrations-api/)
+- [Cisco Expressway Configuration Admin Account Resource Usage API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-resource-usage-api/)
+- [Cisco Expressway Configuration Admin Account Search Rules API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-search-rules-api/)
+- [Cisco Expressway Configuration Admin Account SFTP API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-sftp-api/)
+- [Cisco Expressway Configuration Admin Account SIP API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-sip-api/)
+- [Cisco Expressway Status API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-status-api/)
+- [Cisco Expressway Configuration Admin Account System API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-system-api/)
+- [Cisco Expressway Configuration Admin Account System Status API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-system-status-api/)
+- [Cisco Expressway Configuration Admin Account Transforms API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-transforms-api/)
+- [Cisco Expressway Configuration Admin Account Upgrade API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-upgrade-api/)
+- [Cisco Expressway Configuration Admin Account Zones API](https://apis.io/collections/cisco-expressway/open-cisco-expressway-zones-api/)
+- [Cisco Expressway Configuration API](https://apis.io/collections/cisco-expressway/postman-cisco-expressway-configuration-api/)
+- [Cisco Expressway Status API](https://apis.io/collections/cisco-expressway/postman-cisco-expressway-status-api/)
 
-### Cisco Expressway SNMP API
+#### Governance rules (2)
 
-SNMP-based monitoring and management interface for Cisco Expressway providing access to system metrics, alarms, and configuration data. Supports SNMP versions v2c and v3 for secure network management integration.
+Spectral rulesets for the provider's contracts.
 
-- **Human URL:** [https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html)
-- **Base URL:** `snmp://expressway.example.com:161`
+- [Cisco Expressway — jsonschema rules](https://apis.io/rules/cisco-expressway/cisco-expressway-jsonschema-spectral-rules/)
+- [Cisco Expressway API Rules](https://apis.io/rules/cisco-expressway/cisco-expressway-rules/)
 
-#### Tags
+#### Security (3)
 
-- Metrics
-- Monitoring
-- Network Management
-- SNMP
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Cisco Expressway Authentication](https://apis.io/security/cisco-expressway/cisco-expressway-authentication/)
+- [Cisco Expressway Domain Security](https://apis.io/security/cisco-expressway/cisco-expressway-domain-security/)
+- [Cisco Expressway Vulnerability Disclosure](https://apis.io/security/cisco-expressway/cisco-expressway-vulnerability-disclosure/)
 
-- [Documentation](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html)
-- [Reference](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-technical-reference-list.html)
-- [Changelog](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html)
-- [Postman Collection](collections/cisco-expressway-configuration-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/cisco-expressway-configuration-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/cisco-expressway-status-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/cisco-expressway-status-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### Cisco Expressway XML API
+Published plans, tiers and prices.
 
-Legacy XML-based API for configuration and status retrieval on Cisco Expressway systems. Uses HTTP Basic Authentication over HTTPS for secure access to system configuration and management functions.
+- [Cisco Expressway Plans Pricing](https://apis.io/plans/cisco-expressway/cisco-expressway-plans-pricing/)
 
-- **Human URL:** [https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html)
-- **Base URL:** `https://expressway.example.com/xmlapi`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Configuration
-- Legacy
-- Management
-- XML
+- [Cisco Expressway Rate Limits](https://apis.io/rate-limits/cisco-expressway/cisco-expressway-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html)
-- [Authentication](https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-0/exwy_b_cisco-expressway-administrator-guide/exwy_m_managing-security.html)
-- [Changelog](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html)
-- [Postman Collection](collections/cisco-expressway-configuration-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/cisco-expressway-configuration-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/cisco-expressway-status-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/cisco-expressway-status-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+What the API costs to run, by operation.
 
-## Common Properties
+- [Cisco Expressway Finops](https://apis.io/finops/cisco-expressway/cisco-expressway-finops/)
 
-- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
-- [Portal](https://developer.cisco.com/)
-- [Documentation](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html)
-- [Getting Started](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html)
-- [Authentication](https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/expressway/admin_guide/X14-2/rest-api/exwy_b_cisco-expressway-rest-api-summary-guide--x142/exwy_m_using-the-expressway-rest-api.html)
-- [Blog](https://blogs.cisco.com/collaboration)
-- [Status Page](https://www.cisco.com/c/en/us/support/web/cloud-status.html)
-- [Support](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html)
-- [Terms of Service](https://www.cisco.com/c/en/us/about/legal/terms-conditions.html)
-- [Privacy Policy](https://www.cisco.com/c/en/us/about/legal/privacy-full.html)
-- [GitHub Organization](https://github.com/CiscoDevNet)
-- [Community](https://community.cisco.com/t5/devnet/ct-p/4409j-developer-home)
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.cisco.com/c/en/us/products/unified-communications/expressway-series/index.html)
-- [Login](https://developer.cisco.com/)
-- [Sign Up](https://developer.cisco.com/)
+- [Documentation](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-programming-reference-guides-list.html)
+- [Getting started](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-installation-and-configuration-guides-list.html)
+- [Support](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/tsd-products-support-series-home.html)
 - [Changelog](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-release-notes-list.html)
-- [Downloads](https://software.cisco.com/download/home/286282896)
-- [Compatibility](https://www.cisco.com/c/en/us/support/unified-communications/expressway-series/products-device-support-tables-list.html)
-- [Spectral Rules](rules/cisco-expressway-rules.yml) — [Spectral](https://docs.stoplight.io/docs/spectral)
+- [Blog](https://blogs.cisco.com/collaboration)
+- [Terms of service](https://www.cisco.com/c/en/us/about/legal/terms-conditions.html)
+- [Privacy policy](https://www.cisco.com/c/en/us/about/legal/privacy-full.html)
+- [GitHub](https://github.com/CiscoDevNet)
+- [Status](https://www.cisco.com/c/en/us/support/web/cloud-status.html)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 52.9** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 63.4 |
+| Contract governance | 13.6 |
+| Operational transparency | 50.0 |
+| Developer ergonomics | 58.3 |
+| Access clarity | 39.5 |
+
+**Agent readiness 19.0** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 30.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/cisco-expressway/](https://apis.io/providers/cisco-expressway/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Cisco Expressway: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/cisco-expressway/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
